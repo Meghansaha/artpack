@@ -24,7 +24,7 @@ a tibble
 Grid Maker
 }
 \examples{
-grid_data <- grid_maker(xlim = c(0,1), ylim = c(0,1), size = 3, pal = c("red", "black", "purple"))
+grid_data <- grid_maker(xlim = c(0,1), ylim = c(0,1), size = 2, pal = c("red", "black", "purple"))
 
 
 }
