@@ -2,6 +2,9 @@
 
 export(art_pals)
 export(grid_maker)
+export(rotator)
+importFrom(dplyr,mutate)
+importFrom(dplyr,select)
 importFrom(grDevices,colorRampPalette)
 importFrom(purrr,pmap)
 importFrom(tibble,tibble)
