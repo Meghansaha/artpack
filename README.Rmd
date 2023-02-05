@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of arttools is to help generative artists.
+The goal of arttools is to help generative artists!
 
 ## Installation
 

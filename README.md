@@ -6,7 +6,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of arttools is to …
+The goal of arttools is to help generative artists!
 
 ## Installation
 
