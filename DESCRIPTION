@@ -3,7 +3,7 @@ Title: Provides a comprehensive tool set for creating Rtistry
 Version: 0.0.0.9000
 Authors@R: 
     person("Meghan", "Harris", , "meghanha01@gmail.com", role = c("aut", "cre"))
-Description: ARttools is a package that contains a comprehensive tool set for aRtists of all skill levels. aRtools seeks to make life easier for more seasoned aRtists by providing helper functions to save time on more complex pieces. aRtools also seeks to introduce more beginners into Rtistry by provided quick and easy ways to create aRt right away.
+Description: ARttools is a package that contains a comprehensive tool set for aRtists of all skill levels. aRtools seeks to make life easier for more seasoned aRtists by providing helper functions to save time on more complex pieces. aRtools also seeks to introduce more beginners into Rtistry by providing quick and easy ways to create aRt right away.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

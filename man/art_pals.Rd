@@ -4,18 +4,47 @@
 \alias{art_pals}
 \title{Art Pals}
 \usage{
-art_pals(pal = NULL, n = 5)
+art_pals(pal = NULL, n = 5, direction = "regular")
 }
 \arguments{
-\item{pal}{A character vector of the desired aRttools palette type.}
+\item{pal}{A character vector of the desired aRttools palette.
 
-\item{n}{The numbers of colors desired in the output.}
+The 17 aRttools palettes include:
+\itemize{
+\item "arctic" - Icy blue and white colors
+\item "beach" - Sand-colored tans and ocean-colored blue colors
+\item "bw" - A gradient of black to white colors
+\item "brood" - A gradient of different shades of dark gray and black colors
+\item "cosmos" - Nebula-inspired blue, purple, and pink colors
+\item "explorer" - Pokemon-type inspired colors
+\item "gemstones" - Birthstone/Mineral-inspired colors
+\item "grays" - A gradient of dark, medium, and light gray colors
+\item "icecream" - A light pastel palette of cream, blue, brown, and pink colors
+\item "imagination" - 90's school supply-inspired colors
+\item "majestic" - Shades of majestic purple colors
+\item "nature" - A mix of tan, brown, green, and red colors
+\item "neon" - A neon spectrum of rainbow colors
+\item "ocean" - A gradient of dark to light blue colors
+\item "plants" - A gradient of dark to light green colors
+\item "rainbow" - A vibrant mix of rainbow colors
+\item "sunnyside" - A retro-inspired mix of pink, orange, and yellow colors
+}}
+
+\item{n}{The numbers of colors desired in the output.
+
+Default is \code{5}. \code{n} must be a positive integer with a value greater than 0}
+
+\item{direction}{The direction of the palette
+
+Default is "regular". Only two options accepted: "regular" or "reverse"}
 }
 \value{
 A character vector.
 }
 \description{
-Art Pals
+The aRttools palette picker. The \code{art_pals} function consists of 17 palettes: "arctic",
+"beach", "bw", "brood", "cosmos", "explorer", "gemstones", "grays", "icecream", "imagination",
+"majestic", "nature", "neon", "ocean", "plants", "rainbow", "sunnyside"
 }
 \examples{
 icecream_pal <- art_pals("icecream", 20)
