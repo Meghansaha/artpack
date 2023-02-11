@@ -5,7 +5,7 @@
 #' "beach", "bw", "brood", "cosmos", "explorer", "gemstones", "grays", "icecream", "imagination",
 #' "majestic", "nature", "neon", "ocean", "plants", "rainbow", "sunnyside"
 #'
-#' @param pal A character vector of the desired aRttools palette.
+#' @param pal A character string of the desired aRttools palette.
 #'
 #' The 17 aRttools palettes include:
 #' - "arctic" - Icy blue and white colors

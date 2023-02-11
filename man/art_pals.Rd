@@ -7,7 +7,7 @@
 art_pals(pal = NULL, n = 5, direction = "regular")
 }
 \arguments{
-\item{pal}{A character vector of the desired aRttools palette.
+\item{pal}{A character string of the desired aRttools palette.
 
 The 17 aRttools palettes include:
 \itemize{
