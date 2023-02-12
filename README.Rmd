@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
-The goal of arttools is to help generative artists!
+The goal of aRttools is to help generative artists of all levels create generative art in R. The aRtools package is intended for use with the [`tidyverse`](https://www.tidyverse.org/) suite. More specifically, with the [`ggplot2`](https://ggplot2.tidyverse.org/) package.
 
 ## Installation
 
