@@ -1,0 +1,34 @@
+url: ~
+template:
+  bootstrap: 5
+  bootswatch: sketchy
+  bslib:
+    primary: "#32164f"
+    base_font: {google: "Darker Grotesque"}
+    heading_font: {google: "Gantari"}
+    text-muted: "#FFFFFF"
+
+authors:
+  Meghan S. Harris:
+    href: "https://www.theidytrekker.com/"
+
+development:
+  mode: auto
+  version_label: default
+
+navbar:
+  bg: primary
+
+reference:
+  - title: Color Palette Tools
+  - contents:
+      - art_pals
+
+  - title: Transformation Tools
+  - contents:
+      - rotator
+
+  - title: Asset Creation
+  - contents:
+      - grid_maker
+

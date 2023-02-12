@@ -1,5 +1,6 @@
-#' Rotator
-#' Rotates the points in a given data frame by a given angle based on a designated anchor point.
+#' Rotate Points in a Data Frame Based on an Anchor Point
+#' @description
+#'Rotates the `x` and `y` points in a given data frame by a given angle based on a designated anchor point.
 #'
 #' @param data A data frame or tibble with at least `x` and `y` variables
 #' @param angle The angle (in degrees) the points in `data` will be rotated around it's anchor
@@ -13,13 +14,19 @@
 #'
 #' @examples
 #' original_square <- data.frame(x = c(0,3,3,0,0),
-#' y = c(0,0,3,3,0))
+#'                               y = c(0,0,3,3,0))
 
-#' rotated_square <- rotator(data = original_square, angle = 45, anchor = "center")
+#' rotated_square <- rotator(data = original_square,
+#'                           angle = 45,
+#'                           anchor = "center")
 #'
 #' ggplot2::ggplot()+
-#'   ggplot2::geom_path(data = original_square, ggplot2::aes(x,y), color = "red")+
-#'   ggplot2::geom_polygon(data = rotated_square, ggplot2::aes(x,y), fill = "purple")+
+#'   ggplot2::geom_path(data = original_square,
+#'                      ggplot2::aes(x,y),
+#'                      color = "red")+
+#'   ggplot2::geom_polygon(data = rotated_square,
+#'                         ggplot2::aes(x,y),
+#'                         fill = "purple")+
 #'   ggplot2::coord_equal()
 #'
 rotator <- function(data = NULL, angle = 5, anchor = "center"){

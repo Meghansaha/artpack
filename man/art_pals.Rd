@@ -2,7 +2,7 @@
 % Please edit documentation in R/art_pals.R
 \name{art_pals}
 \alias{art_pals}
-\title{Art Pals}
+\title{Custom-built aRttools Color Palettes}
 \usage{
 art_pals(pal = NULL, n = 5, direction = "regular")
 }
@@ -47,6 +47,7 @@ The aRttools palette picker. The \code{art_pals} function consists of 17 palette
 "majestic", "nature", "neon", "ocean", "plants", "rainbow", "sunnyside"
 }
 \examples{
-icecream_pal <- art_pals("icecream", 20)
+icecream_pal <- art_pals("icecream", 5)
+icecream_pal
 
 }

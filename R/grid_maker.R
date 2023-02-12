@@ -1,4 +1,7 @@
-#' Grid Maker
+#' Create Data for A Custom-built Square Grid
+#' @description
+#'Creates a dataframe of `x` and `y` points to visualize a square grid based on given `x` and `y` limits.
+#'Providing a color palette and fill style are optional.
 #'
 #' @param xlim A numeric vector with two X limits. A minimum and maximum limit for the X axis.
 #' @param ylim A numeric vector with two Y limits. A minimum and maximum limit for the Y axis.
@@ -14,8 +17,16 @@
 #' @export
 #'
 #' @examples
-#'grid_data <- grid_maker(xlim = c(0,1), ylim = c(0,1), size = 2, pal = c("red", "black", "purple"))
+#'grid_data <- grid_maker(xlim = c(0,1),
+#'                        ylim = c(0,1),
+#'                        size = 2,
+#'                        pal = c("red", "black", "purple"))
 #'
+#' ggplot2::ggplot()+
+#'   ggplot2::geom_polygon(data = grid_data,
+#'                         ggplot2::aes(x,y, group = group),
+#'                         fill = grid_data$fill)+
+#'   ggplot2::coord_equal()
 #'
 grid_maker <- function(xlim, ylim, size, pal = NULL, fill_style = "range"){
 

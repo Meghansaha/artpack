@@ -2,7 +2,7 @@
 % Please edit documentation in R/grid_maker.R
 \name{grid_maker}
 \alias{grid_maker}
-\title{Grid Maker}
+\title{Create Data for A Custom-built Square Grid}
 \usage{
 grid_maker(xlim, ylim, size, pal = NULL, fill_style = "range")
 }
@@ -21,10 +21,19 @@ grid_maker(xlim, ylim, size, pal = NULL, fill_style = "range")
 a tibble
 }
 \description{
-Grid Maker
+Creates a dataframe of \code{x} and \code{y} points to visualize a square grid based on given \code{x} and \code{y} limits.
+Providing a color palette and fill style are optional.
 }
 \examples{
-grid_data <- grid_maker(xlim = c(0,1), ylim = c(0,1), size = 2, pal = c("red", "black", "purple"))
+grid_data <- grid_maker(xlim = c(0,1),
+                       ylim = c(0,1),
+                       size = 2,
+                       pal = c("red", "black", "purple"))
 
+ggplot2::ggplot()+
+  ggplot2::geom_polygon(data = grid_data,
+                        ggplot2::aes(x,y, group = group),
+                        fill = grid_data$fill)+
+  ggplot2::coord_equal()
 
 }

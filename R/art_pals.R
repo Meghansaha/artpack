@@ -1,4 +1,4 @@
-#' Art Pals
+#' Custom-built aRttools Color Palettes
 #' @description
 #'
 #' The aRttools palette picker. The `art_pals` function consists of 17 palettes: "arctic",
@@ -38,7 +38,8 @@
 #' @export
 #'
 #' @examples
-#'icecream_pal <- art_pals("icecream", 20)
+#'icecream_pal <- art_pals("icecream", 5)
+#'icecream_pal
 #'
 art_pals <- function(pal = NULL, n = 5, direction = "regular"){
 
