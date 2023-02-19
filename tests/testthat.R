@@ -1,4 +1,4 @@
 library(testthat)
-library(arttools)
+library(artpack)
 
-test_check("arttools")
+test_check("artpack")
