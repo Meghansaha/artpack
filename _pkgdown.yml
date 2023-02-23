@@ -1,5 +1,5 @@
-url: https://thetidytrekker.com/artpack
-destination: "../thetidytrekker/artpack"
+url:
+destination: "artpack"
 template:
   bootstrap: 5
   bootswatch: sketchy
