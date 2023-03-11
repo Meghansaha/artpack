@@ -26,13 +26,13 @@ rotated_square <- rotator(data = original_square,
                           angle = 45,
                           anchor = "center")
 
-ggplot2::ggplot()+
-  ggplot2::geom_path(data = original_square,
-                     ggplot2::aes(x,y),
+ggplot()+
+  geom_path(data = original_square,
+                     aes(x,y),
                      color = "red")+
-  ggplot2::geom_polygon(data = rotated_square,
-                        ggplot2::aes(x,y),
+  geom_polygon(data = rotated_square,
+                        aes(x,y),
                         fill = "purple")+
-  ggplot2::coord_equal()
+  coord_equal()
 
 }

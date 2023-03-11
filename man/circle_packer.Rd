@@ -53,4 +53,9 @@ in a ggplot. When "swirl" is used, the output should be mapped with \code{geom_p
 packed_circles <- circle_packer(n = 50)
 packed_circles
 
+packed_circles |>
+ggplot(aes(x,y, group = group))+
+theme_void()+
+geom_polygon(fill = "white", color = "black")
+
 }

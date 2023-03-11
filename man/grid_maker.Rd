@@ -30,10 +30,10 @@ grid_data <- grid_maker(xlim = c(0,1),
                        size = 2,
                        pal = c("red", "black", "purple"))
 
-ggplot2::ggplot()+
-  ggplot2::geom_polygon(data = grid_data,
-                        ggplot2::aes(x,y, group = group),
+ggplot()+
+  geom_polygon(data = grid_data,
+                        aes(x,y, group = group),
                         fill = grid_data$fill)+
-  ggplot2::coord_equal()
+  coord_equal()
 
 }

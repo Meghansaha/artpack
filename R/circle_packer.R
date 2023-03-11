@@ -31,6 +31,11 @@
 #'packed_circles <- circle_packer(n = 50)
 #'packed_circles
 #'
+#'packed_circles |>
+#'ggplot(aes(x,y, group = group))+
+#'theme_void()+
+#'geom_polygon(fill = "white", color = "black")
+#'
 
 circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
                           big_r = 5, med_r = 2, small_r = 1,

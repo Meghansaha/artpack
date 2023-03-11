@@ -1,5 +1,5 @@
-url:
-destination: "artpack"
+url: https://meghansaha.github.io/artpack/
+destination:
 template:
   bootstrap: 5
   bootswatch: sketchy
@@ -31,5 +31,6 @@ reference:
 
   - title: Asset Creation
   - contents:
+      - circle_packer
       - grid_maker
 
