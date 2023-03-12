@@ -50,12 +50,15 @@ When the default \code{circle_type} "whole" is used, the output should mapped wi
 in a ggplot. When "swirl" is used, the output should be mapped with \code{geom_path} for the best results.
 }
 \examples{
-packed_circles <- circle_packer(n = 50)
+packed_circles <- circle_packer(n = 50, big_r = 5, med_r = 3, small_r = 1,
+min_x = 0, max_x = 100, min_y = 0, max_y = 100)
 packed_circles
 
 packed_circles |>
 ggplot(aes(x,y, group = group))+
 theme_void()+
-geom_polygon(fill = "white", color = "black")
+theme(plot.background = element_rect(fill = "black"))+
+geom_polygon(fill = "white", color = "red")+
+coord_equal()
 
 }
