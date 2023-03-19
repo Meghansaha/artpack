@@ -1,1 +1,1 @@
-utils::globalVariables(c("group"))
+utils::globalVariables(c("group", "map2_dbl"))
