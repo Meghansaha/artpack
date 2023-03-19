@@ -1,13 +1,13 @@
-#' Custom-built aRttools Color Palettes
+#' Custom-built aRtpack Color Palettes
 #' @description
 #'
-#' The aRttools palette picker. The `art_pals` function consists of 17 palettes: "arctic",
+#' The aRtpack palette picker. The `art_pals` function consists of 17 palettes: "arctic",
 #' "beach", "bw", "brood", "cosmos", "explorer", "gemstones", "grays", "icecream", "imagination",
 #' "majestic", "nature", "neon", "ocean", "plants", "rainbow", "sunnyside"
 #'
-#' @param pal A character string of the desired aRttools palette.
+#' @param pal A character string of the desired aRtpack palette.
 #'
-#' The 17 aRttools palettes include:
+#' The 17 aRtpack palettes include:
 #' - "arctic" - Icy blue and white colors
 #' - "beach" - Sand-colored tans and ocean-colored blue colors
 #' - "bw" - A gradient of black to white colors
@@ -100,7 +100,7 @@ pals <- list(arctic = list(c("#006ACD","#4596D7","#8AC2E1","#BDDFEB","#DEEFF5","
 pal_check <- pal %in% names(pals)
 
 if(!pal_check){
-  stop(paste0("`",pal,"` is not a known aRttools color palette. Please enter one of the following:\n",paste(names(pals), collapse = c(rep(", ", length(pals) - 1), ", or"))))
+  stop(paste0("`",pal,"` is not a known aRtpack color palette. Please enter one of the following:\n",paste(names(pals), collapse = c(rep(", ", length(pals) - 1), ", or"))))
 
 }
 

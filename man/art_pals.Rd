@@ -2,14 +2,14 @@
 % Please edit documentation in R/art_pals.R
 \name{art_pals}
 \alias{art_pals}
-\title{Custom-built aRttools Color Palettes}
+\title{Custom-built aRtpack Color Palettes}
 \usage{
 art_pals(pal = NULL, n = 5, direction = "regular")
 }
 \arguments{
-\item{pal}{A character string of the desired aRttools palette.
+\item{pal}{A character string of the desired aRtpack palette.
 
-The 17 aRttools palettes include:
+The 17 aRtpack palettes include:
 \itemize{
 \item "arctic" - Icy blue and white colors
 \item "beach" - Sand-colored tans and ocean-colored blue colors
@@ -42,7 +42,7 @@ Default is "regular". Only two options accepted: "regular" or "reverse"}
 A character vector.
 }
 \description{
-The aRttools palette picker. The \code{art_pals} function consists of 17 palettes: "arctic",
+The aRtpack palette picker. The \code{art_pals} function consists of 17 palettes: "arctic",
 "beach", "bw", "brood", "cosmos", "explorer", "gemstones", "grays", "icecream", "imagination",
 "majestic", "nature", "neon", "ocean", "plants", "rainbow", "sunnyside"
 }
