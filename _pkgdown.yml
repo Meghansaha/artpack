@@ -26,4 +26,5 @@ reference:
 - contents:
   - circle_packer
   - grid_maker
+  - square_data
 
