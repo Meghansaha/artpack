@@ -44,6 +44,25 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
                           big_r = 5, med_r = 2, small_r = 1,
                           color_pal = NULL, color_type = "regular",
                           circle_type = "whole"){
+
+  if(!is.numeric(big_r)){
+    stop("`size` must be numeric.")
+  } else if(big_r <= 0){
+    stop("`size` must be greater than zero.")
+  }
+
+  if(!is.numeric(med_r)){
+    stop("`size` must be numeric.")
+  } else if(med_r <= 0){
+    stop("`size` must be greater than zero.")
+  }
+
+  if(!is.numeric(small_r)){
+    stop("`size` must be numeric.")
+  } else if(small_r <= 0){
+    stop("`size` must be greater than zero.")
+  }
+
   theta <- seq(0,2*pi, length = 100)
 
   distance <- function(x1,y1,x2,y2){
@@ -75,6 +94,16 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
   }
   new_iter = 1:length(big_y)
   big_angles = sample(0:360, length(big_y), replace = TRUE)
+
+  if(length(big_x) != length(big_y)){
+  stop("length of big_x and big_y don't match.")
+  } else if(length(big_y) != length(new_iter)){
+    stop("length of big_y and new_iter don't match.")
+  } else if(length(new_iter) != length(big_angles)){
+    stop("length of new_iter and big_angles")
+  }
+
+
   big_circles <- switch(circle_type,
                         "whole"  =  pmap(list(big_x,
                                               big_y,
@@ -127,6 +156,15 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
   new_iter = 1:length(med_y)
   mid_angles = sample(0:360, length(med_y), replace = TRUE)
 
+  if(length(med_x) != length(med_y)){
+    stop("length of med_x and med_y don't match.")
+  } else if(length(med_y) != length(new_iter)){
+    stop("length of med_y and new_iter don't match.")
+  } else if(length(new_iter) != length(med_angles)){
+    stop("length of new_iter and med_angles")
+  }
+
+
   med_circles <- switch(circle_type,
                         "whole"  =  pmap(list(med_x,
                                               med_y,
@@ -178,6 +216,16 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
   small_y <- small_y[-1]
   new_iter = 1:length(small_y)
   small_angles = sample(0:360, length(small_y), replace = TRUE)
+
+  if(length(big_x) != length(big_y)){
+    stop("length of big_x and big_y don't match.")
+  } else if(length(big_y) != length(new_iter)){
+    stop("length of big_y and new_iter don't match.")
+  } else if(length(new_iter) != length(big_angles)){
+    stop("length of new_iter and big_angles")
+  }
+
+
   small_circles <- switch(circle_type,
                           "whole"  =  pmap(list(small_x,
                                                 small_y,
@@ -193,7 +241,7 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
                                                                                         linewidth = .1), ..4)) |> list_rbind(),
                           stop(paste(circle_type, "is not a valid `type` option.\nPlease input `whole` or `swirl`"))
   )
-  message("small Circles Complete!")
+  message("Small Circles Complete!")
 
   all_circles <- rbind(big_circles, med_circles, small_circles)
 
