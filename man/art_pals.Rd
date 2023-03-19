@@ -47,7 +47,29 @@ The aRtpack palette picker. The \code{art_pals} function consists of 17 palettes
 "majestic", "nature", "neon", "ocean", "plants", "rainbow", "sunnyside"
 }
 \examples{
-icecream_pal <- art_pals("icecream", 5)
-icecream_pal
+dots <- data.frame(x = c(1:10), y = 2.5)
+dots$fills <- art_pals("rainbow", 10)
+
+dots |>
+ggplot(aes(x,y))+
+theme_void()+
+geom_point(shape = 21,
+         fill = dots$fills,
+         color = "#000000",
+         size = 10,
+         stroke = 2)
+
+
+dots_rev <- data.frame(x = c(1:10), y = 2.5)
+dots_rev$fills <- art_pals("rainbow", 10, "reverse")
+
+dots_rev |>
+ggplot(aes(x,y))+
+theme_void()+
+geom_point(shape = 21,
+         fill = dots_rev$fills,
+         color = "#000000",
+         size = 10,
+         stroke = 2)
 
 }

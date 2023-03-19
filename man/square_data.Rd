@@ -11,9 +11,13 @@ square_data(x, y, size, group_var = FALSE)
 
 \item{y}{Numeric - The bottom left \code{y} value of the square.}
 
-\item{size}{Numeric - The size of the square. Must be a value greater than zero.}
+\item{size}{Numeric - The size of the square.
 
-\item{group_var}{\code{TRUE}/\code{FALSE}. Default is \code{FALSE}. If \code{TRUE}, adds a grouping variable to the data frame.
+Must be a value greater than zero.}
+
+\item{group_var}{\code{TRUE}/\code{FALSE}. Default is \code{FALSE}.
+
+If \code{TRUE}, adds a grouping variable to the data frame.
 Default is switched to \code{TRUE} when more than one \code{x}, \code{y}, and \code{size} values are present.}
 }
 \value{

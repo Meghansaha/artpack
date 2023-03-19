@@ -6,8 +6,12 @@
 #'
 #' @param x Numeric - The bottom left `x` value of the square.
 #' @param y Numeric - The bottom left `y` value of the square.
-#' @param size Numeric - The size of the square. Must be a value greater than zero.
-#' @param group_var `TRUE`/`FALSE`. Default is `FALSE`. If `TRUE`, adds a grouping variable to the data frame.
+#' @param size Numeric - The size of the square.
+#'
+#' Must be a value greater than zero.
+#' @param group_var `TRUE`/`FALSE`. Default is `FALSE`.
+#'
+#' If `TRUE`, adds a grouping variable to the data frame.
 #' Default is switched to `TRUE` when more than one `x`, `y`, and `size` values are present.
 #'
 #' @return A Tibble
