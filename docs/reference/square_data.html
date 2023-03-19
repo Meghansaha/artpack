@@ -79,12 +79,13 @@ Default is switched to <code>TRUE</code> when more than one <code>x</code>, <cod
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">one_square</span> <span class="op">&lt;-</span> <span class="fu">square_data</span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">0</span>, size <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in square_data(x = 0, y = 0, size = 5):</span> could not find function "square_data"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">one_square</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span></span>
 <span class="r-in"><span><span class="fu">geom_path</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"green"</span><span class="op">)</span><span class="op">+</span></span></span>
 <span class="r-in"><span><span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="square_data-1.png" alt="" width="700" height="433"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ggplot(one_square, aes(x, y)):</span> could not find function "ggplot"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">x_vals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">y_vals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span></span></span>
@@ -92,6 +93,7 @@ Default is switched to <code>TRUE</code> when more than one <code>x</code>, <cod
 <span class="r-in"><span><span class="va">sq_cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"purple"</span>, <span class="st">"yellow"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">two_squares</span> <span class="op">&lt;-</span> <span class="fu">square_data</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x_vals</span>, y <span class="op">=</span> <span class="va">y_vals</span>, size <span class="op">=</span> <span class="va">sizes</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in square_data(x = x_vals, y = y_vals, size = sizes):</span> could not find function "square_data"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">two_squares</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span>, group <span class="op">=</span> <span class="va">group</span>, fill <span class="op">=</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span></span>
@@ -99,7 +101,7 @@ Default is switched to <code>TRUE</code> when more than one <code>x</code>, <cod
 <span class="r-in"><span><span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span><span class="op">+</span></span></span>
 <span class="r-in"><span><span class="fu">geom_polygon</span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span></span>
 <span class="r-in"><span><span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="square_data-2.png" alt="" width="700" height="433"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ggplot(two_squares, aes(x, y, group = group, fill = group)):</span> could not find function "ggplot"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
