@@ -154,7 +154,7 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
   med_x <- med_x[-1]
   med_y <- med_y[-1]
   new_iter = 1:length(med_y)
-  mid_angles = sample(0:360, length(med_y), replace = TRUE)
+  med_angles = sample(0:360, length(med_y), replace = TRUE)
 
   if(length(med_x) != length(med_y)){
     stop("length of med_x and med_y don't match.")
@@ -174,7 +174,7 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
                         "swirl"  =  pmap(list(med_x,
                                               med_y,
                                               new_iter,
-                                              mid_angles), ~artpack::rotator(tibble(x = (cos(theta)*seq(1,0, length = 1000))*med_r + ..1,
+                                              med_angles), ~artpack::rotator(tibble(x = (cos(theta)*seq(1,0, length = 1000))*med_r + ..1,
                                                                                     y = (sin(theta)*seq(1,0, length = 1000))*med_r + ..2,
                                                                                     group = paste0("med_",..3),
 
@@ -217,12 +217,12 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
   new_iter = 1:length(small_y)
   small_angles = sample(0:360, length(small_y), replace = TRUE)
 
-  if(length(big_x) != length(big_y)){
-    stop("length of big_x and big_y don't match.")
-  } else if(length(big_y) != length(new_iter)){
-    stop("length of big_y and new_iter don't match.")
-  } else if(length(new_iter) != length(big_angles)){
-    stop("length of new_iter and big_angles")
+  if(length(small_x) != length(small_y)){
+    stop("length of small_x and small_y don't match.")
+  } else if(length(small_y) != length(new_iter)){
+    stop("length of small_y and new_iter don't match.")
+  } else if(length(new_iter) != length(small_angles)){
+    stop("length of new_iter and small_angles")
   }
 
 
