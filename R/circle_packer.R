@@ -15,7 +15,7 @@
 #' @param small_r The radius used for your 'small' sized circles. A single numeric value.
 #' @param color_pal A vector of hex color codes that will be mapped to the data.
 #' @param color_type Default is "regular" - The colors will be mapped in order from big circles to small circles. "reverse" - The colors will be mapped in reversed order from small to big circles. "random" - The colors will be mapped randomly to any sized circle.
-#' @param circle_type Default is "whole" - Regular circles. "swirl" - circles are replaced with spirals. Spirals should be mapped with `geom_polygon` in a ggplot for the best results.
+#' @param circle_type Default is "whole" - Regular circles. "swirl" - circles are replaced with spirals. Spirals should be mapped with `geom_path` in a ggplot for the best results.
 #'
 #' @return A Tibble
 #' @export

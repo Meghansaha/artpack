@@ -39,7 +39,7 @@ circle_packer(
 
 \item{color_type}{Default is "regular" - The colors will be mapped in order from big circles to small circles. "reverse" - The colors will be mapped in reversed order from small to big circles. "random" - The colors will be mapped randomly to any sized circle.}
 
-\item{circle_type}{Default is "whole" - Regular circles. "swirl" - circles are replaced with spirals. Spirals should be mapped with \code{geom_polygon} in a ggplot for the best results.}
+\item{circle_type}{Default is "whole" - Regular circles. "swirl" - circles are replaced with spirals. Spirals should be mapped with \code{geom_path} in a ggplot for the best results.}
 }
 \value{
 A Tibble
