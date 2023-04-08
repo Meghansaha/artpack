@@ -106,7 +106,7 @@ in a ggplot. When "swirl" is used, the output should be mapped with <code>geom_p
 
 
 <dt>circle_type</dt>
-<dd><p>Default is "whole" - Regular circles. "swirl" - circles are replaced with spirals. Spirals should be mapped with <code>geom_polygon</code> in a ggplot for the best results.</p></dd>
+<dd><p>Default is "whole" - Regular circles. "swirl" - circles are replaced with spirals. Spirals should be mapped with <code>geom_path</code> in a ggplot for the best results.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -128,17 +128,17 @@ in a ggplot. When "swirl" is used, the output should be mapped with <code>geom_p
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Groups:   group [66]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        x     y group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>  46    41   big_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>  46.0  41.3 big_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>  46.0  41.6 big_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>  45.9  41.9 big_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>  45.8  42.3 big_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>  45.8  42.6 big_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>  45.6  42.9 big_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>  45.5  43.1 big_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  45.4  43.4 big_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>  45.2  43.7 big_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 6,590 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>  88    65   big_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>  88.0  65.3 big_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>  88.0  65.6 big_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>  87.9  65.9 big_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>  87.8  66.3 big_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>  87.8  66.6 big_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>  87.6  66.9 big_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>  87.5  67.1 big_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  87.4  67.4 big_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>  87.2  67.7 big_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 6,590 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">packed_circles</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span>, group <span class="op">=</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span></span>
