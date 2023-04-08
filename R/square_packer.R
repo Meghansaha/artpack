@@ -26,6 +26,7 @@
 #' @importFrom dplyr group_size
 #'
 #' @examples
+#' library(ggplot2)
 #' packed_squares <- square_packer(500,
 #'                                 color_pal = art_pals("sunnyside",5),
 #'                                 color_type = "random")

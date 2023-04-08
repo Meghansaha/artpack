@@ -25,6 +25,7 @@ Creates a dataframe of \code{x} and \code{y} points to visualize a square grid b
 Providing a color palette and fill style are optional.
 }
 \examples{
+library(ggplot2)
 grid_data <- grid_maker(xlim = c(0,1),
                        ylim = c(0,1),
                        size = 2,

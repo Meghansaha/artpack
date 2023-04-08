@@ -25,6 +25,7 @@
 #' @importFrom grDevices colors
 #'
 #' @examples
+#'library(ggplot2)
 #'wave_df <- wave_data(start = 0, end = 10,
 #'                   fill = "purple",
 #'                   color = "green")

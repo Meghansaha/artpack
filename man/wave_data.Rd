@@ -55,6 +55,7 @@ A tool for making data frames filled with data that displays sine or cosine wave
 The \code{geom_path} and \code{geom_polygon} geoms are recommended with this data for use in \code{ggplot2} for generative art.
 }
 \examples{
+library(ggplot2)
 wave_df <- wave_data(start = 0, end = 10,
                   fill = "purple",
                   color = "green")

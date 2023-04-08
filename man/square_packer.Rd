@@ -48,6 +48,7 @@ A Tibble
 A tool for creating a data frame of values that create a square packing design when plotted.
 }
 \examples{
+library(ggplot2)
 packed_squares <- square_packer(500,
                                 color_pal = art_pals("sunnyside",5),
                                 color_type = "random")

@@ -28,6 +28,7 @@ A tool for creating a data frame of values that create a square with a specified
 when plotted.
 }
 \examples{
+library(ggplot2)
 one_square <- square_data(x = 0, y = 0, size = 5)
 
 one_square |>

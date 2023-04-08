@@ -11,14 +11,14 @@
 #'
 #' @return a tibble
 #'
-#' @import ggplot2
 #' @importFrom purrr pmap
 #' @importFrom tibble tibble
 #' @importFrom grDevices colorRampPalette
 #' @export
 #'
 #' @examples
-#'grid_data <- grid_maker(xlim = c(0,1),
+#' library(ggplot2)
+#' grid_data <- grid_maker(xlim = c(0,1),
 #'                        ylim = c(0,1),
 #'                        size = 2,
 #'                        pal = c("red", "black", "purple"))

@@ -13,6 +13,7 @@
 #' @importFrom dplyr select
 #'
 #' @examples
+#' library(ggplot2)
 #' original_square <- data.frame(x = c(0,3,3,0,0),
 #'                               y = c(0,0,3,3,0))
 

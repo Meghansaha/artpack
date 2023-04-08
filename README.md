@@ -4,8 +4,10 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/Meghansaha/artpack/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Meghansaha/artpack/actions/workflows/R-CMD-check.yaml)
-<!-- badges: end -->
+[![Codecov test
+coverage](https://codecov.io/gh/Meghansaha/artpack/branch/master/graph/badge.svg)](https://app.codecov.io/gh/Meghansaha/artpack?branch=master)
 
+<!-- badges: end -->
 The goal of aRtpack is to help generative artists of all levels create
 generative art in R. The aRtpack package is intended for use with the
 [`tidyverse`](https://www.tidyverse.org/) suite. More specifically, with
