@@ -6,7 +6,6 @@
 [![R-CMD-check](https://github.com/Meghansaha/artpack/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Meghansaha/artpack/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/Meghansaha/artpack/branch/master/graph/badge.svg)](https://app.codecov.io/gh/Meghansaha/artpack?branch=master)
-[![R-CMD-check](https://github.com/Meghansaha/artpack/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Meghansaha/artpack/actions/workflows/R-CMD-check.yaml)
 
 <!-- badges: end -->
 The goal of aRtpack is to help generative artists of all levels create
