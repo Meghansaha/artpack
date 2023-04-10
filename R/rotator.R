@@ -11,6 +11,7 @@
 #'
 #' @importFrom dplyr mutate
 #' @importFrom dplyr select
+#' @importFrom cli cli_abort
 #'
 #' @examples
 #' library(ggplot2)
@@ -40,7 +41,7 @@ rotator <- function(data = NULL, angle = 5, anchor = "center"){
   rad <- (angle * pi)/180
 
   if(!is.data.frame(data)){
-    stop("`data` should be of type data frame or a tibble, not ",class(data)) # nocov
+    cli::cli_abort(c("x" = "{.var data} should be of type data frame or a tibble, not {.cls {class(data)}} "))
   }
 
   anchor = switch(anchor,
@@ -54,7 +55,8 @@ rotator <- function(data = NULL, angle = 5, anchor = "center"){
                                 "y" = (min(data$y)+max(data$y))/2),
                   "right" = list("x" = max(data$x),
                                  "y" = (min(data$y)+max(data$y))/2),
-                  stop(paste0("`",anchor,"`"," is not a valid anchor option. Valid options include: 'center', 'bottom', 'top', 'left', and 'right'")))
+                  cli::cli_abort(c("x" = "{.var anchor} is not a valid anchor option.", "Valid options include: 'center', 'bottom', 'top', 'left', and 'right'"))
+                  )
 
 
   rotated_shape <- data |>
