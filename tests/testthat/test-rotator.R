@@ -4,3 +4,7 @@ original_square <- data.frame(x = c(0,3,3,0,0),
 rotated_square <- rotator(data = original_square, angle = 45, anchor = "center")
 
 testthat::expect_error(testthat::expect_equal(original_square, rotated_square))
+
+nums <- 1:10
+
+testthat::expect_error(rotated_square(nums))
