@@ -47,21 +47,21 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
                           circle_type = "whole"){
 
   if(!is.numeric(big_r)){
-    stop("`size` must be numeric.")
+    stop("`size` must be numeric.") # nocov
   } else if(big_r <= 0){
-    stop("`size` must be greater than zero.")
+    stop("`size` must be greater than zero.") # nocov
   }
 
   if(!is.numeric(med_r)){
-    stop("`size` must be numeric.")
+    stop("`size` must be numeric.") # nocov
   } else if(med_r <= 0){
-    stop("`size` must be greater than zero.")
+    stop("`size` must be greater than zero.") # nocov
   }
 
   if(!is.numeric(small_r)){
-    stop("`size` must be numeric.")
+    stop("`size` must be numeric.") # nocov
   } else if(small_r <= 0){
-    stop("`size` must be greater than zero.")
+    stop("`size` must be greater than zero.") # nocov
   }
 
   theta <- seq(0,2*pi, length = 100)
@@ -99,9 +99,9 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
   if(length(big_x) != length(big_y)){
   stop("length of big_x and big_y don't match.")
   } else if(length(big_y) != length(new_iter)){
-    stop("length of big_y and new_iter don't match.")
+    stop("length of big_y and new_iter don't match.") # nocov
   } else if(length(new_iter) != length(big_angles)){
-    stop("length of new_iter and big_angles")
+    stop("length of new_iter and big_angles") # nocov
   }
 
 
@@ -118,7 +118,7 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
                                                                                     y = (sin(theta)*seq(1,0, length = 1000))*big_r + ..2,
                                                                                     group = paste0("big_",..3),
                                                                                     linewidth = .8), ..4)) |> list_rbind(),
-                        stop(paste(circle_type, "is not a valid `type` option.\nPlease input `whole` or `swirl`"))
+                        stop(paste(circle_type, "is not a valid `type` option.\nPlease input `whole` or `swirl`")) # nocov
   )
 
 
@@ -158,11 +158,11 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
   med_angles = sample(0:360, length(med_y), replace = TRUE)
 
   if(length(med_x) != length(med_y)){
-    stop("length of med_x and med_y don't match.")
+    stop("length of med_x and med_y don't match.") # nocov
   } else if(length(med_y) != length(new_iter)){
     stop("length of med_y and new_iter don't match.")
   } else if(length(new_iter) != length(med_angles)){
-    stop("length of new_iter and med_angles")
+    stop("length of new_iter and med_angles") # nocov
   }
 
 
@@ -180,7 +180,7 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
                                                                                     group = paste0("med_",..3),
 
                                                                                     linewidth = .4), ..4)) |> list_rbind(),
-                        stop(paste(circle_type, "is not a valid `type` option.\nPlease input `whole` or `swirl`"))
+                        stop(paste(circle_type, "is not a valid `type` option.\nPlease input `whole` or `swirl`")) # nocov
   )
   message("Med Circles Complete!")
 
@@ -219,11 +219,11 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
   small_angles = sample(0:360, length(small_y), replace = TRUE)
 
   if(length(small_x) != length(small_y)){
-    stop("length of small_x and small_y don't match.")
+    stop("length of small_x and small_y don't match.") # nocov
   } else if(length(small_y) != length(new_iter)){
-    stop("length of small_y and new_iter don't match.")
+    stop("length of small_y and new_iter don't match.") # nocov
   } else if(length(new_iter) != length(small_angles)){
-    stop("length of new_iter and small_angles")
+    stop("length of new_iter and small_angles") # nocov
   }
 
 

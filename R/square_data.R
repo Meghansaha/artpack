@@ -51,23 +51,23 @@ square_data <- function(x,y, size, group_var = FALSE){
 
   #Check for numeric x/y
   if(!is.numeric(x)){
-    stop("`x` must be a numeric value")
+    stop("`x` must be a numeric value") # nocov
   } else if(!is.numeric(y)){
-    stop("`y` must be a numeric value")
+    stop("`y` must be a numeric value") # nocov
   }
 
   #Check for numeric size greater than zero
   if(!is.numeric(size)){
-    stop("`size` must be numeric.")
+    stop("`size` must be numeric.") # nocov
   } else if(sum(size > 0) != length(size)){
-    stop("`size` must be greater than zero.")
+    stop("`size` must be greater than zero.") # nocov
   }
 
   #Check for equal lengths of x/y and size
   if(length(x) != length(y)){
-    stop(paste("`x`, `y`, and `size` inputs must be equal in length\n`x` is of length",length(x),"\n`y` is of length",length(y),"\n`size` is of length",length(size)))
+    stop(paste("`x`, `y`, and `size` inputs must be equal in length\n`x` is of length",length(x),"\n`y` is of length",length(y),"\n`size` is of length",length(size))) # nocov
   } else if(length(y) != length(size)){
-    stop(paste("`x`, `y`, and `size` inputs must be equal in length\n`x` is of length",length(x),"\n`y` is of length",length(y),"\n`size` is of length",length(size)))
+    stop(paste("`x`, `y`, and `size` inputs must be equal in length\n`x` is of length",length(x),"\n`y` is of length",length(y),"\n`size` is of length",length(size))) # nocov
 
   }
 

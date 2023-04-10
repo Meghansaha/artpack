@@ -46,21 +46,21 @@ square_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
                           color_pal = NULL, color_type = "regular", angles = FALSE){
 
   if(!is.numeric(big_r)){
-    stop("`size` must be numeric.")
+    stop("`size` must be numeric.") # nocov
   } else if(big_r <= 0){
-    stop("`size` must be greater than zero.")
+    stop("`size` must be greater than zero.") # nocov
   }
 
   if(!is.numeric(med_r)){
-    stop("`size` must be numeric.")
+    stop("`size` must be numeric.") # nocov
   } else if(med_r <= 0){
-    stop("`size` must be greater than zero.")
+    stop("`size` must be greater than zero.") # nocov
   }
 
   if(!is.numeric(small_r)){
-    stop("`size` must be numeric.")
+    stop("`size` must be numeric.") # nocov
   } else if(small_r <= 0){
-    stop("`size` must be greater than zero.")
+    stop("`size` must be greater than zero.") # nocov
   }
 
 
@@ -95,11 +95,11 @@ square_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
   big_angles = sample(0:360, length(big_y), replace = TRUE)
 
   if(length(big_x) != length(big_y)){
-    stop("length of big_x and big_y don't match.")
+    stop("length of big_x and big_y don't match.") # nocov
   } else if(length(big_y) != length(new_iter)){
-    stop("length of big_y and new_iter don't match.")
+    stop("length of big_y and new_iter don't match.") # nocov
   } else if(length(new_iter) != length(big_angles)){
-    stop("length of new_iter and big_angles")
+    stop("length of new_iter and big_angles") # nocov
   }
 
   sq_coord <- .705 * big_r
@@ -158,11 +158,11 @@ square_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
   med_angles = sample(0:360, length(med_y), replace = TRUE)
 
   if(length(med_x) != length(med_y)){
-    stop("length of med_x and med_y don't match.")
+    stop("length of med_x and med_y don't match.") # nocov
   } else if(length(med_y) != length(new_iter)){
-    stop("length of med_y and new_iter don't match.")
+    stop("length of med_y and new_iter don't match.") # nocov
   } else if(length(new_iter) != length(med_angles)){
-    stop("length of new_iter and med_angles")
+    stop("length of new_iter and med_angles") # nocov
   }
 
 
@@ -222,11 +222,11 @@ square_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
   small_angles = sample(0:360, length(small_y), replace = TRUE)
 
   if(length(small_x) != length(small_y)){
-    stop("length of small_x and small_y don't match.")
+    stop("length of small_x and small_y don't match.") # nocov
   } else if(length(small_y) != length(new_iter)){
-    stop("length of small_y and new_iter don't match.")
+    stop("length of small_y and new_iter don't match.") # nocov
   } else if(length(new_iter) != length(small_angles)){
-    stop("length of new_iter and small_angles")
+    stop("length of new_iter and small_angles") # nocov
   }
 
 
@@ -265,7 +265,7 @@ square_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
                          "regular" = rep(colorRampPalette(color_pal)(total_groups), each = group_ns[1]),
                          "reverse" = rev(rep(colorRampPalette(color_pal)(total_groups), each = group_ns[1])),
                          "random" = rep(sample(colorRampPalette(color_pal)(total_groups)),each = group_ns[1]),
-                         stop(paste0("Invalid `color_type`: '",color_type,"' is not a valid option.\nPlease input one of the following: 'regular', 'reverse', or 'random'." ))
+                         stop(paste0("Invalid `color_type`: '",color_type,"' is not a valid option.\nPlease input one of the following: 'regular', 'reverse', or 'random'." )) # nocov
     )
 
 

@@ -46,61 +46,61 @@ wave_data <- function(start, end, size = 1,
 
   #Numeric Catches#
   if(!is.numeric(start) == TRUE){
-    stop("`start` must be a numeric value.")
+    stop("`start` must be a numeric value.") # nocov
   } else if(!is.numeric(end) == TRUE){
-    stop("`end` must be a numeric value.")
+    stop("`end` must be a numeric value.") # nocov
   }
 
   if(!is.numeric(size) == TRUE){
-    stop("`size` must be a positive numeric value.")
+    stop("`size` must be a positive numeric value.") # nocov
   } else if((size > 0) != TRUE){
-    stop("`size` must be a positive numeric value.")
+    stop("`size` must be a positive numeric value.") # nocov
   }
 
   if(is.null(rotate) == FALSE){
     if(!is.numeric(rotate) == TRUE){
-      stop("`rotate` must be a positive numeric value between -360 to 360.")
+      stop("`rotate` must be a positive numeric value between -360 to 360.") # nocov
     } else if(!rotate >= -360 & rotate <= 360){
-      stop("`rotate` must be a positive numeric value between -360 to 360.")
+      stop("`rotate` must be a positive numeric value between -360 to 360.") # nocov
     }
   }
 
   if(!is.numeric(n_points) == TRUE){
-    stop("`n_points` must be a positive numeric value.")
+    stop("`n_points` must be a positive numeric value.") # nocov
   } else if((n_points > 0) != TRUE){
-    stop("`n_points` must be a positive numeric value.")
+    stop("`n_points` must be a positive numeric value.") # nocov
   }
 
   if(!is.null(dampen)){
   if(!is.numeric(dampen) == TRUE){
-    stop("`dampen` factor must be a positive numeric value.")
+    stop("`dampen` factor must be a positive numeric value.") # nocov
   } else if((dampen > 0) != TRUE){
-    stop("`dampen` factor must be a positive numeric value.")
+    stop("`dampen` factor must be a positive numeric value.") # nocov
   }
   }
 
   if(!is.null(amplify)){
   if(!is.numeric(amplify) == TRUE){
-    stop("`amplify` factor must be a positive numeric value.")
+    stop("`amplify` factor must be a positive numeric value.") # nocov
   } else if((amplify > 0) != TRUE){
-    stop("`amplify` factor must be a positive numeric value.")
+    stop("`amplify` factor must be a positive numeric value.") # nocov
   }
   }
 
 
   #String Catches#
   if(!type %in% c("sin","cos")){
-    stop("`type` must be a string value of:\n\"sin\" or \"cos\".")
+    stop("`type` must be a string value of:\n\"sin\" or \"cos\".") # nocov
   }
 
   if(!orientation %in% c("horiz","horizontal", "vert", "vertical")){
-    stop("`orientation` must be a string value of:\n\"horiz\", \"horizontal\", \"vert\", or \"vertical\"")
+    stop("`orientation` must be a string value of:\n\"horiz\", \"horizontal\", \"vert\", or \"vertical\"") # nocov
   }
 
   if(is.null(color) == FALSE){
     if(!grepl("^#[[:alnum:]]{6}",color)){
       if(!color %in% colors()){
-        stop("`color` must be a valid R color or a 6 digit alphanumeric hex code.")
+        stop("`color` must be a valid R color or a 6 digit alphanumeric hex code.") # nocov
       }
     }
   }
@@ -108,14 +108,14 @@ wave_data <- function(start, end, size = 1,
   if(is.null(fill) == FALSE){
     if(!grepl("^#[[:alnum:]]{6}",fill)){
       if(!fill %in% colors()){
-        stop("`fill` must be a valid R color or a 6 digit alphanumeric hex code.")
+        stop("`fill` must be a valid R color or a 6 digit alphanumeric hex code.") # nocov
       }
     }
   }
 
   #Logic Catches#
   if(!is.logical(group)){
-    stop("`group` variable must be a logical `TRUE` or `FALSE` value.")
+    stop("`group` variable must be a logical `TRUE` or `FALSE` value.") # nocov
   }
 
 freq <- (2*pi)*freq

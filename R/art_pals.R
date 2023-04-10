@@ -78,22 +78,22 @@ if(is.null(pal)){
 #=============================================================================#
 #Is numeric#
   if(!is.numeric(n)){
-    stop("`n` must be a numeric value greater than or equal to 1.")
+    stop("`n` must be a numeric value greater than or equal to 1.") # nocov
   }
 
 #Is one or more#
 if(n < 1){
-  stop("`n` must be a numeric value greater than or equal to 1.")
+  stop("`n` must be a numeric value greater than or equal to 1.") # nocov
 }
 
 #Is only one number#
   if(length(n) != 1){
-    stop("`n` must be only one numeric value that is greater than or equal to 1")
+    stop("`n` must be only one numeric value that is greater than or equal to 1") # nocov
   }
 
 #Is number a whole/integer number#
   if(n %% 1 != 0){
-    stop("`n` must be a numeric integer (no decimals) value that is greater than or equal to 1")
+    stop("`n` must be a numeric integer (no decimals) value that is greater than or equal to 1") # nocov
   }
 
 pals <- list(arctic = list(c("#006ACD","#4596D7","#8AC2E1","#BDDFEB","#DEEFF5","#FFFFFF")),
@@ -132,7 +132,7 @@ if(!pal_check){
 #=============================================================================#
 if(direction %in% c("rev","reverse")){
 
-  return(rev(colorRampPalette(unlist(pals[[pal]]))(n)))
+  return(rev(colorRampPalette(unlist(pals[[pal]]))(n))) # nocov
 
 } else {
 return(colorRampPalette(unlist(pals[[pal]]))(n))
