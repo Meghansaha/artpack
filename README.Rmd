@@ -16,8 +16,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 
-[![](https://codecov.io/gh/Meghansaha/artpack/branch/master/graph/badge.svg?token=X1Y9P4QEVC)](https://codecov.io/gh/Meghansaha/artpack) 
-[![R-CMD-check](https://github.com/Meghansaha/artpack/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Meghansaha/artpack/actions/workflows/R-CMD-check.yaml) 
+[![](https://codecov.io/gh/Meghansaha/artpack/branch/master/graph/badge.svg?token=X1Y9P4QEVC)](https://codecov.io/gh/Meghansaha/artpack) [![R-CMD-check](offline_images/badge.svg)](https://github.com/Meghansaha/artpack/actions/workflows/R-CMD-check.yaml)
 
 <!-- badges: end -->
 
