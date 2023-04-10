@@ -40,7 +40,7 @@ rotator <- function(data = NULL, angle = 5, anchor = "center"){
   rad <- (angle * pi)/180
 
   if(!is.data.frame(data)){
-    stop("`data` should be of type data frame or a tibble, not ",class(data))
+    stop("`data` should be of type data frame or a tibble, not ",class(data)) # nocov
   }
 
   anchor = switch(anchor,
