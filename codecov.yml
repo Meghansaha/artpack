@@ -14,3 +14,6 @@ coverage:
         informational: true
 codecov:
  token: 38aff228-55a2-4d81-9a13-0cd1a245b6bd
+
+ fixes:
+  - "main/::"
