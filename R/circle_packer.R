@@ -41,27 +41,27 @@
 #'coord_equal()
 #'
 
-circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
+circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
                           big_r = 5, med_r = 2, small_r = 1,
                           color_pal = NULL, color_type = "regular",
                           circle_type = "whole"){
 
   if(!is.numeric(big_r)){
-    stop("`size` must be numeric.") # nocov
+    stop("`size` must be numeric.")
   } else if(big_r <= 0){
-    stop("`size` must be greater than zero.") # nocov
+    stop("`size` must be greater than zero.")
   }
 
   if(!is.numeric(med_r)){
-    stop("`size` must be numeric.") # nocov
+    stop("`size` must be numeric.")
   } else if(med_r <= 0){
-    stop("`size` must be greater than zero.") # nocov
+    stop("`size` must be greater than zero.")
   }
 
   if(!is.numeric(small_r)){
-    stop("`size` must be numeric.") # nocov
+    stop("`size` must be numeric.")
   } else if(small_r <= 0){
-    stop("`size` must be greater than zero.") # nocov
+    stop("`size` must be greater than zero.")
   }
 
   theta <- seq(0,2*pi, length = 100)
@@ -69,8 +69,21 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
   distance <- function(x1,y1,x2,y2){
     sqrt(((x2-x1)^2) + ((y2-y1)^2))
   }
+
+  #iteration set up
+  big_n = ceiling(n*.2)
+  med_n = ceiling(n*.5)
+  small_n = ceiling(n*.3)
+
+  n_total = big_n + med_n + small_n
+
+  if(n_total != n){
+    n_diff = n - n_total
+    small_n = small_n + n_diff
+  }
+
   #Big Circles----
-  big_iter = 1:(n*.02)
+  big_iter = 1:big_n
   big_x <- c(x = sample(min_x+(big_r):max_x-(big_r),1))
   big_y <- c(y = sample(min_y+(big_r):max_y-(big_r),1))
   i = 1
@@ -99,9 +112,9 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
   if(length(big_x) != length(big_y)){
   stop("length of big_x and big_y don't match.")
   } else if(length(big_y) != length(new_iter)){
-    stop("length of big_y and new_iter don't match.") # nocov
+    stop("length of big_y and new_iter don't match.")
   } else if(length(new_iter) != length(big_angles)){
-    stop("length of new_iter and big_angles") # nocov
+    stop("length of new_iter and big_angles")
   }
 
 
@@ -118,14 +131,14 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
                                                                                     y = (sin(theta)*seq(1,0, length = 1000))*big_r + ..2,
                                                                                     group = paste0("big_",..3),
                                                                                     linewidth = .8), ..4)) |> list_rbind(),
-                        stop(paste(circle_type, "is not a valid `type` option.\nPlease input `whole` or `swirl`")) # nocov
+                        stop(paste(circle_type, "is not a valid `type` option.\nPlease input `whole` or `swirl`"))
   )
 
 
   message("Big Circles Complete!")
 
   #med Circles----
-  med_iter = 1:((n*.50) +1)
+  med_iter = 1:med_n
   med_x <- c(x = sample(min_x+(med_r):max_x-(med_r),1))
   med_y <- c(y = sample(min_y+(med_r):max_y-(med_r),1))
   i = 1
@@ -158,11 +171,11 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
   med_angles = sample(0:360, length(med_y), replace = TRUE)
 
   if(length(med_x) != length(med_y)){
-    stop("length of med_x and med_y don't match.") # nocov
+    stop("length of med_x and med_y don't match.")
   } else if(length(med_y) != length(new_iter)){
     stop("length of med_y and new_iter don't match.")
   } else if(length(new_iter) != length(med_angles)){
-    stop("length of new_iter and med_angles") # nocov
+    stop("length of new_iter and med_angles")
   }
 
 
@@ -180,13 +193,13 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
                                                                                     group = paste0("med_",..3),
 
                                                                                     linewidth = .4), ..4)) |> list_rbind(),
-                        stop(paste(circle_type, "is not a valid `type` option.\nPlease input `whole` or `swirl`")) # nocov
+                        stop(paste(circle_type, "is not a valid `type` option.\nPlease input `whole` or `swirl`"))
   )
   message("Med Circles Complete!")
 
 
   #small Circles----
-  small_iter = 1:((n*.75)+1)
+  small_iter = 1:small_n
   small_x <- c(x = sample(min_x+(small_r):max_x-(small_r),1))
   small_y <- c(y = sample(min_y+(small_r):max_y-(small_r),1))
   i = 1
@@ -219,11 +232,11 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
   small_angles = sample(0:360, length(small_y), replace = TRUE)
 
   if(length(small_x) != length(small_y)){
-    stop("length of small_x and small_y don't match.") # nocov
+    stop("length of small_x and small_y don't match.")
   } else if(length(small_y) != length(new_iter)){
-    stop("length of small_y and new_iter don't match.") # nocov
+    stop("length of small_y and new_iter don't match.")
   } else if(length(new_iter) != length(small_angles)){
-    stop("length of new_iter and small_angles") # nocov
+    stop("length of new_iter and small_angles")
   }
 
 
