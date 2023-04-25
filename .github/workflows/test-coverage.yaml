@@ -14,7 +14,6 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
-
     steps:
       - uses: actions/checkout@v3
 
@@ -28,22 +27,9 @@ jobs:
           needs: coverage
 
       - name: Test coverage
-          token: ${{ secrets.CODECOV_TOKEN }}
-          comment: false
-          coverage:
-            status:
-              patch:
-                default:
-                  informational: true
-                  target: auto
-                  threshold: 1.0
-              project:
-                default:
-                informational: true
-                target: auto
-                threshold: 1.0
         run: |
           covr::codecov(
+            token = "${{ secrets.CODECOV_TOKEN }}"
             quiet = FALSE,
             clean = FALSE,
             install_path = file.path(Sys.getenv("RUNNER_TEMP"), "package")
