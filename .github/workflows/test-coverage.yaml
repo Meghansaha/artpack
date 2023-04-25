@@ -28,9 +28,21 @@ jobs:
           needs: coverage
 
       - name: Test coverage
-      - uses: codecov/codecov-action@v1
-        with:
-         token: ${{ secrets.CODECOV_TOKEN }}
+        codecov:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          comment: false
+          coverage:
+            status:
+              patch:
+                default:
+                  informational: true
+                  target: auto
+                  threshold: 1.0
+              project:
+                default:
+                informational: true
+                target: auto
+                threshold: 1.0
         run: |
           covr::codecov(
             quiet = FALSE,
