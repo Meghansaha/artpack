@@ -7,9 +7,9 @@
 circle_packer(
   n,
   min_x = 0,
-  max_x = 10,
+  max_x = 100,
   min_y = 0,
-  max_y = 10,
+  max_y = 100,
   big_r = 5,
   med_r = 2,
   small_r = 1,
