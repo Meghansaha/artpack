@@ -28,7 +28,6 @@ jobs:
           needs: coverage
 
       - name: Test coverage
-        codecov:
           token: ${{ secrets.CODECOV_TOKEN }}
           comment: false
           coverage:
