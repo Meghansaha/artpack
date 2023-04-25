@@ -28,232 +28,309 @@
 #' @importFrom dplyr group_size
 #'
 #' @examples
-#'library(ggplot2)
-#'packed_circles <- circle_packer(n = 50, big_r = 5, med_r = 3, small_r = 1,
-#'min_x = 0, max_x = 100, min_y = 0, max_y = 100)
-#'packed_circles
+#' library(ggplot2)
+#' packed_circles <- circle_packer(
+#'   n = 50, big_r = 5, med_r = 3, small_r = 1,
+#'   min_x = 0, max_x = 100, min_y = 0, max_y = 100
+#' )
+#' packed_circles
 #'
-#'packed_circles |>
-#'ggplot(aes(x,y, group = group))+
-#'theme_void()+
-#'theme(plot.background = element_rect(fill = "black"))+
-#'geom_polygon(fill = "white", color = "red")+
-#'coord_equal()
+#' packed_circles |>
+#'   ggplot(aes(x, y, group = group)) +
+#'   theme_void() +
+#'   theme(plot.background = element_rect(fill = "black")) +
+#'   geom_polygon(fill = "white", color = "red") +
+#'   coord_equal()
 #'
-
 circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
                           big_r = 5, med_r = 2, small_r = 1,
                           color_pal = NULL, color_type = "regular",
-                          circle_type = "whole"){
+                          circle_type = "whole") {
+  #============================================================================#
+  # Logic checks----------------------------------------------------------------
+  #============================================================================#
 
-  if(!is.numeric(big_r)){
-    stop("`size` must be numeric.")
-  } else if(big_r <= 0){
-    stop("`size` must be greater than zero.")
+  ## For Input Radi-------------------------------------------------------------
+  # Big Circles#
+  if (!is.numeric(big_r)) {
+    cli::cli_abort(c("{.var big_r} must be of type numeric.",
+      "x" = "You've supplied a {.cls {class(big_r)}}"
+    ))
+  } else if (big_r <= 0) {
+    cli::cli_abort(c(paste0("{.var big_r} must be ", cli::col_red("greater than zero.")),
+      "x" = paste0("The {.var big_r} value you've supplied is ", cli::col_red("{big_r}"))
+    ))
   }
 
-  if(!is.numeric(med_r)){
-    stop("`size` must be numeric.")
-  } else if(med_r <= 0){
-    stop("`size` must be greater than zero.")
+  # Med Circles#
+  if (!is.numeric(med_r)) {
+    cli::cli_abort(c("{.var med_r} must be of type numeric.",
+      "x" = "You've supplied a {.cls {class(med_r)}}"
+    ))
+  } else if (med_r <= 0) {
+    cli::cli_abort(c(paste0("{.var med_r} must be ", cli::col_red("greater than zero.")),
+      "x" = paste0("The {.var med_r} value you've supplied is ", cli::col_red("{med_r}"))
+    ))
   }
 
-  if(!is.numeric(small_r)){
-    stop("`size` must be numeric.")
-  } else if(small_r <= 0){
-    stop("`size` must be greater than zero.")
+  # Small Circles#
+  if (!is.numeric(small_r)) {
+    cli::cli_abort(c("{.var small_r} must be of type numeric.",
+      "x" = "You've supplied a {.cls {class(small_r)}}"
+    ))
+  } else if (small_r <= 0) {
+    cli::cli_abort(c(paste0("{.var small_r} must be ", cli::col_red("greater than zero.")),
+      "x" = paste0("The {.var small_r} value you've supplied is ", cli::col_red("{small_r}"))
+    ))
   }
 
-  theta <- seq(0,2*pi, length = 100)
-
-  distance <- function(x1,y1,x2,y2){
-    sqrt(((x2-x1)^2) + ((y2-y1)^2))
+  ## For Circle Type Selection--------------------------------------------------
+  if (!circle_type %in% c("whole","swirl")) {
+    cli::cli_abort(c(paste0("{.var circle_type} must be of value ", cli::col_red("'whole' or 'swirl'")),
+                     "x" = paste0("The {.var circle_type} value you've supplied is ", cli::col_red("{circle_type}"))
+    ))
   }
 
-  #iteration set up
-  big_n = ceiling(n*.2)
-  med_n = ceiling(n*.5)
-  small_n = ceiling(n*.3)
+  #============================================================================#
+  # Mathy Bits-------------------------------------------------------------------
+  #============================================================================#
 
-  n_total = big_n + med_n + small_n
+  # Angles/Theta of the circles#
+  theta <- seq(0, 2 * pi, length = 100)
 
-  if(n_total != n){
-    n_diff = n - n_total
-    small_n = small_n + n_diff
+  # Distance formula for packing algorithm#
+  distance <- function(x1, y1, x2, y2) {
+    sqrt(((x2 - x1)^2) + ((y2 - y1)^2))
   }
 
-  #Big Circles----
-  big_iter = 1:big_n
-  big_x <- c(x = sample(min_x+(big_r):max_x-(big_r),1))
-  big_y <- c(y = sample(min_y+(big_r):max_y-(big_r),1))
-  i = 1
-  tries = 0
+  #============================================================================#
+  # Establishing iterations of each circle size for control flow-----------------
+  #============================================================================#
+
+  # n calculations#
+  big_n <- ceiling(n * .2)
+  med_n <- ceiling(n * .5)
+  small_n <- ceiling(n * .3)
+  n_total <- big_n + med_n + small_n
+
+  # Controlling for odd n's and over-calculation#
+  if (n_total != n) {
+    n_diff <- n - n_total
+    small_n <- small_n + n_diff
+  }
+
+  #============================================================================#
+  # Packing Algorithm Work-------------------------------------------------------
+  #============================================================================#
+
+  ## Big Circles----------------------------------------------------------------
+
+  # Index of desired number of "big" circles#
+  big_iter <- 1:big_n
+
+  # Picking random xs and ys for the centers of the big circles#
+  big_x <- c(x = sample(min_x + (big_r):max_x - (big_r), 1))
+  big_y <- c(y = sample(min_y + (big_r):max_y - (big_r), 1))
+
+  # Setting the iteration and cycle attempts to initialize the control flow#
+  i <- 1
+  tries <- 0
+
+  # Starting the algorithm to check if the suggested circles would overlap#
+  # Done by checking the distance fx against all suggested circle "centers"#
   repeat{
-    x <- sample(min_x+(big_r):max_x-(big_r),1)
-    y <- sample(min_y+(big_r):max_y-(big_r),1)
-    logic = map2(big_x,big_y, ~distance(.x,.y,x,y)) >= big_r*2
-    if(sum(logic) == length(big_y)){
-      big_x <- append(big_x, c(x=x))
-      big_y <- append(big_y, c(y=y))
+    x <- sample(min_x + (big_r):max_x - (big_r), 1)
+    y <- sample(min_y + (big_r):max_y - (big_r), 1)
+    logic <- map2(big_x, big_y, ~ distance(.x, .y, x, y)) >= big_r * 2
+
+    # If the current circle won't overlap, keep the values#
+    if (sum(logic) == length(big_y)) {
+      big_x <- append(big_x, c(x = x))
+      big_y <- append(big_y, c(y = y))
       i <- i + 1
-    } else{
-      tries = tries + 1
+    } else { #if it does overlap throw it out and add that as a "failed" try#
+      tries <- tries + 1
     }
-    if(i == (length(big_iter) + 1)){
+    if (i == (length(big_iter) + 1)) { #When we have saved enough values for our desired circle amount, break the algo#
       break
     }
-    if(tries == 3000){
+    if (tries == 3000) { #When we have 3,000 "failed" tries, give up and move on#
       break
     }
   }
-  new_iter = 1:length(big_y)
-  big_angles = sample(0:360, length(big_y), replace = TRUE)
 
-  if(length(big_x) != length(big_y)){
-  stop("length of big_x and big_y don't match.")
-  } else if(length(big_y) != length(new_iter)){
+  #save the current amount of circles that could be saved/created#
+  new_iter <- 1:length(big_y)
+  big_angles <- sample(0:360, length(big_y), replace = TRUE)
+
+  if (length(big_x) != length(big_y)) {
+    stop("length of big_x and big_y don't match.")
+  } else if (length(big_y) != length(new_iter)) {
     stop("length of big_y and new_iter don't match.")
-  } else if(length(new_iter) != length(big_angles)){
+  } else if (length(new_iter) != length(big_angles)) {
     stop("length of new_iter and big_angles")
   }
 
 
   big_circles <- switch(circle_type,
-                        "whole"  =  pmap(list(big_x,
-                                              big_y,
-                                              new_iter), ~tibble(x = cos(theta)*big_r + ..1,
-                                                                 y = sin(theta)*big_r + ..2,
-                                                                 group = paste0("big_",..3))) |> list_rbind(),
-                        "swirl"  =  pmap(list(big_x,
-                                              big_y,
-                                              new_iter,
-                                              big_angles), ~artpack::rotator(tibble(x = (cos(theta)*seq(1,0, length = 1000))*big_r + ..1,
-                                                                                    y = (sin(theta)*seq(1,0, length = 1000))*big_r + ..2,
-                                                                                    group = paste0("big_",..3),
-                                                                                    linewidth = .8), ..4)) |> list_rbind(),
-                        stop(paste(circle_type, "is not a valid `type` option.\nPlease input `whole` or `swirl`"))
+    "whole" = pmap(list(
+      big_x,
+      big_y,
+      new_iter
+    ), ~ tibble(
+      x = cos(theta) * big_r + ..1,
+      y = sin(theta) * big_r + ..2,
+      group = paste0("big_", ..3)
+    )) |> list_rbind(),
+    "swirl" = pmap(list(
+      big_x,
+      big_y,
+      new_iter,
+      big_angles
+    ), ~ artpack::rotator(tibble(
+      x = (cos(theta) * seq(1, 0, length = 1000)) * big_r + ..1,
+      y = (sin(theta) * seq(1, 0, length = 1000)) * big_r + ..2,
+      group = paste0("big_", ..3),
+      linewidth = .8
+    ), ..4)) |> list_rbind(),
+    stop(paste(circle_type, "is not a valid `type` option.\nPlease input `whole` or `swirl`"))
   )
 
 
   message("Big Circles Complete!")
 
-  #med Circles----
-  med_iter = 1:med_n
-  med_x <- c(x = sample(min_x+(med_r):max_x-(med_r),1))
-  med_y <- c(y = sample(min_y+(med_r):max_y-(med_r),1))
-  i = 1
-  tries = 0
+  # med Circles----
+  med_iter <- 1:med_n
+  med_x <- c(x = sample(min_x + (med_r):max_x - (med_r), 1))
+  med_y <- c(y = sample(min_y + (med_r):max_y - (med_r), 1))
+  i <- 1
+  tries <- 0
   repeat{
-    x <- sample(min_x+(med_r):max_x-(med_r),1)
-    y <- sample(min_y+(med_r):max_y-(med_r),1)
+    x <- sample(min_x + (med_r):max_x - (med_r), 1)
+    y <- sample(min_y + (med_r):max_y - (med_r), 1)
 
-    logic = map2(big_x,big_y, ~distance(.x,.y,x,y)) >=  big_r+med_r
-    logic2 = map2(med_x,med_y, ~distance(.x,.y,x,y)) >= med_r*2
+    logic <- map2(big_x, big_y, ~ distance(.x, .y, x, y)) >= big_r + med_r
+    logic2 <- map2(med_x, med_y, ~ distance(.x, .y, x, y)) >= med_r * 2
 
-    if((sum(logic2) == length(med_y)) & (sum(logic) == length(big_y))){
-      med_x <- append(med_x, c(x=x))
-      med_y <- append(med_y, c(y=y))
+    if ((sum(logic2) == length(med_y)) & (sum(logic) == length(big_y))) {
+      med_x <- append(med_x, c(x = x))
+      med_y <- append(med_y, c(y = y))
       i <- i + 1
-    } else{
-      tries = tries + 1
+    } else {
+      tries <- tries + 1
     }
-    if(i == (length(med_iter) + 1)){
+    if (i == (length(med_iter) + 1)) {
       break
     }
-    if(tries == 10000){
+    if (tries == 10000) {
       break
     }
   }
 
   med_x <- med_x[-1]
   med_y <- med_y[-1]
-  new_iter = 1:length(med_y)
-  med_angles = sample(0:360, length(med_y), replace = TRUE)
+  new_iter <- 1:length(med_y)
+  med_angles <- sample(0:360, length(med_y), replace = TRUE)
 
-  if(length(med_x) != length(med_y)){
+  if (length(med_x) != length(med_y)) {
     stop("length of med_x and med_y don't match.")
-  } else if(length(med_y) != length(new_iter)){
+  } else if (length(med_y) != length(new_iter)) {
     stop("length of med_y and new_iter don't match.")
-  } else if(length(new_iter) != length(med_angles)){
+  } else if (length(new_iter) != length(med_angles)) {
     stop("length of new_iter and med_angles")
   }
 
 
   med_circles <- switch(circle_type,
-                        "whole"  =  pmap(list(med_x,
-                                              med_y,
-                                              new_iter), ~tibble(x = cos(theta)*med_r + ..1,
-                                                                 y = sin(theta)*med_r + ..2,
-                                                                 group = paste0("med_",..3))) |> list_rbind(),
-                        "swirl"  =  pmap(list(med_x,
-                                              med_y,
-                                              new_iter,
-                                              med_angles), ~artpack::rotator(tibble(x = (cos(theta)*seq(1,0, length = 1000))*med_r + ..1,
-                                                                                    y = (sin(theta)*seq(1,0, length = 1000))*med_r + ..2,
-                                                                                    group = paste0("med_",..3),
-
-                                                                                    linewidth = .4), ..4)) |> list_rbind(),
-                        stop(paste(circle_type, "is not a valid `type` option.\nPlease input `whole` or `swirl`"))
+    "whole" = pmap(list(
+      med_x,
+      med_y,
+      new_iter
+    ), ~ tibble(
+      x = cos(theta) * med_r + ..1,
+      y = sin(theta) * med_r + ..2,
+      group = paste0("med_", ..3)
+    )) |> list_rbind(),
+    "swirl" = pmap(list(
+      med_x,
+      med_y,
+      new_iter,
+      med_angles
+    ), ~ artpack::rotator(tibble(
+      x = (cos(theta) * seq(1, 0, length = 1000)) * med_r + ..1,
+      y = (sin(theta) * seq(1, 0, length = 1000)) * med_r + ..2,
+      group = paste0("med_", ..3),
+      linewidth = .4
+    ), ..4)) |> list_rbind(),
+    stop(paste(circle_type, "is not a valid `type` option.\nPlease input `whole` or `swirl`"))
   )
   message("Med Circles Complete!")
 
 
-  #small Circles----
-  small_iter = 1:small_n
-  small_x <- c(x = sample(min_x+(small_r):max_x-(small_r),1))
-  small_y <- c(y = sample(min_y+(small_r):max_y-(small_r),1))
-  i = 1
-  tries = 0
+  # small Circles----
+  small_iter <- 1:small_n
+  small_x <- c(x = sample(min_x + (small_r):max_x - (small_r), 1))
+  small_y <- c(y = sample(min_y + (small_r):max_y - (small_r), 1))
+  i <- 1
+  tries <- 0
   repeat{
-    x <- sample(min_x+(small_r):max_x-(small_r),1)
-    y <- sample(min_y+(small_r):max_y-(small_r),1)
+    x <- sample(min_x + (small_r):max_x - (small_r), 1)
+    y <- sample(min_y + (small_r):max_y - (small_r), 1)
 
-    logic = map2(big_x,big_y, ~distance(.x,.y,x,y)) >=  big_r+small_r
-    logic2 = map2(med_x,med_y, ~distance(.x,.y,x,y)) >=  small_r+med_r
-    logic3 = map2(small_x,small_y, ~distance(.x,.y,x,y)) >= small_r*2
+    logic <- map2(big_x, big_y, ~ distance(.x, .y, x, y)) >= big_r + small_r
+    logic2 <- map2(med_x, med_y, ~ distance(.x, .y, x, y)) >= small_r + med_r
+    logic3 <- map2(small_x, small_y, ~ distance(.x, .y, x, y)) >= small_r * 2
 
-    if((sum(logic3) == length(small_y)) & (sum(logic2) == length(med_y)) & (sum(logic) == length(big_y))){
-      small_x <- append(small_x, c(x=x))
-      small_y <- append(small_y, c(y=y))
+    if ((sum(logic3) == length(small_y)) & (sum(logic2) == length(med_y)) & (sum(logic) == length(big_y))) {
+      small_x <- append(small_x, c(x = x))
+      small_y <- append(small_y, c(y = y))
       i <- i + 1
-    } else{
-      tries = tries + 1
+    } else {
+      tries <- tries + 1
     }
-    if(i == (length(small_iter) + 1)){
+    if (i == (length(small_iter) + 1)) {
       break
     }
-    if(tries == 9000){
+    if (tries == 9000) {
       break
     }
   }
   small_x <- small_x[-1]
   small_y <- small_y[-1]
-  new_iter = 1:length(small_y)
-  small_angles = sample(0:360, length(small_y), replace = TRUE)
+  new_iter <- 1:length(small_y)
+  small_angles <- sample(0:360, length(small_y), replace = TRUE)
 
-  if(length(small_x) != length(small_y)){
+  if (length(small_x) != length(small_y)) {
     stop("length of small_x and small_y don't match.")
-  } else if(length(small_y) != length(new_iter)){
+  } else if (length(small_y) != length(new_iter)) {
     stop("length of small_y and new_iter don't match.")
-  } else if(length(new_iter) != length(small_angles)){
+  } else if (length(new_iter) != length(small_angles)) {
     stop("length of new_iter and small_angles")
   }
 
 
   small_circles <- switch(circle_type,
-                          "whole"  =  pmap(list(small_x,
-                                                small_y,
-                                                new_iter), ~tibble(x = cos(theta)*small_r + ..1,
-                                                                   y = sin(theta)*small_r + ..2,
-                                                                   group = paste0("small_",..3))) |> list_rbind(),
-                          "swirl"  =  pmap(list(small_x,
-                                                small_y,
-                                                new_iter,
-                                                small_angles), ~artpack::rotator(tibble(x = (cos(theta)*seq(1,0, length = 1000))*small_r + ..1,
-                                                                                        y = (sin(theta)*seq(1,0, length = 1000))*small_r + ..2,
-                                                                                        group = paste0("small_",..3),
-                                                                                        linewidth = .1), ..4)) |> list_rbind(),
-                          stop(paste(circle_type, "is not a valid `type` option.\nPlease input `whole` or `swirl`"))
+    "whole" = pmap(list(
+      small_x,
+      small_y,
+      new_iter
+    ), ~ tibble(
+      x = cos(theta) * small_r + ..1,
+      y = sin(theta) * small_r + ..2,
+      group = paste0("small_", ..3)
+    )) |> list_rbind(),
+    "swirl" = pmap(list(
+      small_x,
+      small_y,
+      new_iter,
+      small_angles
+    ), ~ artpack::rotator(tibble(
+      x = (cos(theta) * seq(1, 0, length = 1000)) * small_r + ..1,
+      y = (sin(theta) * seq(1, 0, length = 1000)) * small_r + ..2,
+      group = paste0("small_", ..3),
+      linewidth = .1
+    ), ..4)) |> list_rbind(),
+    stop(paste(circle_type, "is not a valid `type` option.\nPlease input `whole` or `swirl`"))
   )
   message("Small Circles Complete!")
 
@@ -262,25 +339,24 @@ circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
   all_circles <- all_circles |>
     group_by(group)
 
-  if(!is.null(color_pal)){
+  if (!is.null(color_pal)) {
     group_ns <- all_circles |>
       group_size()
 
     total_groups <- length(group_ns)
     color_opts <- switch(color_type,
-                         "regular" = rep(colorRampPalette(color_pal)(total_groups), each = group_ns[1]),
-                         "reverse" = rev(rep(colorRampPalette(color_pal)(total_groups), each = group_ns[1])),
-                         "random" = rep(sample(colorRampPalette(color_pal)(total_groups)),each = group_ns[1]),
-                         stop(paste0("Invalid `color_type`: '",color_type,"' is not a valid option.\nPlease input one of the following: 'regular', 'reverse', or 'random'." ))
+      "regular" = rep(colorRampPalette(color_pal)(total_groups), each = group_ns[1]),
+      "reverse" = rev(rep(colorRampPalette(color_pal)(total_groups), each = group_ns[1])),
+      "random" = rep(sample(colorRampPalette(color_pal)(total_groups)), each = group_ns[1]),
+      stop(paste0("Invalid `color_type`: '", color_type, "' is not a valid option.\nPlease input one of the following: 'regular', 'reverse', or 'random'."))
     )
 
 
-    if(circle_type == "whole"){
+    if (circle_type == "whole") {
       all_circles$fill <- color_opts
-    } else{
+    } else {
       all_circles$color <- color_opts
     }
-
   }
   return(all_circles)
 }

@@ -3,10 +3,13 @@
 
 <!-- badges: start -->
 
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-purple.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![](https://codecov.io/gh/Meghansaha/artpack/branch/master/graph/badge.svg?token=X1Y9P4QEVC)](https://codecov.io/gh/Meghansaha/artpack)
 [![R-CMD-check](docs/offline_images/badge.svg)](https://github.com/Meghansaha/artpack/actions/workflows/R-CMD-check.yaml)
 
 <!-- badges: end -->
+
 The goal of aRtpack is to help generative artists of all levels create
 generative art in R. The aRtpack package is intended for use with the
 [`tidyverse`](https://www.tidyverse.org/) suite. More specifically, with
