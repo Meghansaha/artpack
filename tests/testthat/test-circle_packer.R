@@ -43,6 +43,17 @@ purrr::map(small_radis,  ~cli::test_that_cli("big_r checks", {
 # Fx outputs a dataframe
 testthat::expect_true(is.data.frame(circle_packer(n = 100)))
 
+df <- circle_packer(100)
+
+testthat::expect_equal(
+
+  length(df$x[which(grepl("^big",df$group))]),
+  length(df$y[which(grepl("^big",df$group))])
+
+
+)
+
+
 #testing big x,y appendages
 # testthat::test_that("test", {testthat::expect_message(circle_packer(100), "increased")})
 # expect_message(circle_packer(100), "big y appended")
