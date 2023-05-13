@@ -26,6 +26,8 @@
 #' @importFrom dplyr tibble
 #' @importFrom dplyr group_by
 #' @importFrom dplyr group_size
+#' @importFrom cli cli_abort
+#' @importFrom cli combine_ansi_styles
 #'
 #' @examples
 #'library(ggplot2)
@@ -46,22 +48,71 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
                           color_pal = NULL, color_type = "regular",
                           circle_type = "whole"){
 
-  if(!is.numeric(big_r)){
-    stop("`size` must be numeric.") # nocov
+  error <- combine_ansi_styles("red", "bold")
+  callout <- combine_ansi_styles("darkorange", "bold")
+
+  if(length(big_r) != 1){
+    big_r_len = length(big_r)
+    cli::cli_abort(c(
+      paste("{.var big_r} must be of length", callout(1)),
+      "x" = paste0("You've supplied a length of ", error("{big_r_len}"),"."),
+      "i" = "Check the {.var big_r} variable you've supplied.")
+    )
+  } else if(!is.numeric(big_r)){
+    cli::cli_abort(c(
+      paste("{.var big_r} must be of type", callout("numeric")),
+      "x" = paste0("You've supplied a ", error("{.cls {class(big_r)}}"),"."),
+      "i" = "Check the {.var big_r} variable you've supplied.")
+    )
   } else if(big_r <= 0){
-    stop("`size` must be greater than zero.") # nocov
+    cli::cli_abort(c(
+      paste("{.var big_r} must be", callout("greater than zero")),
+      "x" = paste("{.var big_r} =",error("{big_r}")),
+      "i" = "Check the {.var big_r} variable you've supplied.")
+    )
   }
 
-  if(!is.numeric(med_r)){
-    stop("`size` must be numeric.") # nocov
+
+  if(length(med_r) != 1){
+    med_r_len = length(med_r)
+    cli::cli_abort(c(
+      paste("{.var med_r} must be of length", callout(1)),
+      "x" = paste0("You've supplied a length of ", error("{med_r_len}"),"."),
+      "i" = "Check the {.var med_r} variable you've supplied.")
+    )
+  } else if(!is.numeric(med_r)){
+    cli::cli_abort(c(
+      paste("{.var med_r} must be of type", callout("numeric")),
+      "x" = paste0("You've supplied a ", error("{.cls {class(med_r)}}"),"."),
+      "i" = "Check the {.var med_r} variable you've supplied.")
+    )
   } else if(med_r <= 0){
-    stop("`size` must be greater than zero.") # nocov
+    cli::cli_abort(c(
+      paste("{.var med_r} must be", callout("greater than zero")),
+      "x" = paste("{.var med_r} =",error("{med_r}")),
+      "i" = "Check the {.var med_r} variable you've supplied.")
+    )
   }
 
-  if(!is.numeric(small_r)){
-    stop("`size` must be numeric.") # nocov
+  if(length(small_r) != 1){
+    small_r_len = length(small_r)
+    cli::cli_abort(c(
+      paste("{.var small_r} must be of length", callout(1)),
+      "x" = paste0("You've supplied a length of ", error("{small_r_len}"),"."),
+      "i" = "Check the {.var small_r} variable you've supplied.")
+    )
+  } else if(!is.numeric(small_r)){
+    cli::cli_abort(c(
+      paste("{.var small_r} must be of type", callout("numeric")),
+      "x" = paste0("You've supplied a ", error("{.cls {class(small_r)}}"),"."),
+      "i" = "Check the {.var small_r} variable you've supplied.")
+    )
   } else if(small_r <= 0){
-    stop("`size` must be greater than zero.") # nocov
+    cli::cli_abort(c(
+      paste("{.var small_r} must be", callout("greater than zero")),
+      "x" = paste("{.var small_r} =",error("{small_r}")),
+      "i" = "Check the {.var small_r} variable you've supplied.")
+    )
   }
 
   theta <- seq(0,2*pi, length = 100)
