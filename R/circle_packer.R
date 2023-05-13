@@ -134,12 +134,10 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
       big_x <- append(big_x, c(x=x))
       big_y <- append(big_y, c(y=y))
       i <- i + 1
-      message("i increased")
     } else{
       tries = tries + 1
     }
     if(i == (length(big_iter) + 1)){
-      message("max big length reached")
       break
     }
     if(tries == 3000){
