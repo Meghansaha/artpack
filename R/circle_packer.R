@@ -47,7 +47,7 @@
 #'   geom_polygon(fill = "white", color = "red") +
 #'   coord_equal()
 #'
-circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
+circle_packer <- function(n, min_x = 0, max_x = 50, min_y = 0, max_y = 50,
                           big_r = 5, med_r = 2, small_r = 1,
                           color_pal = NULL, color_type = "regular",
                           circle_type = "whole") {
@@ -77,116 +77,28 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
                      }
   )
 
- radi_message <-  map(radi_check, ~switch(.x,
-                                         "1" =    cli::format_error(c(
-                                           paste("{.var {names(.x)}} must be of length", callout(1)),
-                                           "i" = "Check the {.var {names(radi_check[.x])}} variable you've supplied.")),
-                                         "2" =  cli::format_error(c(
-                                           paste("{.var {names(radi_check[.x])}} must be of type", callout("numeric")),
-                                           "x" = paste0("You've supplied a ", error("{.cls {class(.x)}}"), "."),
-                                           "i" = "Check the {.var {names(radi_check[.x])}} variable you've supplied."
-                                         )),
-                                         "3" =       cli::format_error(c(
-                                           paste("{.var {names(radi_check[.x])}} must be", callout("greater than zero")),
-                                           "x" = paste("{.var {names(radi_check[.x])}} =", error("{.x}")),
-                                           "i" = "Check the {.var {names(radi_check[.x])}} variable you've supplied."
-                                         )))
-  )
+  if(!all(sapply(radi_check, is.null))){
 
+    first_non_null <- radi_check[!sapply(radi_check, is.null)][1] |> unlist()
 
-
-
-
-
-
-    (radis, ~ if (length(.x) != 1)) {
-      radi_len <- length(.x)
-      cli::cli_abort(c(
-        paste("{.var {names(.x)}} must be of length", callout(1)),
-        "x" = paste0("You've supplied a length of ", error("{radi_len}"), "."),
-        "i" = "Check the {.var {names(.x)}} variable you've supplied."
-      ))
-    } else if (!is.numeric(.x)) {
-      cli::cli_abort(c(
-        paste("{.var {names(.x)}} must be of type", callout("numeric")),
-        "x" = paste0("You've supplied a ", error("{.cls {class(.x)}}"), "."),
-        "i" = "Check the {.var {names(.x)}} variable you've supplied."
-      ))
-    } else if (.x <= 0) {
-      cli::cli_abort(c(
-        paste("{.var", names(.x),"} must be", callout("greater than zero")),
-        "x" = paste("{.var {names(.x)}} =", error("{.x}")),
-        "i" = "Check the {.var {names(.x)}} variable you've supplied."
-      ))
-    }
-  }
-
-
-
-
-
-  if (length(big_r) != 1) {
-    big_r_len <- length(big_r)
-    cli::cli_abort(c(
-      paste("{.var big_r} must be of length", callout(1)),
-      "x" = paste0("You've supplied a length of ", error("{big_r_len}"), "."),
-      "i" = "Check the {.var big_r} variable you've supplied."
-    ))
-  } else if (!is.numeric(big_r)) {
-    cli::cli_abort(c(
-      paste("{.var big_r} must be of type", callout("numeric")),
-      "x" = paste0("You've supplied a ", error("{.cls {class(big_r)}}"), "."),
-      "i" = "Check the {.var big_r} variable you've supplied."
-    ))
-  } else if (big_r <= 0) {
-    cli::cli_abort(c(
-      paste("{.var big_r} must be", callout("greater than zero")),
-      "x" = paste("{.var big_r} =", error("{big_r}")),
-      "i" = "Check the {.var big_r} variable you've supplied."
-    ))
-  }
-
-
-  if (length(med_r) != 1) {
-    med_r_len <- length(med_r)
-    cli::cli_abort(c(
-      paste("{.var med_r} must be of length", callout(1)),
-      "x" = paste0("You've supplied a length of ", error("{med_r_len}"), "."),
-      "i" = "Check the {.var med_r} variable you've supplied."
-    ))
-  } else if (!is.numeric(med_r)) {
-    cli::cli_abort(c(
-      paste("{.var med_r} must be of type", callout("numeric")),
-      "x" = paste0("You've supplied a ", error("{.cls {class(med_r)}}"), "."),
-      "i" = "Check the {.var med_r} variable you've supplied."
-    ))
-  } else if (med_r <= 0) {
-    cli::cli_abort(c(
-      paste("{.var med_r} must be", callout("greater than zero")),
-      "x" = paste("{.var med_r} =", error("{med_r}")),
-      "i" = "Check the {.var med_r} variable you've supplied."
-    ))
-  }
-
-  if (length(small_r) != 1) {
-    small_r_len <- length(small_r)
-    cli::cli_abort(c(
-      paste("{.var small_r} must be of length", callout(1)),
-      "x" = paste0("You've supplied a length of ", error("{small_r_len}"), "."),
-      "i" = "Check the {.var small_r} variable you've supplied."
-    ))
-  } else if (!is.numeric(small_r)) {
-    cli::cli_abort(c(
-      paste("{.var small_r} must be of type", callout("numeric")),
-      "x" = paste0("You've supplied a ", error("{.cls {class(small_r)}}"), "."),
-      "i" = "Check the {.var small_r} variable you've supplied."
-    ))
-  } else if (small_r <= 0) {
-    cli::cli_abort(c(
-      paste("{.var small_r} must be", callout("greater than zero")),
-      "x" = paste("{.var small_r} =", error("{small_r}")),
-      "i" = "Check the {.var small_r} variable you've supplied."
-    ))
+    switch(unlist(first_non_null),
+           "1" = cli::cli_abort(c(
+             paste("{.var {names(first_non_null)}} must be of length", callout(1)),
+             "x" = paste("The {.var {names(first_non_null)}} you've supplied has a length of", error(length(radis[[names(first_non_null)]]))),
+             "i" = "Check the {.var {names(first_non_null)}} variable you've supplied.")
+           ),
+           "2" = cli::cli_abort(c(
+             paste("{.var {names(first_non_null)}} must be of type", callout("numeric")),
+             "x" = paste0("You've supplied a ", error(class(radis[[names(first_non_null)]]))),
+             "i" = "Check the {.var {names(first_non_null)}} variable you've supplied.")
+           ),
+           "3" = cli::cli_abort(c(
+             paste("{.var {names(first_non_null)}} must be", callout("greater than zero")),
+             "x" = paste("{.var {names(first_non_null)}} =", error("{first_non_null}")),
+             "i" = "Check the {.var {names(first_non_null)}} variable you've supplied."
+           )
+           )
+    )
   }
 
   theta <- seq(0, 2 * pi, length = 100)
