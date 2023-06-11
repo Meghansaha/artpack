@@ -126,7 +126,7 @@ circle_packer <- function(n, min_x = 0, max_x = 50, min_y = 0, max_y = 50,
     if (i == (length(big_iter) + 1)) {
       break
     }
-    if (tries == 3000) {
+    if (tries == 3000 + length(big_iter)) {
       break
     }
   }
@@ -192,7 +192,7 @@ circle_packer <- function(n, min_x = 0, max_x = 50, min_y = 0, max_y = 50,
     if (i == (length(med_iter) + 1)) {
       break
     }
-    if (tries == 10000) {
+    if (tries == 10000 + length(med_iter)) {
       break
     }
   }
@@ -261,7 +261,7 @@ circle_packer <- function(n, min_x = 0, max_x = 50, min_y = 0, max_y = 50,
     if (i == (length(small_iter) + 1)) {
       break
     }
-    if (tries == 9000) {
+    if (tries == 9000 + length(small_iter)) {
       break
     }
   }
