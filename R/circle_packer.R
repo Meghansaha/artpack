@@ -77,6 +77,10 @@ circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
                      }
   )
 
+  if(sum(names(radis) %in% c("big_r", "med_r", "small_r")) != 3){
+    stop("Something's wrong with radi check")
+  }
+
   if(!all(sapply(radi_check, is.null))){
 
     first_non_null <- radi_check[!sapply(radi_check, is.null)][1] |> unlist()
