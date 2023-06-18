@@ -47,8 +47,8 @@
 #'   geom_polygon(fill = "white", color = "red") +
 #'   coord_equal()
 #'
-circle_packer <- function(n, min_x = 0, max_x = 50, min_y = 0, max_y = 50,
-                          big_r = 5, med_r = 2, small_r = 1,
+circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
+                          big_r = 5, med_r = 3, small_r = 1,
                           color_pal = NULL, color_type = "regular",
                           circle_type = "whole") {
   error <- combine_ansi_styles("red", "bold")
@@ -85,17 +85,17 @@ circle_packer <- function(n, min_x = 0, max_x = 50, min_y = 0, max_y = 50,
            "1" = cli::cli_abort(c(
              paste("{.var {names(first_non_null)}} must be of length", callout(1)),
              "x" = paste("The {.var {names(first_non_null)}} you've supplied has a length of", error(length(radis[[names(first_non_null)]]))),
-             "i" = "Check the {.var {names(first_non_null)}} variable you've supplied.")
+             "i" = "Check the {.var {names(first_non_null)}} value you've supplied.")
            ),
            "2" = cli::cli_abort(c(
              paste("{.var {names(first_non_null)}} must be of type", callout("numeric")),
              "x" = paste0("You've supplied a ", error(class(radis[[names(first_non_null)]]))),
-             "i" = "Check the {.var {names(first_non_null)}} variable you've supplied.")
+             "i" = "Check the {.var {names(first_non_null)}} value you've supplied.")
            ),
            "3" = cli::cli_abort(c(
              paste("{.var {names(first_non_null)}} must be", callout("greater than zero")),
-             "x" = paste("{.var {names(first_non_null)}} =", error("{first_non_null}")),
-             "i" = "Check the {.var {names(first_non_null)}} variable you've supplied."
+             "x" = paste("{.var {names(first_non_null)}} =", error(radis[[names(first_non_null)]])),
+             "i" = "Check the {.var {names(first_non_null)}} value you've supplied."
            )
            )
     )
