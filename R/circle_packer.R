@@ -71,9 +71,8 @@ circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
                      } else if (.x <= 0){
                        radi_check <- "3"
                      },
-
                      if(!is.null(radi_check)){
-                       radi_check |> set_names(names(radis[.y]))
+                       names(radi_check) <- radis[.y]
                      }
   )
 
@@ -137,13 +136,13 @@ circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
   new_iter <- 1:length(big_y)
   big_angles <- sample(0:360, length(big_y), replace = TRUE)
 
-  if (length(big_x) != length(big_y)) {
-    stop("length of big_x and big_y don't match.")
-  } else if (length(big_y) != length(new_iter)) {
-    stop("length of big_y and new_iter don't match.") # nocov
-  } else if (length(new_iter) != length(big_angles)) {
-    stop("length of new_iter and big_angles") # nocov
-  }
+  # if (length(big_x) != length(big_y)) {
+  #   stop("length of big_x and big_y don't match.")
+  # } else if (length(big_y) != length(new_iter)) {
+  #   stop("length of big_y and new_iter don't match.") # nocov
+  # } else if (length(new_iter) != length(big_angles)) {
+  #   stop("length of new_iter and big_angles") # nocov
+  # }
 
 
   big_circles <- switch(circle_type,
@@ -206,13 +205,13 @@ circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
   new_iter <- 1:length(med_y)
   med_angles <- sample(0:360, length(med_y), replace = TRUE)
 
-  if (length(med_x) != length(med_y)) {
-    stop("length of med_x and med_y don't match.") # nocov
-  } else if (length(med_y) != length(new_iter)) {
-    stop("length of med_y and new_iter don't match.")
-  } else if (length(new_iter) != length(med_angles)) {
-    stop("length of new_iter and med_angles") # nocov
-  }
+  # if (length(med_x) != length(med_y)) {
+  #   stop("length of med_x and med_y don't match.") # nocov
+  # } else if (length(med_y) != length(new_iter)) {
+  #   stop("length of med_y and new_iter don't match.")
+  # } else if (length(new_iter) != length(med_angles)) {
+  #   stop("length of new_iter and med_angles") # nocov
+  # }
 
 
   med_circles <- switch(circle_type,
@@ -273,14 +272,14 @@ circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
   small_y <- small_y[-1]
   new_iter <- 1:length(small_y)
   small_angles <- sample(0:360, length(small_y), replace = TRUE)
-
-  if (length(small_x) != length(small_y)) {
-    stop("length of small_x and small_y don't match.") # nocov
-  } else if (length(small_y) != length(new_iter)) {
-    stop("length of small_y and new_iter don't match.") # nocov
-  } else if (length(new_iter) != length(small_angles)) {
-    stop("length of new_iter and small_angles") # nocov
-  }
+#
+#   if (length(small_x) != length(small_y)) {
+#     stop("length of small_x and small_y don't match.") # nocov
+#   } else if (length(small_y) != length(new_iter)) {
+#     stop("length of small_y and new_iter don't match.") # nocov
+#   } else if (length(new_iter) != length(small_angles)) {
+#     stop("length of new_iter and small_angles") # nocov
+#   }
 
 
   small_circles <- switch(circle_type,
