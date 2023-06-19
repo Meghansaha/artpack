@@ -54,6 +54,36 @@ testthat::expect_equal(
 )
 
 
+# testthat::expect_message(circle_packer(n = 100, big_r = 200), "Maximum radius sampling reached for big circles!")
+
+cli::test_that_cli("big_r too big", {
+  testthat::local_edition(3)
+  testthat::expect_snapshot({
+    circle_packer(big_r = 50)},
+    error = TRUE)},
+  configs = "ansi")
+
+cli::test_that_cli("med_r too big", {
+  testthat::local_edition(3)
+  testthat::expect_snapshot({
+    circle_packer(med_r = 50)},
+    error = TRUE)},
+  configs = "ansi")
+
+cli::test_that_cli("small_r too big", {
+  testthat::local_edition(3)
+  testthat::expect_snapshot({
+    circle_packer(small_r = 50)},
+    error = TRUE)},
+  configs = "ansi")
+
+
+
+# testthat::expect_message(circle_packer(n = 100, med_r = 30), "Maximum radius sampling reached for medium circles!")
+# testthat::expect_message(circle_packer(n = 100, small_r = 10), "Maximum radius sampling reached for small circles!")
+
+
+
 #testing big x,y appendages
 # testthat::test_that("test", {testthat::expect_message(circle_packer(100), "increased")})
 # expect_message(circle_packer(100), "big y appended")

@@ -50,7 +50,8 @@
 circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
                           big_r = 5, med_r = 3, small_r = 1,
                           color_pal = NULL, color_type = "regular",
-                          circle_type = "whole") {
+                          circle_type = "whole"
+                          ) {
   error <- combine_ansi_styles("red", "bold")
   callout <- combine_ansi_styles("darkorange", "bold")
 
@@ -104,11 +105,14 @@ circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
     )
   }
 
+  #Setting theta angles for each circle
   theta <- seq(0, 2 * pi, length = 100)
 
+  #Distance function to determine radi overlap
   distance <- function(x1, y1, x2, y2) {
     sqrt(((x2 - x1)^2) + ((y2 - y1)^2))
   }
+
   # Big Circles----
   big_iter <- 1:(n * .02)
   big_x <- c(x = sample(min_x + (big_r):max_x - (big_r), 1))
@@ -130,19 +134,25 @@ circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
       break
     }
     if (tries == 3000 + length(big_iter)) {
+      message("Maximum sampling reached for big circles!")
       break
     }
   }
-  new_iter <- 1:length(big_y)
-  big_angles <- sample(0:360, length(big_y), replace = TRUE)
 
-  # if (length(big_x) != length(big_y)) {
-  #   stop("length of big_x and big_y don't match.")
-  # } else if (length(big_y) != length(new_iter)) {
-  #   stop("length of big_y and new_iter don't match.") # nocov
-  # } else if (length(new_iter) != length(big_angles)) {
-  #   stop("length of new_iter and big_angles") # nocov
-  # }
+  length_check = length(big_y) > 0
+
+  if(length_check){
+  new_iter <- 1:length(big_y)
+  } else{
+    cli::cli_abort(c(
+      paste("Check the", callout("`big_r` value"), "you've supplied."),
+      "x" =  paste("Couldn't make any", error("big circles")),
+      "i" = paste0("Maybe you need a smaller value than ", callout({big_r}),"?")
+    )
+    )
+  }
+
+  big_angles <- sample(0:360, length(big_y), replace = TRUE)
 
 
   big_circles <- switch(circle_type,
@@ -196,22 +206,29 @@ circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
       break
     }
     if (tries == 10000 + length(med_iter)) {
+      message("Maximum radius sampling reached for medium circles!")
       break
     }
   }
 
   med_x <- med_x[-1]
   med_y <- med_y[-1]
+
+  length_check = length(med_y) > 0
+
+  if(length_check){
+    new_iter <- 1:length(med_y)
+  } else{
+    cli::cli_abort(c(
+      paste("Check the", callout("`med_r` value"), "you've supplied."),
+      "x" =  paste("Couldn't make any", error("medium circles")),
+      "i" = paste0("Maybe you need a smaller value than ", callout({med_r}),"?")
+    )
+    )
+  }
+
   new_iter <- 1:length(med_y)
   med_angles <- sample(0:360, length(med_y), replace = TRUE)
-
-  # if (length(med_x) != length(med_y)) {
-  #   stop("length of med_x and med_y don't match.") # nocov
-  # } else if (length(med_y) != length(new_iter)) {
-  #   stop("length of med_y and new_iter don't match.")
-  # } else if (length(new_iter) != length(med_angles)) {
-  #   stop("length of new_iter and med_angles") # nocov
-  # }
 
 
   med_circles <- switch(circle_type,
@@ -265,21 +282,29 @@ circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
       break
     }
     if (tries == 9000 + length(small_iter)) {
+      message("Maximum radius sampling reached for small circles!")
       break
     }
   }
   small_x <- small_x[-1]
   small_y <- small_y[-1]
-  new_iter <- 1:length(small_y)
+
+
+  length_check = length(small_y) > 0
+
+  if(length_check){
+    new_iter <- 1:length(small_y)
+  } else{
+    cli::cli_abort(c(
+      paste("Check the", callout("`small_r` value"), "you've supplied."),
+      "x" =  paste("Couldn't make any", error("small circles")),
+      "i" = paste0("Maybe you need a smaller value than ", callout({small_r}),"?")
+    )
+    )
+  }
+
+
   small_angles <- sample(0:360, length(small_y), replace = TRUE)
-#
-#   if (length(small_x) != length(small_y)) {
-#     stop("length of small_x and small_y don't match.") # nocov
-#   } else if (length(small_y) != length(new_iter)) {
-#     stop("length of small_y and new_iter don't match.") # nocov
-#   } else if (length(new_iter) != length(small_angles)) {
-#     stop("length of new_iter and small_angles") # nocov
-#   }
 
 
   small_circles <- switch(circle_type,
