@@ -139,7 +139,7 @@ circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
     }
   }
 
-  length_check = length(big_y) > 0
+  length_check = length(big_y) > 1
 
   if(length_check){
   new_iter <- 1:length(big_y)
@@ -214,7 +214,7 @@ circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
   med_x <- med_x[-1]
   med_y <- med_y[-1]
 
-  length_check = length(med_y) > 0
+  length_check = length(med_y) > 1
 
   if(length_check){
     new_iter <- 1:length(med_y)
@@ -290,7 +290,7 @@ circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
   small_y <- small_y[-1]
 
 
-  length_check = length(small_y) > 0
+  length_check = length(small_y) > 1
 
   if(length_check){
     new_iter <- 1:length(small_y)
