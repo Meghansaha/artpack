@@ -35,6 +35,7 @@
 #' Default is "regular". Only two options accepted: "regular" or "reverse"
 #'
 #' @return A character vector.
+#'
 #' @export
 #'
 #' @examples
@@ -66,35 +67,59 @@
 #'
 art_pals <- function(pal = NULL, n = 5, direction = "regular"){
 
-#===========================================================================#
+#=============================================================================#
 #Setting a default palette if none selected#
 #=============================================================================#
-if(is.null(pal)){
+if(rlang::is_null(pal)){
   pal <- "ocean"
 }
 
-#===========================================================================#
+#=============================================================================#
 #Logic checks for `n`
 #=============================================================================#
 #Is numeric#
-  if(!is.numeric(n)){
-    stop("`n` must be a numeric value greater than or equal to 1.") # nocov
+  if(!rlang::is_bare_numeric(n)){
+    cli::cli_abort(c(
+      paste0("{.var n} must be of type ", callout("<numeric>")),
+      "x" = paste0("The {.var n} object you've supplied is of type ", error(paste0("<",class(n),">"))),
+      "i" = paste0(status("Check the {.var n} value")," you've supplied.")
+    )
+    )
   }
 
 #Is one or more#
 if(n < 1){
-  stop("`n` must be a numeric value greater than or equal to 1.") # nocov
+  cli::cli_abort(c(
+    paste0("{.var n} must be a numeric value greater than or equal to ", callout("1")),
+    "x" = paste0("The {.var n} object you've supplied has a value of ", error(n)),
+    "i" = paste0(status("Check the {.var n} value")," you've supplied.")
+  )
+  )
 }
 
 #Is only one number#
   if(length(n) != 1){
-    stop("`n` must be only one numeric value that is greater than or equal to 1") # nocov
+    cli::cli_abort(c(
+      paste0("{.var n} must be a length of ", callout("1")),
+      "x" = paste0("The {.var n} object you've supplied has a length of ", error(length(n))),
+      "i" = paste0(status("Check the {.var n} value")," you've supplied.")
+    )
+    )
   }
+
+
 
 #Is number a whole/integer number#
   if(n %% 1 != 0){
-    stop("`n` must be a numeric integer (no decimals) value that is greater than or equal to 1") # nocov
+    cli::cli_abort(c(
+      paste0("{.var n} must be a ", callout("numeric integer (no decimals)")),
+      "x" = paste0("The {.var n} object you've supplied is ", error(n)),
+      "i" = paste0(status("Check the {.var n} value")," you've supplied.")
+    )
+    )
   }
+
+
 
 pals <- list(arctic = list(c("#006ACD","#4596D7","#8AC2E1","#BDDFEB","#DEEFF5","#FFFFFF")),
              beach = list(c("#E8B381", "#E7D2C1", "#7EC7F1", "#3DB0DD", "#009DEA", "#006ACD")),
@@ -111,28 +136,40 @@ pals <- list(arctic = list(c("#006ACD","#4596D7","#8AC2E1","#BDDFEB","#DEEFF5","
              neon = list(c("#fc0000","#fc4800","#fcdb00","#3ffc00", "#00ecfc","#001dfc","#6900fc","#fc00f0","#fc007e")),
              ocean = list(c("#12012E", "#144267", "#15698C", "#0695AA", "#00F3FF")),
              plants = list(c("#5ebf61", "#2f8032", "#206322", "#0c570f", "#0a380b", "#041f05")),
-             rainbow = list(c("#AF3918", "#A21152", "#822B75", "#612884", "#154BAF", "#0B82B9", "#277E9D", "#488E35", "#E3A934")),
+             rainbow = list(c("#AF3918", "#A21152", "#822B75", "#612884", "#154BAF", "#0B82B9", "#277E9D", "#488E35", "#E3A934", "#f26e0a")),
              sunnyside = list(c("#F6BF07", "#F67C21", "#ED155A", "#F61867"))
              )
 
 #=============================================================================#
 #Palette Logic Checks#
 #=============================================================================#
+#Checking that palette input is a string#
+string_check <- rlang::is_character(pal)
+
+if(!string_check){
+  stop(paste0("`",pal,"` is not a string."))
+
+}
 
 #Checking that palette input is a valid palette#
 pal_check <- pal %in% names(pals)
 
 if(!pal_check){
-  stop(paste0("`",pal,"` is not a known aRtpack color palette. Please enter one of the following:\n",paste(names(pals), collapse = c(rep(", ", length(pals) - 1), ", or"))))
-
+  cli::cli_abort(c(
+    "x" = paste0(pal," is not a known ", callout("aRtpack"), " color palette."),
+    "i" = paste0(status("Please enter one of the following:\n"),
+                 paste(names(pals), collapse = c(rep(", ", length(pals) - 1), ", or")))
+  )
+  )
 }
+
 
 #=============================================================================#
 #Direction set up#
 #=============================================================================#
 if(direction %in% c("rev","reverse")){
 
-  return(rev(colorRampPalette(unlist(pals[[pal]]))(n))) # nocov
+  return(rev(colorRampPalette(unlist(pals[[pal]]))(n)))
 
 } else {
 return(colorRampPalette(unlist(pals[[pal]]))(n))

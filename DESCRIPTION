@@ -19,5 +19,6 @@ Imports:
     tibble (>= 3.1.6),
     dplyr (>= 1.0.8),
     grDevices,
-    cli
+    cli,
+    rlang
 URL: https://meghansaha.github.io/artpack/
