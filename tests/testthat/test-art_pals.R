@@ -1,1 +1,7 @@
-testthat::expect_true(is.vector(art_pals()))
+testthat::expect_true(
+  is.vector(art_pals()
+            )
+  )
+
+
+

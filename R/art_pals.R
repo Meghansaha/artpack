@@ -77,7 +77,7 @@ if(rlang::is_null(pal)){
 #=============================================================================#
 #Logic checks for `n`
 #=============================================================================#
-#Is numeric#
+  #Is numeric#
   if(!rlang::is_bare_numeric(n)){
     cli::cli_abort(c(
       paste0("{.var n} must be of type ", callout("<numeric>")),
@@ -87,17 +87,7 @@ if(rlang::is_null(pal)){
     )
   }
 
-#Is one or more#
-if(n < 1){
-  cli::cli_abort(c(
-    paste0("{.var n} must be a numeric value greater than or equal to ", callout("1")),
-    "x" = paste0("The {.var n} object you've supplied has a value of ", error(n)),
-    "i" = paste0(status("Check the {.var n} value")," you've supplied.")
-  )
-  )
-}
-
-#Is only one number#
+  #Is only one number#
   if(length(n) != 1){
     cli::cli_abort(c(
       paste0("{.var n} must be a length of ", callout("1")),
@@ -107,9 +97,19 @@ if(n < 1){
     )
   }
 
+  #Is one or more#
+  if(n < 1){
+    cli::cli_abort(c(
+      paste0("{.var n} must be a numeric value greater than or equal to ", callout("1")),
+      "x" = paste0("The {.var n} object you've supplied has a value of ", error(n)),
+      "i" = paste0(status("Check the {.var n} value")," you've supplied.")
+    )
+    )
+  }
 
 
-#Is number a whole/integer number#
+
+  #Is number a whole/integer number#
   if(n %% 1 != 0){
     cli::cli_abort(c(
       paste0("{.var n} must be a ", callout("numeric integer (no decimals)")),
@@ -143,12 +143,28 @@ pals <- list(arctic = list(c("#006ACD","#4596D7","#8AC2E1","#BDDFEB","#DEEFF5","
 #=============================================================================#
 #Palette Logic Checks#
 #=============================================================================#
+
+#Checking that pal is only a length of 1#
+if(length(pal) != 1){
+  cli::cli_abort(c(
+    paste0("{.var pal} must be a length of ", callout("1")),
+    "x" = paste0("The {.var pal} object you've supplied has a length of ", error(length(pal))),
+    "i" = paste0(status("Check the {.var pal} value")," you've supplied.")
+  )
+  )
+}
+
+
 #Checking that palette input is a string#
 string_check <- rlang::is_character(pal)
 
 if(!string_check){
-  stop(paste0("`",pal,"` is not a string."))
-
+  cli::cli_abort(c(
+    paste0("{.var pal} must be of type ", callout("<character>")),
+    "x" = paste0("The {.var pal} object you've supplied is of type ", error(paste0("<",class(pal),">"))),
+    "i" = paste0(status("Check the {.var pal} value")," you've supplied.")
+  )
+  )
 }
 
 #Checking that palette input is a valid palette#
