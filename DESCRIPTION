@@ -20,5 +20,6 @@ Imports:
     dplyr (>= 1.0.8),
     grDevices,
     cli,
-    rlang
+    rlang,
+    knitr
 URL: https://meghansaha.github.io/artpack/
