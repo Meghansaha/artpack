@@ -1,3 +1,7 @@
 # artpack (development version)
 
-* Initial CRAN submission.
+# artpack 
+- Improved testing suite for `art_pals()`
+- Added the `super` palette for use in `art_pals()`
+
+
