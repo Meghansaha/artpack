@@ -1,9 +1,9 @@
 #' Custom-built aRtpack Color Palettes
 #' @description
 #'
-#' The aRtpack palette picker. The `art_pals` function consists of 17 palettes: "arctic",
+#' The aRtpack palette picker. The `art_pals` function consists of 18 palettes: "arctic",
 #' "beach", "bw", "brood", "cosmos", "explorer", "gemstones", "grays", "icecream", "imagination",
-#' "majestic", "nature", "neon", "ocean", "plants", "rainbow", "sunnyside"
+#' "majestic", "nature", "neon", "ocean", "plants", "rainbow", "sunnyside", "super"
 #'
 #' @param pal A character string of the desired aRtpack palette.
 #'

@@ -43,9 +43,9 @@ Default is "regular". Only two options accepted: "regular" or "reverse"}
 A character vector.
 }
 \description{
-The aRtpack palette picker. The \code{art_pals} function consists of 17 palettes: "arctic",
+The aRtpack palette picker. The \code{art_pals} function consists of 18 palettes: "arctic",
 "beach", "bw", "brood", "cosmos", "explorer", "gemstones", "grays", "icecream", "imagination",
-"majestic", "nature", "neon", "ocean", "plants", "rainbow", "sunnyside"
+"majestic", "nature", "neon", "ocean", "plants", "rainbow", "sunnyside", "super"
 }
 \examples{
 library(ggplot2)
