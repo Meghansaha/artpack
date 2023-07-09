@@ -1,6 +1,6 @@
 Package: artpack
 Title: Provides a comprehensive tool set for creating Rtistry
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: 
     person("Meghan", "Harris", , "meghanha01@gmail.com", role = c("aut", "cre", "cph"),
       comment = c(ORCID = "0000-0003-3922-8101"))
