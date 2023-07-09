@@ -47,10 +47,11 @@
 #'   geom_polygon(fill = "white", color = "red") +
 #'   coord_equal()
 #'
-circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
-                          big_r = 5, med_r = 2, small_r = 1,
+circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
+                          big_r = 5, med_r = 3, small_r = 1,
                           color_pal = NULL, color_type = "regular",
-                          circle_type = "whole") {
+                          circle_type = "whole"
+                          ) {
   error <- combine_ansi_styles("red", "bold")
   callout <- combine_ansi_styles("darkorange", "bold")
 
@@ -71,129 +72,47 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
                      } else if (.x <= 0){
                        radi_check <- "3"
                      },
-
                      if(!is.null(radi_check)){
-                       radi_check |> set_names(names(radis[.y]))
+                       names(radi_check) <- radis[.y]
                      }
   )
 
- radi_message <-  map(radi_check, ~switch(.x,
-                                         "1" =    cli::format_error(c(
-                                           paste("{.var {names(.x)}} must be of length", callout(1)),
-                                           "i" = "Check the {.var {names(radi_check[.x])}} variable you've supplied.")),
-                                         "2" =  cli::format_error(c(
-                                           paste("{.var {names(radi_check[.x])}} must be of type", callout("numeric")),
-                                           "x" = paste0("You've supplied a ", error("{.cls {class(.x)}}"), "."),
-                                           "i" = "Check the {.var {names(radi_check[.x])}} variable you've supplied."
-                                         )),
-                                         "3" =       cli::format_error(c(
-                                           paste("{.var {names(radi_check[.x])}} must be", callout("greater than zero")),
-                                           "x" = paste("{.var {names(radi_check[.x])}} =", error("{.x}")),
-                                           "i" = "Check the {.var {names(radi_check[.x])}} variable you've supplied."
-                                         )))
-  )
-
-
-
-
-
-
-
-    (radis, ~ if (length(.x) != 1)) {
-      radi_len <- length(.x)
-      cli::cli_abort(c(
-        paste("{.var {names(.x)}} must be of length", callout(1)),
-        "x" = paste0("You've supplied a length of ", error("{radi_len}"), "."),
-        "i" = "Check the {.var {names(.x)}} variable you've supplied."
-      ))
-    } else if (!is.numeric(.x)) {
-      cli::cli_abort(c(
-        paste("{.var {names(.x)}} must be of type", callout("numeric")),
-        "x" = paste0("You've supplied a ", error("{.cls {class(.x)}}"), "."),
-        "i" = "Check the {.var {names(.x)}} variable you've supplied."
-      ))
-    } else if (.x <= 0) {
-      cli::cli_abort(c(
-        paste("{.var", names(.x),"} must be", callout("greater than zero")),
-        "x" = paste("{.var {names(.x)}} =", error("{.x}")),
-        "i" = "Check the {.var {names(.x)}} variable you've supplied."
-      ))
-    }
+  if(sum(names(radis) %in% c("big_r", "med_r", "small_r")) != 3){
+    stop("Something's wrong with radi check")
   }
 
+  if(!all(sapply(radi_check, is.null))){
 
+    first_non_null <- radi_check[!sapply(radi_check, is.null)][1] |> unlist()
 
-
-
-  if (length(big_r) != 1) {
-    big_r_len <- length(big_r)
-    cli::cli_abort(c(
-      paste("{.var big_r} must be of length", callout(1)),
-      "x" = paste0("You've supplied a length of ", error("{big_r_len}"), "."),
-      "i" = "Check the {.var big_r} variable you've supplied."
-    ))
-  } else if (!is.numeric(big_r)) {
-    cli::cli_abort(c(
-      paste("{.var big_r} must be of type", callout("numeric")),
-      "x" = paste0("You've supplied a ", error("{.cls {class(big_r)}}"), "."),
-      "i" = "Check the {.var big_r} variable you've supplied."
-    ))
-  } else if (big_r <= 0) {
-    cli::cli_abort(c(
-      paste("{.var big_r} must be", callout("greater than zero")),
-      "x" = paste("{.var big_r} =", error("{big_r}")),
-      "i" = "Check the {.var big_r} variable you've supplied."
-    ))
+    switch(unlist(first_non_null),
+           "1" = cli::cli_abort(c(
+             paste("{.var {names(first_non_null)}} must be of length", callout(1)),
+             "x" = paste("The {.var {names(first_non_null)}} you've supplied has a length of", error(length(radis[[names(first_non_null)]]))),
+             "i" = "Check the {.var {names(first_non_null)}} value you've supplied.")
+           ),
+           "2" = cli::cli_abort(c(
+             paste("{.var {names(first_non_null)}} must be of type", callout("numeric")),
+             "x" = paste0("You've supplied a ", error(class(radis[[names(first_non_null)]]))),
+             "i" = "Check the {.var {names(first_non_null)}} value you've supplied.")
+           ),
+           "3" = cli::cli_abort(c(
+             paste("{.var {names(first_non_null)}} must be", callout("greater than zero")),
+             "x" = paste("{.var {names(first_non_null)}} =", error(radis[[names(first_non_null)]])),
+             "i" = "Check the {.var {names(first_non_null)}} value you've supplied."
+           )
+           )
+    )
   }
 
-
-  if (length(med_r) != 1) {
-    med_r_len <- length(med_r)
-    cli::cli_abort(c(
-      paste("{.var med_r} must be of length", callout(1)),
-      "x" = paste0("You've supplied a length of ", error("{med_r_len}"), "."),
-      "i" = "Check the {.var med_r} variable you've supplied."
-    ))
-  } else if (!is.numeric(med_r)) {
-    cli::cli_abort(c(
-      paste("{.var med_r} must be of type", callout("numeric")),
-      "x" = paste0("You've supplied a ", error("{.cls {class(med_r)}}"), "."),
-      "i" = "Check the {.var med_r} variable you've supplied."
-    ))
-  } else if (med_r <= 0) {
-    cli::cli_abort(c(
-      paste("{.var med_r} must be", callout("greater than zero")),
-      "x" = paste("{.var med_r} =", error("{med_r}")),
-      "i" = "Check the {.var med_r} variable you've supplied."
-    ))
-  }
-
-  if (length(small_r) != 1) {
-    small_r_len <- length(small_r)
-    cli::cli_abort(c(
-      paste("{.var small_r} must be of length", callout(1)),
-      "x" = paste0("You've supplied a length of ", error("{small_r_len}"), "."),
-      "i" = "Check the {.var small_r} variable you've supplied."
-    ))
-  } else if (!is.numeric(small_r)) {
-    cli::cli_abort(c(
-      paste("{.var small_r} must be of type", callout("numeric")),
-      "x" = paste0("You've supplied a ", error("{.cls {class(small_r)}}"), "."),
-      "i" = "Check the {.var small_r} variable you've supplied."
-    ))
-  } else if (small_r <= 0) {
-    cli::cli_abort(c(
-      paste("{.var small_r} must be", callout("greater than zero")),
-      "x" = paste("{.var small_r} =", error("{small_r}")),
-      "i" = "Check the {.var small_r} variable you've supplied."
-    ))
-  }
-
+  #Setting theta angles for each circle
   theta <- seq(0, 2 * pi, length = 100)
 
+  #Distance function to determine radi overlap
   distance <- function(x1, y1, x2, y2) {
     sqrt(((x2 - x1)^2) + ((y2 - y1)^2))
   }
+
   # Big Circles----
   big_iter <- 1:(n * .02)
   big_x <- c(x = sample(min_x + (big_r):max_x - (big_r), 1))
@@ -214,20 +133,26 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
     if (i == (length(big_iter) + 1)) {
       break
     }
-    if (tries == 3000) {
+    if (tries == 3000 + length(big_iter)) {
+      message("Maximum sampling reached for big circles!")
       break
     }
   }
-  new_iter <- 1:length(big_y)
-  big_angles <- sample(0:360, length(big_y), replace = TRUE)
 
-  if (length(big_x) != length(big_y)) {
-    stop("length of big_x and big_y don't match.")
-  } else if (length(big_y) != length(new_iter)) {
-    stop("length of big_y and new_iter don't match.") # nocov
-  } else if (length(new_iter) != length(big_angles)) {
-    stop("length of new_iter and big_angles") # nocov
+  length_check = length(big_y) > 1
+
+  if(length_check){
+  new_iter <- 1:length(big_y)
+  } else{
+    cli::cli_abort(c(
+      paste("Check the", callout("`big_r` value"), "you've supplied."),
+      "x" =  paste("Couldn't make any", error("big circles")),
+      "i" = paste0("Maybe you need a smaller value than ", callout({big_r}),"?")
+    )
+    )
   }
+
+  big_angles <- sample(0:360, length(big_y), replace = TRUE)
 
 
   big_circles <- switch(circle_type,
@@ -280,23 +205,30 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
     if (i == (length(med_iter) + 1)) {
       break
     }
-    if (tries == 10000) {
+    if (tries == 10000 + length(med_iter)) {
+      message("Maximum radius sampling reached for medium circles!")
       break
     }
   }
 
   med_x <- med_x[-1]
   med_y <- med_y[-1]
+
+  length_check = length(med_y) > 1
+
+  if(length_check){
+    new_iter <- 1:length(med_y)
+  } else{
+    cli::cli_abort(c(
+      paste("Check the", callout("`med_r` value"), "you've supplied."),
+      "x" =  paste("Couldn't make any", error("medium circles")),
+      "i" = paste0("Maybe you need a smaller value than ", callout({med_r}),"?")
+    )
+    )
+  }
+
   new_iter <- 1:length(med_y)
   med_angles <- sample(0:360, length(med_y), replace = TRUE)
-
-  if (length(med_x) != length(med_y)) {
-    stop("length of med_x and med_y don't match.") # nocov
-  } else if (length(med_y) != length(new_iter)) {
-    stop("length of med_y and new_iter don't match.")
-  } else if (length(new_iter) != length(med_angles)) {
-    stop("length of new_iter and med_angles") # nocov
-  }
 
 
   med_circles <- switch(circle_type,
@@ -349,22 +281,30 @@ circle_packer <- function(n, min_x = 0, max_x = 10, min_y = 0, max_y = 10,
     if (i == (length(small_iter) + 1)) {
       break
     }
-    if (tries == 9000) {
+    if (tries == 9000 + length(small_iter)) {
+      message("Maximum radius sampling reached for small circles!")
       break
     }
   }
   small_x <- small_x[-1]
   small_y <- small_y[-1]
-  new_iter <- 1:length(small_y)
-  small_angles <- sample(0:360, length(small_y), replace = TRUE)
 
-  if (length(small_x) != length(small_y)) {
-    stop("length of small_x and small_y don't match.") # nocov
-  } else if (length(small_y) != length(new_iter)) {
-    stop("length of small_y and new_iter don't match.") # nocov
-  } else if (length(new_iter) != length(small_angles)) {
-    stop("length of new_iter and small_angles") # nocov
+
+  length_check = length(small_y) > 1
+
+  if(length_check){
+    new_iter <- 1:length(small_y)
+  } else{
+    cli::cli_abort(c(
+      paste("Check the", callout("`small_r` value"), "you've supplied."),
+      "x" =  paste("Couldn't make any", error("small circles")),
+      "i" = paste0("Maybe you need a smaller value than ", callout({small_r}),"?")
+    )
+    )
   }
+
+
+  small_angles <- sample(0:360, length(small_y), replace = TRUE)
 
 
   small_circles <- switch(circle_type,

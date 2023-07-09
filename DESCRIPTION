@@ -1,8 +1,8 @@
 Package: artpack
 Title: Provides a comprehensive tool set for creating Rtistry
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: 
-    person("Meghan", "Harris", , "meghanha01@gmail.com", role = c("aut", "cre", "main", "cph"),
+    person("Meghan", "Harris", , "meghanha01@gmail.com", role = c("aut", "cre", "cph"),
       comment = c(ORCID = "0000-0003-3922-8101"))
 Description: aRtpack is a package that contains a comprehensive tool set for aRtists of all skill levels. aRtpack seeks to make life easier for more seasoned aRtists by providing helper functions to save time on more complex pieces. aRtpack also seeks to introduce more beginners into Rtistry by providing quick and easy ways to create aRt right away.
 License: MIT + file LICENSE
@@ -11,13 +11,15 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Suggests: 
     covr,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    ggplot2
 Config/testthat/edition: 3
 Imports:
     purrr (>= 0.3.4),
     tibble (>= 3.1.6),
     dplyr (>= 1.0.8),
     grDevices,
-    ggplot2,
-    cli
+    cli,
+    rlang,
+    knitr
 URL: https://meghansaha.github.io/artpack/

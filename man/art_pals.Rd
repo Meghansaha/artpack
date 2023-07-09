@@ -9,7 +9,7 @@ art_pals(pal = NULL, n = 5, direction = "regular")
 \arguments{
 \item{pal}{A character string of the desired aRtpack palette.
 
-The 17 aRtpack palettes include:
+The 18 aRtpack palettes include:
 \itemize{
 \item "arctic" - Icy blue and white colors
 \item "beach" - Sand-colored tans and ocean-colored blue colors
@@ -28,6 +28,7 @@ The 17 aRtpack palettes include:
 \item "plants" - A gradient of dark to light green colors
 \item "rainbow" - A vibrant mix of rainbow colors
 \item "sunnyside" - A retro-inspired mix of pink, orange, and yellow colors
+\item "super" - A marveling mix of heroic colors
 }}
 
 \item{n}{The numbers of colors desired in the output.
