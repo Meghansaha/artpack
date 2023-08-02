@@ -31,12 +31,21 @@
 #'                         fill = "purple")+
 #'   coord_equal()
 #'
-rotator <- function(data = NULL, angle = 5, anchor = "center"){
+rotator <- function(data, x, y, angle = 5, anchor = "center"){
 
-  x = NULL
-  y = NULL
-  x2 = NULL
-  y2 = NULL
+  # Data is present
+  if(missing(data)){
+    cli::cli_abort(c("x" = paste("{.var data} is",error("missing")),
+                     "!" = paste("{.var data} should be a", status("dataframe"), "or" ,status("tibble"))))
+  }
+
+  # Pulling existing column names
+  x_name <- data |> dplyr::select({{x}}) |> names()
+  y_name <- data |> dplyr::select({{y}}) |> names()
+  x <- dplyr::pull(.data = data, {{x}})
+  y <- dplyr::pull(.data = data, {{y}})
+
+
 
   rad <- (angle * pi)/180
 
@@ -45,27 +54,34 @@ rotator <- function(data = NULL, angle = 5, anchor = "center"){
   }
 
   anchor = switch(anchor,
-                  "center" = list("x" = (min(data$x)+max(data$x))/2,
-                                  "y" = (min(data$y)+max(data$y))/2),
-                  "bottom" = list("x" = (min(data$x)+max(data$x))/2,
-                                  "y" = min(data$y)),
-                  "top" = list("x" = (min(data$x)+max(data$x))/2,
-                               "y" = max(data$y)),
-                  "left" = list("x" = min(data$x),
-                                "y" = (min(data$y)+max(data$y))/2),
-                  "right" = list("x" = max(data$x),
-                                 "y" = (min(data$y)+max(data$y))/2),
+                  "center" = list("x" = (min({{ x }})+max({{ x }}))/2,
+                                  "y" = (min({{ y }})+max({{ y }}))/2),
+                  "bottom" = list("x" = (min({{ x }})+max({{ x }}))/2,
+                                  "y" = min({{ y }})),
+                  "top" = list("x" = (min({{ x }})+max({{ x }}))/2,
+                               "y" = max({{ y }})),
+                  "left" = list("x" = min({{ x }}),
+                                "y" = (min({{ y }})+max({{ y }}))/2),
+                  "right" = list("x" = max({{ x }}),
+                                 "y" = (min({{ y }})+max({{ y }}))/2),
                   cli::cli_abort(c("x" = "{.var anchor} is not a valid anchor option.", "Valid options include: 'center', 'bottom', 'top', 'left', and 'right'"))
                   )
 
 
-  rotated_shape <- data |>
-    mutate(x2 = (x - anchor$x)*cos(rad) - (y - anchor$y)*sin(rad) + anchor$x,
-           y2 = (x - anchor$x)*sin(rad) + (y - anchor$y)*cos(rad) + anchor$y,
+  data_rotated <- data |>
+    dplyr::mutate(x2 = ({{x}} - anchor$x)*cos(rad) - ({{y}} - anchor$y)*sin(rad) + anchor$x,
+           y2 = ({{x}} - anchor$x)*sin(rad) + ({{y}} - anchor$y)*cos(rad) + anchor$y,
            x = x2,
            y = y2) |>
-    select(-c(x2,y2))
+    dplyr::select(x,y) |>
+    dplyr::rename(rlang::`!!`(x_name)  := x,
+           rlang::`!!`(y_name)  := y)
 
-  rotated_shape
+  df_out <- data_rotated |>
+    cbind(data |>
+            dplyr::select(c(-{{x}},{{y}}))
+          )
+
+  return(df_out)
 
 }

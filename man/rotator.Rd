@@ -4,7 +4,7 @@
 \alias{rotator}
 \title{Rotate Points in a Data Frame Based on an Anchor Point}
 \usage{
-rotator(data = NULL, angle = 5, anchor = "center")
+rotator(data, x, y, angle = 5, anchor = "center")
 }
 \arguments{
 \item{data}{A data frame or tibble with at least \code{x} and \code{y} variables}
