@@ -4,20 +4,14 @@
 \alias{rotator}
 \title{Rotate Points in a Data Frame Based on an Anchor Point}
 \usage{
-rotator(data, x, y, angle = 5, anchor = "center", drop = FALSE)
+rotator(data = NULL, angle = 5, anchor = "center")
 }
 \arguments{
 \item{data}{A data frame or tibble with at least \code{x} and \code{y} variables}
 
-\item{x}{A numeric variable in \code{data}. The variable intended to be plotted on the x axis in a \code{ggplot}.}
-
-\item{y}{A numeric variable in \code{data}. The variable intended to be plotted on the y axis in a \code{ggplot}.}
-
 \item{angle}{The angle (in degrees) the points in \code{data} will be rotated around it's anchor}
 
 \item{anchor}{The anchor point for the rotation. Default is "center"}
-
-\item{drop}{Logical \code{TRUE} or \code{FALSE} that determines if all other variables that are not being rotated are removed from the final output. Default is \code{FALSE}.}
 }
 \value{
 #A data frame
@@ -30,8 +24,6 @@ library(ggplot2)
 original_square <- data.frame(x = c(0,3,3,0,0),
                               y = c(0,0,3,3,0))
 rotated_square <- rotator(data = original_square,
-                          x = x,
-                          y = y,
                           angle = 45,
                           anchor = "center")
 
