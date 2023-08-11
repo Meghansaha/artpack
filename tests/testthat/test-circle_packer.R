@@ -24,56 +24,34 @@ purrr::map(big_radis,  ~cli::test_that_cli("big_r checks", {
   configs = "ansi")
 )
 
-# purrr::map(med_radis,  ~cli::test_that_cli("big_r checks", {
-#   testthat::local_edition(3)
-#   testthat::expect_snapshot({
-#     circle_packer(n = 100, med_r = .x)},
-#     error = TRUE)},
-#   configs = "ansi")
-# )
-#
-# purrr::map(small_radis,  ~cli::test_that_cli("big_r checks", {
-#   testthat::local_edition(3)
-#   testthat::expect_snapshot({
-#     circle_packer(n = 100, small_r = .x)},
-#     error = TRUE)},
-#   configs = "ansi")
-# )
-#
-# # Fx outputs a dataframe
-# testthat::expect_true(is.data.frame(circle_packer(n = 100)))
-#
-# df <- circle_packer(100)
-#
-# testthat::expect_equal(
-#
-#   length(df$x[which(grepl("^big",df$group))]),
-#   length(df$y[which(grepl("^big",df$group))])
-#
-#
-# )
-#
-#
-#
-# cli::test_that_cli("big_r too big", {
-#   testthat::local_edition(3)
-#   testthat::expect_snapshot({
-#     circle_packer(n = 100, big_r = 50)},
-#     error = TRUE)},
-#   configs = "ansi")
-#
-# cli::test_that_cli("med_r too big", {
-#   testthat::local_edition(3)
-#   testthat::expect_snapshot({
-#     circle_packer(n = 100, med_r = 50)},
-#     error = TRUE)},
-#   configs = "ansi")
-#
-# cli::test_that_cli("small_r too big", {
-#   testthat::local_edition(3)
-#   testthat::expect_snapshot({
-#     circle_packer(n = 100, small_r = 50)},
-#     error = TRUE)},
-#   configs = "ansi")
-#
-#
+# Testing the Break Logic works for all circle sizes
+testthat::test_that("Max sampling with big circles works", {
+testthat::expect_message(
+  withr::with_seed(
+    55,
+    circle_packer(10, big_r = 29))
+  , "Maximum sampling reached for big circles"
+  )
+}
+)
+
+testthat::test_that("Max sampling with medium circles works", {
+  testthat::expect_message(
+    withr::with_seed(
+      55,
+      circle_packer(10, med_r = 29))
+    , "Maximum sampling reached for medium circles"
+  )
+}
+)
+
+testthat::test_that("Max sampling with small circles works", {
+  testthat::expect_message(
+    withr::with_seed(
+      55,
+      circle_packer(10, small_r = 29))
+    , "Maximum sampling reached for small circles"
+  )
+}
+)
+
