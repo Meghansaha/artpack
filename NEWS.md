@@ -1,3 +1,5 @@
+# artpack (development version) - 0.0.0.9003
+
 * Improved testing suite for `circle_packer()`
 * Overhauled `circle_packer()` with improved logic testing and handling for inputs
 
