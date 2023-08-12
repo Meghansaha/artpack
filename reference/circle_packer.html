@@ -14,7 +14,7 @@ in a ggplot. When "swirl" is used, the output should be mapped with geom_path fo
     
     <a class="navbar-brand me-2" href="../index.html">artpack</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9001</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9002</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,7 +69,7 @@ in a ggplot. When "swirl" is used, the output should be mapped with <code>geom_p
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>n</dt>
-<dd><p>The total number of circles you would like the function to attempt to create. A single numeric value.</p></dd>
+<dd><p>The total number of circles you would like the function to attempt to create. A single numeric value with a minimum value of 10.</p></dd>
 
 
 <dt>min_x</dt>
@@ -130,21 +130,21 @@ in a ggplot. When "swirl" is used, the output should be mapped with <code>geom_p
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Med Circles Complete!</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Small Circles Complete!</span>
 <span class="r-in"><span><span class="va">packed_circles</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6,600 × 3</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Groups:   group [66]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5,000 × 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Groups:   group [50]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        x     y group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>  54    52   big_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>  54.0  52.3 big_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>  54.0  52.6 big_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>  53.9  52.9 big_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>  53.8  53.3 big_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>  53.8  53.6 big_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>  53.6  53.9 big_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>  53.5  54.1 big_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  53.4  54.4 big_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>  53.2  54.7 big_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 6,590 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>  28    60   big_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>  28.0  60.3 big_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>  28.0  60.6 big_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>  27.9  60.9 big_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>  27.8  61.3 big_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>  27.8  61.6 big_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>  27.6  61.9 big_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>  27.5  62.1 big_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  27.4  62.4 big_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>  27.2  62.7 big_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 4,990 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">packed_circles</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, group <span class="op">=</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
