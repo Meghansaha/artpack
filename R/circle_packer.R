@@ -66,6 +66,7 @@ circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
     ) |>
       cli::cli_abort()
   }
+
   # n has a length of 1
   if(length(n) > 1){
     c(
@@ -240,6 +241,25 @@ circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
       cli::cli_abort()
   }
 
+  #Checks for valid color palettes
+  if(!is.null(color_pal)){
+    color_check <- any(!is.color(color_pal))
+
+    if(color_check){
+
+      invalid_colors <- names(is.color(color_pal)[is.color(color_pal) == FALSE])
+
+      c(
+        paste("{.var color_pal} contains", error("invalid colors")),
+        "x" = paste("{.var color_pal} must contain valid:", status('`r` colors from `colors()`'),"or",status('hexadecimal webcolors')),
+        "i" = paste("{knitr::combine_words(invalid_colors, before = '\"', after ='\"' )}", ifelse(length(invalid_colors) > 1, "are", "is"), callout("invalid colors"))
+      ) |>
+        cli::cli_abort()
+
+    }
+
+  }
+
   #===========================================================================#
   # Packing Work---------------------------------------------------------------
   #===========================================================================#
@@ -286,18 +306,8 @@ circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
     }
   }
 
-  length_check = length(big_y) > 0
 
-  if(length_check){
     new_iter <- 1:length(big_y)
-  } else{
-    cli::cli_abort(c(
-      paste("Check the", callout("`big_r` value"), "you've supplied."),
-      "x" =  paste("Couldn't make any", error("big circles")),
-      "i" = paste0("Maybe you need a smaller value than ", callout({big_r}),"?")
-    )
-    )
-  }
 
   big_angles <- sample(0:360, length(big_y), replace = TRUE)
 
@@ -360,18 +370,6 @@ circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
   med_x <- med_x[-1]
   med_y <- med_y[-1]
 
-  length_check = length(med_y) > 0
-
-  if(length_check){
-    new_iter <- 1:length(med_y)
-  } else{
-    cli::cli_abort(c(
-      paste("Check the", callout("`med_r` value"), "you've supplied."),
-      "x" =  paste("Couldn't make any", error("medium circles")),
-      "i" = paste0("Maybe you need a smaller value than ", callout({med_r}),"?")
-    )
-    )
-  }
 
   new_iter <- 1:length(med_y)
   med_angles <- sample(0:360, length(med_y), replace = TRUE)
@@ -435,19 +433,7 @@ circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
   small_y <- small_y[-1]
 
 
-  length_check = length(small_y) > 0
-
-  if(length_check){
     new_iter <- 1:length(small_y)
-  } else{
-    cli::cli_abort(c(
-      paste("Check the", callout("`small_r` value"), "you've supplied."),
-      "x" =  paste("Couldn't make any", error("small circles")),
-      "i" = paste0("Maybe you need a smaller value than ", callout({small_r}),"?")
-    )
-    )
-  }
-
 
   small_angles <- sample(0:360, length(small_y), replace = TRUE)
 
