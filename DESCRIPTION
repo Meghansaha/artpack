@@ -13,7 +13,8 @@ Suggests:
     covr,
     testthat (>= 3.0.0),
     ggplot2,
-    withr
+    withr,
+    spelling
 Config/testthat/edition: 3
 Imports:
     purrr (>= 0.3.4),
@@ -24,3 +25,4 @@ Imports:
     rlang,
     knitr
 URL: https://meghansaha.github.io/artpack/
+Language: en-US
