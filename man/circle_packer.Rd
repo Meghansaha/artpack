@@ -19,7 +19,7 @@ circle_packer(
 )
 }
 \arguments{
-\item{n}{The total number of circles you would like the function to attempt to create. A single numeric value.}
+\item{n}{The total number of circles you would like the function to attempt to create. A single numeric value with a minimum value of 10.}
 
 \item{min_x}{The minimum limit of the x-axis - the left 'border' of the canvas A single numeric value.}
 
