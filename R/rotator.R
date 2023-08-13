@@ -3,15 +3,21 @@
 #'Rotates the `x` and `y` points in a given data frame by a given angle based on a designated anchor point.
 #'
 #' @param data A data frame or tibble with at least `x` and `y` variables
+#' @param x A numeric variable in `data`. The variable intended to be plotted on the x axis in a `ggplot`.
+#' @param y A numeric variable in `data`. The variable intended to be plotted on the y axis in a `ggplot`.
 #' @param angle The angle (in degrees) the points in `data` will be rotated around it's anchor
-#' @param anchor The anchor point for the rotation. Default is "center"
+#' @param anchor The anchor point for the rotation. Default is "center". Options include:"center", "bottom", "top", "left", and "right"
+#' @param drop Logical `TRUE` or `FALSE` that determines if all other variables that are not being rotated are removed from the final output. Default is `FALSE`.
 #'
 #' @return #A data frame
 #' @export
 #'
 #' @importFrom dplyr mutate
 #' @importFrom dplyr select
+#' @importFrom dplyr pull
 #' @importFrom cli cli_abort
+#' @importFrom purrr map_chr
+#' @importFrom knitr combine_words
 #'
 #' @examples
 #' library(ggplot2)
@@ -19,6 +25,8 @@
 #'                               y = c(0,0,3,3,0))
 
 #' rotated_square <- rotator(data = original_square,
+#'                           x = x,
+#'                           y = y,
 #'                           angle = 45,
 #'                           anchor = "center")
 #'
@@ -31,41 +39,171 @@
 #'                         fill = "purple")+
 #'   coord_equal()
 #'
-rotator <- function(data = NULL, angle = 5, anchor = "center"){
+rotator <- function(data, x, y, angle = 5, anchor = "center", drop = FALSE){
 
-  x = NULL
-  y = NULL
+
+  #===========================================================================#
+  # Logic Checks---------------------------------------------------------------
+  #===========================================================================#
+  # Data is present
+  if(missing(data)){
+    cli::cli_abort(c("x" = paste("{.var data} is",error("missing")),
+                     "!" = paste("{.var data} should be a", status("dataframe"), "or" ,status("tibble"))))
+  }
+  # Data is a dataframe
+  if(!is.data.frame(data)){
+    cli::cli_abort(c("x" = paste("{.var data} is",error("{.cls {typeof(data)}}")),
+                     "!" = paste("{.var data} should be a", status("dataframe"), "or" ,status("tibble"))))
+  }
+
+  # x and y variables are present
+  vars_df <-
+    c(
+      "x" = missing(x),
+      "y" = missing(y)
+    )
+
+  var_check <-
+    any(vars_df)
+
+
+  if(var_check){
+
+    var_missing <-
+      names(vars_df[vars_df == TRUE]) |>
+      purrr::map_chr(
+        ~paste0("{.var ",.x,"}")
+      ) |>
+      knitr::combine_words()
+
+    cli::cli_abort(c("x" = paste("{sum(vars_df)}", "variable{?s}" , ifelse(sum(vars_df) == 1,"is","are"),error("missing:")),
+                     "!" = paste(var_missing, "should be {.cls numeric}", ifelse(sum(vars_df) == 1,"variable","variables"),  "in a ",status("dataframe"), "or" ,status("tibble"))))
+  }
+
+  # Pulling existing column names
+  x_name <- data |> dplyr::select({{x}}) |> names()
+  y_name <- data |> dplyr::select({{y}}) |> names()
+
+  # Pulling x and y columns for manipulation work
+  x <- data |> dplyr::select({{x}}) |> dplyr::pull()
+  y <- data |> dplyr::select({{y}}) |> dplyr::pull()
+
+  # x variable is of type "numeric"
+  x_var_check <- !is.numeric(x)
+
+  if(x_var_check){
+    cli::cli_abort(c("x" = paste("The {.var x} variable, {x_name}, is of type", error("{typeof(x)}")),
+                     "!" = paste("The {.var x} variable, should be", status("{.cls numeric}")))
+    )
+  }
+
+  # x variable is of type "numeric"
+  y_var_check <- !is.numeric(y)
+
+  if(y_var_check){
+    cli::cli_abort(c("x" = paste("The {.var y} variable, {y_name}, is of type", error("{typeof(y)}")),
+                     "!" = paste("The {.var y} variable should be", status("{.cls numeric}")))
+    )
+  }
+
+  # angle is of type "numeric"
+  angle_check <- !is.numeric(angle)
+
+  if(angle_check){
+    cli::cli_abort(c("x" = paste("The {.var angle} input, {.var {angle}}, is of type", error("{typeof(angle)}")),
+                     "!" = paste("The {.var angle} input should be", status("{.cls numeric}")))
+    )
+  }
+
+  # anchor is an known option
+  anchor_check <- !anchor %in% c("center",
+                                 "bottom",
+                                 "top",
+                                 "left",
+                                 "right"
+  )
+
+  if(anchor_check){
+    cli::cli_abort(c("x" = paste("{.var {anchor}} is", error("not a valid anchor option")),
+                     "i" = paste(status("Valid"), 'options include:"center", "bottom", "top", "left", and "right"'))
+    )
+  }
+
+  # Drop is logical
+  drop_check <- !is.logical(drop)
+
+  if(drop_check){
+    cli::cli_abort(c("x" = paste("The {.var drop} value you've supplied: {.var {drop}}, is of type", error("{typeof(drop)}")),
+                     "i" = paste("The {.var drop} input must be a logical", status("TRUE"), "or", status("FALSE"), "value"))
+    )
+  }
+
+  #===========================================================================#
+  # FX Helpers and defaults----------------------------------------------------
+  #===========================================================================#
+  # Degree Conversion
+  rad <- (angle * pi)/180
+  #anon vars
   x2 = NULL
   y2 = NULL
 
-  rad <- (angle * pi)/180
 
-  if(!is.data.frame(data)){
-    cli::cli_abort(c("x" = "{.var data} should be of type data frame or a tibble, not {.cls {class(data)}} "))
-  }
+  #===========================================================================#
+  # Anchor Handling------------------------------------------------------------
+  #===========================================================================#
 
+  #Setting the anchor
   anchor = switch(anchor,
-                  "center" = list("x" = (min(data$x)+max(data$x))/2,
-                                  "y" = (min(data$y)+max(data$y))/2),
-                  "bottom" = list("x" = (min(data$x)+max(data$x))/2,
-                                  "y" = min(data$y)),
-                  "top" = list("x" = (min(data$x)+max(data$x))/2,
-                               "y" = max(data$y)),
-                  "left" = list("x" = min(data$x),
-                                "y" = (min(data$y)+max(data$y))/2),
-                  "right" = list("x" = max(data$x),
-                                 "y" = (min(data$y)+max(data$y))/2),
-                  cli::cli_abort(c("x" = "{.var anchor} is not a valid anchor option.", "Valid options include: 'center', 'bottom', 'top', 'left', and 'right'"))
+                  "center" = list(
+                    "x" = (min({{ x }})+max({{ x }}))/2,
+                    "y" = (min({{ y }})+max({{ y }}))/2
+                  ),
+                  "bottom" = list(
+                    "x" = (min({{ x }})+max({{ x }}))/2,
+                    "y" = min({{ y }})
+                  ),
+                  "top" = list(
+                    "x" = (min({{ x }})+max({{ x }}))/2,
+                    "y" = max({{ y }})
+                  ),
+                  "left" = list(
+                    "x" = min({{ x }}),
+                    "y" = (min({{ y }})+max({{ y }}))/2
+                  ),
+                  "right" = list(
+                    "x" = max({{ x }}),
+                    "y" = (min({{ y }})+max({{ y }}))/2
                   )
+  )
 
+  #===========================================================================#
+  # Rotation Work--------------------------------------------------------------
+  #===========================================================================#
 
-  rotated_shape <- data |>
-    mutate(x2 = (x - anchor$x)*cos(rad) - (y - anchor$y)*sin(rad) + anchor$x,
-           y2 = (x - anchor$x)*sin(rad) + (y - anchor$y)*cos(rad) + anchor$y,
-           x = x2,
-           y = y2) |>
-    select(-c(x2,y2))
+  # Rotating the x and y variables
+  data_rotated <- data |>
+    dplyr::mutate(x2 = ({{x}} - anchor$x)*cos(rad) - ({{y}} - anchor$y)*sin(rad) + anchor$x,
+                  y2 = ({{x}} - anchor$x)*sin(rad) + ({{y}} - anchor$y)*cos(rad) + anchor$y,
+                  x = x2,
+                  y = y2) |>
+    dplyr::select(x,y) |>
+    dplyr::rename(rlang::`!!`(x_name)  := x,
+                  rlang::`!!`(y_name)  := y)
 
-  rotated_shape
+  # If drop is TRUE - just return the rotated values w/o other vars...
+  if(drop){
+    return(data_rotated)
+  } else{
 
+    # ...Or else bind the other variables back into the output
+    # Preserving any other variables in the original data frame
+    og_cols <- data |>
+      dplyr::select(-dplyr::all_of(c(x_name,y_name)))
+
+    # Binding the rotated variables and any other original variables
+    df_out <- data_rotated |>
+      cbind(og_cols)
+
+    return(df_out)
+  }
 }

@@ -25,6 +25,7 @@
 #'
 #' @examples
 #' library(ggplot2)
+#' set.seed(0310)
 #' one_square <- square_data(x = 0, y = 0, size = 5)
 #'
 #' one_square |>

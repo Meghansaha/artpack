@@ -33,6 +33,7 @@
 #'
 #' @examples
 #' library(ggplot2)
+#' set.seed(0310)
 #' packed_circles <- circle_packer(
 #'   n = 50, big_r = 5, med_r = 3, small_r = 1,
 #'   min_x = 0, max_x = 100, min_y = 0, max_y = 100
@@ -332,7 +333,7 @@ circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
                           y = (sin(theta) * seq(1, 0, length = 1000)) * big_r + ..2,
                           group = paste0("big_", ..3),
                           linewidth = .8
-                        ), ..4)) |> purrr::list_rbind()
+                        ),x,y, ..4)) |> purrr::list_rbind()
   )
 
 
@@ -395,7 +396,7 @@ circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
                           y = (sin(theta) * seq(1, 0, length = 1000)) * med_r + ..2,
                           group = paste0("med_", ..3),
                           linewidth = .4
-                        ), ..4)) |> purrr::list_rbind()
+                        ),x,y, ..4)) |> purrr::list_rbind()
   )
   message("Med Circles Complete!")
 
@@ -458,7 +459,7 @@ circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
                             y = (sin(theta) * seq(1, 0, length = 1000)) * small_r + ..2,
                             group = paste0("small_", ..3),
                             linewidth = .1
-                          ), ..4)) |> purrr::list_rbind()
+                          ),x,y, ..4)) |> purrr::list_rbind()
   )
 
   message("Small Circles Complete!")
