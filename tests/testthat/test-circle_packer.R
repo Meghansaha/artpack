@@ -204,7 +204,6 @@ testthat::test_that("test that a df is returned", {
 
 # Test that picking a circle type of "whole" with a color gives a fill variable
 testthat::test_that("test that a circle type of 'whole' gives a 'fill' variable", {
-
   df_names <- circle_packer(100, circle_type = "whole", color_pal = "#000000") |> names()
   expect_true(
     "fill" %in% df_names
@@ -213,7 +212,6 @@ testthat::test_that("test that a circle type of 'whole' gives a 'fill' variable"
 
 # Test that picking a circle type of "swirl" with a color gives a color variable
 testthat::test_that("test that a circle type of 'swirl' gives a 'color' variable", {
-
   df_names <- circle_packer(100, circle_type = "swirl", color_pal = "#000000") |> names()
   expect_true(
     "color" %in% df_names
