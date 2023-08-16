@@ -7,12 +7,13 @@
 #' @param x Numeric - The bottom left `x` value of the square.
 #' @param y Numeric - The bottom left `y` value of the square.
 #' @param size Numeric - The size of the square.
+#' @param size Numeric - The size of the square.
 #'
 #' Must be a value greater than zero.
 #' @param group_var `TRUE`/`FALSE`. Default is `FALSE`.
 #'
 #' If `TRUE`, adds a grouping variable to the data frame.
-#' Default is switched to `TRUE` when more than one `x`, `y`, and `size` values are present.
+#' Default is switched to `TRUE` when more than one `x`, `y`, and `size` value is present.
 #'
 #' @return A Tibble
 #'
@@ -48,7 +49,47 @@
 #' coord_equal()
 #'
 #'
-square_data <- function(x,y, size, group_var = FALSE){
+square_data <- function(x,y, size, color, fill, group_var = FALSE){
+
+  #Check for required inputs
+  required_args <- c(
+    "x" = missing(x),
+    "y" = missing(y)
+  )
+
+  missing_args <- which(required_args) |> names() |> knitr::combine_words(before = "`", after = "`")
+
+  if(!rlang::is_empty(missing_args)){
+    c(
+      "x" = paste("{missing_args}",ifelse(length(which(required_args)) > 1, "are", "is" ), error("missing")),
+      "!" = paste("{missing_args}",ifelse(length(which(required_args)) > 1, "are", "is" ), status("required"), "and should be a numeric vector with a length of at least 1")) |>
+      cli::cli_abort()
+  }
+
+  #Check for equal lengths of all inputs
+  arg_length <-
+    list(
+      "x" = length(x),
+      "y" = length(y),
+      "size" = length(size),
+      "color" = length(color),
+      "fill" = length(fill)
+    )
+
+
+  if(length(x) != length(y)){
+    stop(paste("`x`, `y`, and `size` inputs must be equal in length\n`x` is of length",length(x),"\n`y` is of length",length(y),"\n`size` is of length",length(size))) # nocov
+  } else if(length(y) != length(size)){
+    stop(paste("`x`, `y`, and `size` inputs must be equal in length\n`x` is of length",length(x),"\n`y` is of length",length(y),"\n`size` is of length",length(size))) # nocov
+
+  }
+
+  #Check for numeric inputs
+  required_args <- c(
+    "x" = missing(x),
+    "y" = missing(y)
+  )
+
 
   #Check for numeric x/y
   if(!is.numeric(x)){
@@ -64,13 +105,7 @@ square_data <- function(x,y, size, group_var = FALSE){
     stop("`size` must be greater than zero.") # nocov
   }
 
-  #Check for equal lengths of x/y and size
-  if(length(x) != length(y)){
-    stop(paste("`x`, `y`, and `size` inputs must be equal in length\n`x` is of length",length(x),"\n`y` is of length",length(y),"\n`size` is of length",length(size))) # nocov
-  } else if(length(y) != length(size)){
-    stop(paste("`x`, `y`, and `size` inputs must be equal in length\n`x` is of length",length(x),"\n`y` is of length",length(y),"\n`size` is of length",length(size))) # nocov
 
-  }
 
   #If x of length more than one, automatically add group variable
   if(length(x) > 1){
