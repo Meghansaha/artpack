@@ -29,7 +29,7 @@
 #'
 #' @param n The numbers of colors desired in the output.
 #'
-#'Default is `5`. `n` must be a positive integer with a value greater than 0
+#' Default is `5`. `n` must be a positive integer with a value greater than 0
 #'
 #' @param direction The direction of the palette
 #'
@@ -42,31 +42,35 @@
 #' @export
 #'
 #' @examples
-#'library(ggplot2)
-#'dots <- data.frame(x = c(1:10), y = 2.5)
-#'dots$fills <- art_pals("rainbow", 10)
+#' library(ggplot2)
+#' dots <- data.frame(x = c(1:10), y = 2.5)
+#' dots$fills <- art_pals("rainbow", 10)
 #'
-#'dots |>
-#'ggplot(aes(x,y))+
-#'theme_void()+
-#'geom_point(shape = 21,
-#'          fill = dots$fills,
-#'          color = "#000000",
-#'          size = 10,
-#'          stroke = 2)
+#' dots |>
+#'   ggplot(aes(x, y)) +
+#'   theme_void() +
+#'   geom_point(
+#'     shape = 21,
+#'     fill = dots$fills,
+#'     color = "#000000",
+#'     size = 10,
+#'     stroke = 2
+#'   )
 #'
 #'
-#'dots_rev <- data.frame(x = c(1:10), y = 2.5)
-#'dots_rev$fills <- art_pals("rainbow", 10, "reverse")
+#' dots_rev <- data.frame(x = c(1:10), y = 2.5)
+#' dots_rev$fills <- art_pals("rainbow", 10, "reverse")
 #'
-#'dots_rev |>
-#'ggplot(aes(x,y))+
-#'theme_void()+
-#'geom_point(shape = 21,
-#'          fill = dots_rev$fills,
-#'          color = "#000000",
-#'          size = 10,
-#'          stroke = 2)
+#' dots_rev |>
+#'   ggplot(aes(x, y)) +
+#'   theme_void() +
+#'   geom_point(
+#'     shape = 21,
+#'     fill = dots_rev$fills,
+#'     color = "#000000",
+#'     size = 10,
+#'     stroke = 2
+#'   )
 #'
 art_pals <- function(pal = NULL, n = 5, direction = "regular") {
   # =============================================================================#

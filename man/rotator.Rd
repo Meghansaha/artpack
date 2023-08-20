@@ -27,8 +27,10 @@ Rotates the \code{x} and \code{y} points in a given data frame by a given angle 
 }
 \examples{
 library(ggplot2)
-original_square <- data.frame(x = c(0,3,3,0,0),
-                              y = c(0,0,3,3,0))
+original_square <- data.frame(
+  x = c(0, 3, 3, 0, 0),
+  y = c(0, 0, 3, 3, 0)
+)
 rotated_square <- rotator(data = original_square,
                           x = x,
                           y = y,

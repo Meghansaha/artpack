@@ -19,15 +19,16 @@ navbar:
   bg: primary
 reference:
 - title: Color Palette Tools
-- contents: art_pals
+- contents:
+  - art_pals
 - title: Transformation Tools
-- contents: rotator
+- contents:
+  - rotator
 - title: Asset Creation
 - contents:
-  - circle_packer
   - grid_maker
+  - packer
   - square_data
-  - square_packer
   - wave_data
 
 news:

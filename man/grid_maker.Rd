@@ -26,15 +26,19 @@ Providing a color palette and fill style are optional.
 }
 \examples{
 library(ggplot2)
-grid_data <- grid_maker(xlim = c(0,1),
-                       ylim = c(0,1),
-                       size = 2,
-                       pal = c("red", "black", "purple"))
+grid_data <- grid_maker(
+  xlim = c(0, 1),
+  ylim = c(0, 1),
+  size = 2,
+  pal = c("red", "black", "purple")
+)
 
-ggplot()+
-  geom_polygon(data = grid_data,
-                        aes(x,y, group = group),
-                        fill = grid_data$fill)+
+ggplot() +
+  geom_polygon(
+    data = grid_data,
+    aes(x, y, group = group),
+    fill = grid_data$fill
+  ) +
   coord_equal()
 
 }

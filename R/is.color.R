@@ -12,30 +12,29 @@
 #' is.color("#ffffff")
 #'
 #' # Invalid colors return `FALSE`
-#' is.color("#000") #6 digits only, no shorthand allowed
+#' is.color("#000") # 6 digits only, no shorthand allowed
 #' is.color("blu")
 #'
-#' #Multiple values can be handled as well
+#' # Multiple values can be handled as well
 #' is.color(c("#000", "er4", "#ffffff"))
-
-is.color <- function(...){
-
-   # is the input a base R color?
+is.color <- function(...) {
+  # is the input a base R color?
   r_color <-
-    sapply(...,
-           function(x) tolower(x) %in% colors()
-           )
+    sapply(
+      ...,
+      function(x) x %in% colors()
+    )
 
   # is the input a valid hex color code?
   hex_color <-
-    sapply(...,
-           function(x) grepl("^#[A-Fa-f0-9]{6}", tolower(x))
-           )
+    sapply(
+      ...,
+      function(x) grepl("^#[A-Fa-f0-9]{6}", tolower(x))
+    )
 
-out <- r_color + hex_color
+  out <- r_color + hex_color
 
-output <- ifelse(out > 0, TRUE, FALSE)
+  output <- ifelse(out > 0, TRUE, FALSE)
 
   return(output)
 }
-

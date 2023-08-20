@@ -4,142 +4,258 @@
 #' A tool for creating a data frame of values that create a square with a specified size
 #' when plotted.
 #'
-#' @param x Numeric - The bottom left `x` value of the square.
-#' @param y Numeric - The bottom left `y` value of the square.
-#' @param size Numeric - The size of the square.
-#' @param size Numeric - The size of the square.
-#'
-#' Must be a value greater than zero.
-#' @param group_var `TRUE`/`FALSE`. Default is `FALSE`.
-#'
-#' If `TRUE`, adds a grouping variable to the data frame.
-#' Default is switched to `TRUE` when more than one `x`, `y`, and `size` value is present.
+#' @param x Numeric value of length 1 - The bottom left `x` value of the square.
+#' @param y Numeric value of length 1 - The bottom left `y` value of the square.
+#' @param size Numeric value of length 1 that must be greater than 0 - The size of the square.
+#' @param color Character value of length 1 - The color of the square's border. A valid `R` color from `colors()` or a standard 6 digit hexadecimal webcolor like "#000000"
+#' @param fill Character value of length 1 - The color of the square. A valid `R` color from `colors()` or a standard 6 digit hexadecimal webcolor like "#000000"
+#' @param group_var Logical. Default is `FALSE`. If `TRUE`, a `group` variable will be added to the dataframe. Useful in iterative data generation.
+#' @param group_prefix Character string of length 1 - The prefix used for the `group` variable. Default is "square_"
 #'
 #' @return A Tibble
 #'
 #' @importFrom purrr map2_dbl
-#' @importFrom purrr list_rbind
-#' @importFrom purrr pmap
+#' @importFrom purrr map2
+#' @importFrom purrr map
+#' @importFrom purrr list_c
 #' @importFrom dplyr tibble
+#' @importFrom dplyr mutate
 #'
 #' @export
 #'
 #' @examples
+#' # Creating one square
+
 #' library(ggplot2)
-#' set.seed(0310)
 #' one_square <- square_data(x = 0, y = 0, size = 5)
 #'
+#' # Plot The Data
 #' one_square |>
-#' ggplot(aes(x,y))+
-#' geom_path(color = "green")+
-#' coord_equal()
+#'   ggplot(aes(x,y))+
+#'   geom_path(color = "green")+
+#'   coord_equal()
 #'
+#' # To create multiple squares, use your preferred method of iteration:
+#' # Creating two squares
+#'
+#' library(purrr)
+#' library(dplyr)
+#'
+#' # Make your specs
 #' x_vals <- c(0,4)
 #' y_vals <- c(0,0)
 #' sizes <- c(1,3)
-#' sq_cols <- c("purple", "yellow")
+#' fills <- c("purple", "yellow")
+#' square_n <- 1:2
 #'
-#' two_squares <- square_data(x = x_vals, y = y_vals, size = sizes)
+#' # Prep for your iteration
+#' lst_square_specs <-
+#'   list(
+#'     x_vals,
+#'     y_vals,
+#'     sizes,
+#'     fills,
+#'     square_n
+#'   )
+#'
+#' # Use `square_data()` in your preferred iteration methods
+#' two_squares <- pmap(lst_square_specs, ~square_data(
+#'   x = ..1,
+#'   y = ..2,
+#'   size = ..3,
+#'   fill = ..4,
+#'   color = "#000000",
+#'   group_var = TRUE
+#' ) |>
+#'   # square_data adds a `group` variable if `group_var` = TRUE.
+#'   # For multiple squares, a unique identifier should be added/pasted in.
+#'   mutate(group = paste0(group,..5))
+#' ) |>
+#'   list_rbind()
+#'
+#' # Plot the data
 #'
 #' two_squares |>
-#' ggplot(aes(x,y, group = group, fill = group))+
-#' scale_fill_manual(values = sq_cols)+
-#' theme(legend.position = "none")+
-#' geom_polygon()+
-#' coord_equal()
+#'   ggplot(aes(x, y, group = group))+
+#'   theme(legend.position = "none")+
+#'   geom_polygon(color = two_squares$color,
+#'                fill = two_squares$fill) +
+#'   coord_equal()
 #'
 #'
-square_data <- function(x,y, size, color, fill, group_var = FALSE){
+square_data <- function(x,
+                        y,
+                        size,
+                        color = NULL,
+                        fill = NULL,
+                        group_var = FALSE,
+                        group_prefix = "square_") {
+  #===========================================================================#
+  # Input Checks---------------------------------------------------------------
+  #===========================================================================#
 
-  #Check for required inputs
+  # Check for required inputs
   required_args <- c(
     "x" = missing(x),
     "y" = missing(y)
   )
 
-  missing_args <- which(required_args) |> names() |> knitr::combine_words(before = "`", after = "`")
+  missing_args <- which(required_args) |>
+    names() |>
+    knitr::combine_words(before = "`", after = "`")
 
-  if(!rlang::is_empty(missing_args)){
+  if (!rlang::is_empty(missing_args)) {
     c(
-      "x" = paste("{missing_args}",ifelse(length(which(required_args)) > 1, "are", "is" ), error("missing")),
-      "!" = paste("{missing_args}",ifelse(length(which(required_args)) > 1, "are", "is" ), status("required"), "and should be a numeric vector with a length of at least 1")) |>
+      paste("{missing_args}", ifelse(length(which(required_args)) > 1, "are", "is"), error("missing")),
+      "x" = paste("{missing_args}", ifelse(length(which(required_args)) > 1, "are", "is"), status("required"), "and should be a numeric value with a length of 1"),
+      "i" = paste("Check the {missing_args}", ifelse(length(which(required_args)) > 1, "variables", "variable"))
+    ) |>
       cli::cli_abort()
   }
 
-  #Check for equal lengths of all inputs
-  arg_length <-
-    list(
-      "x" = length(x),
-      "y" = length(y),
-      "size" = length(size),
-      "color" = length(color),
-      "fill" = length(fill)
+  # Check for equal lengths of all inputs
+  arg_lengths <-
+    c(
+      "x" = length(x) != 1,
+      "y" = length(y) != 1,
+      "size" = length(size) != 1,
+      "color" = length(color) != 1 & !is.null(color),
+      "fill" = length(fill) != 1 & !is.null(fill),
+      "group_prefix" = length(group_prefix) != 1
     )
 
+  # If any arguments are flagged above, they are invalid
+  arg_check <- any(arg_lengths)
 
-  if(length(x) != length(y)){
-    stop(paste("`x`, `y`, and `size` inputs must be equal in length\n`x` is of length",length(x),"\n`y` is of length",length(y),"\n`size` is of length",length(size))) # nocov
-  } else if(length(y) != length(size)){
-    stop(paste("`x`, `y`, and `size` inputs must be equal in length\n`x` is of length",length(x),"\n`y` is of length",length(y),"\n`size` is of length",length(size))) # nocov
+  # Argument length checks
+  if (arg_check) {
+    invalid_args <- names(arg_lengths[which(arg_lengths)])
+    invalid_lengths <- purrr::map(invalid_args, ~ paste0("{length({", .x, "})}")) |> purrr::list_c()
+    invalid_args <- paste0("{.var ", names(arg_lengths[which(arg_lengths)]), "}")
 
+    c(
+      paste("All arguments must have a", callout("length of 1")),
+      "x" = knitr::combine_words(purrr::map2(invalid_args, invalid_lengths, ~ paste(.x, "has a length of", error(.y)))),
+      "i" = paste("Check the", knitr::combine_words(invalid_args), ifelse(length(invalid_args) > 1, "variables", "variable"))
+    ) |>
+      cli_abort()
   }
 
-  #Check for numeric inputs
-  required_args <- c(
-    "x" = missing(x),
-    "y" = missing(y)
+  # Check for numeric x/y
+  if (!is.numeric(x)) {
+    c(
+      paste("{.var x} must be of class", callout("<numeric>")),
+      "x" = paste("{.var x} is of class", error("{.cls{class(x)}}")),
+      "i" = "Check the {.var x} variable"
+    ) |>
+      cli::cli_abort()
+  } else if (!is.numeric(y)) {
+    c(
+      paste("{.var y} must be of class", callout("<numeric>")),
+      "x" = paste("{.var y} is of class", error("{.cls{class(y)}}")),
+      "i" = "Check the {.var y} variable"
+    ) |>
+      cli::cli_abort()
+  }
+
+  # Check for valid size
+  size_check <- size <= 0
+
+  if (size_check) {
+    c(
+      paste("{.var size} must be", callout("greater than 0")),
+      "x" = paste("{.var size} is", error({
+        size
+      })),
+      "i" = "Check the {.var size} variable"
+    ) |>
+      cli::cli_abort()
+  }
+
+  # Check if group_prefix is provided but group_var is FALSE
+  group_check <- !group_var & group_prefix != "square_"
+
+  if (group_check) {
+    c(
+      error("Warning:\n"),
+      "i" = paste("You have provided a custom {.var group_prefix} of:", callout('"{group_prefix}"'),"\n"),
+      "!" = paste("But {.var group_var} is `FALSE`\n"),
+      ">" = "Did you mean to set {.var group_var = TRUE}?"
+    ) |>
+      cli::cli_inform()
+  }
+
+
+  #===========================================================================#
+  # Data Generation------------------------------------------------------------
+  #===========================================================================#
+
+  # Setting vars
+  x1 <- x
+  x2 <- purrr::map2_dbl(x1, size, ~ .x + .y)
+  y1 <- y
+  y2 <- purrr::map2_dbl(y1, size, ~ .x + .y)
+
+
+  # Base dataframe creation
+  df <- dplyr::tibble(
+    x = c(x1, x2, x2, x1, x1),
+    y = c(y1, y1, y2, y2, y1)
   )
 
+  # If group_var is TRUE, add a group variable
+  if (group_var) {
 
-  #Check for numeric x/y
-  if(!is.numeric(x)){
-    stop("`x` must be a numeric value") # nocov
-  } else if(!is.numeric(y)){
-    stop("`y` must be a numeric value") # nocov
+    # Check that group_prefix in a character
+    if (!is.character(group_prefix)) {
+      c(
+        paste("{.var group_prefix} must be of class", callout("<character>")),
+        "x" = paste("{.var group_prefix} is of class", error("{.cls {class({group_prefix})}}")),
+        "i" = "Check the {.var group_prefix} variable"
+      ) |>
+        cli::cli_abort()
+    }
+
+    df <- df |>
+      mutate(group = group_prefix)
+    }
+
+  # If color is not null, add it
+  if (!is.null(color)) {
+    # check for validity
+    color_check <- is.color(color)
+
+    if (!color_check) {
+      c(
+        paste("{.var color} is", error("invalid")),
+        "x" = paste("{.var color} must be a valid:", status("`r` color from `colors()`"), "or a valid 6 digit", status("hexadecimal webcolor")),
+        "i" = paste("{.var {color}} is an", callout("invalid color"))
+      ) |>
+        cli::cli_abort()
+    }
+
+    df <- df |>
+      dplyr::mutate(color = color)
   }
 
-  #Check for numeric size greater than zero
-  if(!is.numeric(size)){
-    stop("`size` must be numeric.") # nocov
-  } else if(sum(size > 0) != length(size)){
-    stop("`size` must be greater than zero.") # nocov
+  # If fill is not null, add it
+  if (!is.null(fill)) {
+    # check for validity
+    fill_check <- is.color(fill)
+
+    if (!fill_check) {
+      c(
+        paste("{.var fill} is", error("invalid")),
+        "x" = paste("{.var fill} must be a valid:", status("`r` color from `colors()`"), "or a valid 6 digit", status("hexadecimal webcolor")),
+        "i" = paste("{.var {fill}} is an", callout("invalid color"))
+      ) |>
+        cli::cli_abort()
+    }
+
+    df <- df |>
+      mutate(fill = fill)
   }
 
-
-
-  #If x of length more than one, automatically add group variable
-  if(length(x) > 1){
-    group_var = TRUE
-  }
-
-  #Setting vars
-  x1 = x
-  x2 = map2_dbl(x1,size, ~.x+.y)
-  y1 = y
-  y2 = map2_dbl(y1,size, ~.x+.y)
-
-
-  #Data w/ and w/o group var
-  if(!group_var){
-  list_vars <- list(x1,x2,y1,y2)
-  df <- tibble(x = c(x1,x2,x2,x1,x1),
-               y = c(y1,y1,y2,y2,y1))
-
-  } else{
-    n = 1:length(x)
-    list_vars <- list(x1,x2,y1,y2,n)
-
-    df <- pmap(list_vars, ~ tibble(x = c(..1,..2,..2,..1,..1),
-                                   y = c(..3,..3,..4,..4,..3),
-                                   group = paste0("square_0",..5)))|>
-      list_rbind()
-
-
-  }
-
-  df
-
+  # Spit it out
+  return(df)
 }
-
-
-
