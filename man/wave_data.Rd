@@ -56,17 +56,20 @@ The \code{geom_path} and \code{geom_polygon} geoms are recommended with this dat
 }
 \examples{
 library(ggplot2)
-wave_df <- wave_data(start = 0, end = 10,
-                  fill = "purple",
-                  color = "green")
+wave_df <- wave_data(
+  start = 0, end = 10,
+  fill = "purple",
+  color = "green"
+)
 
 wave_df |>
-ggplot(aes(x,y))+
-theme_void()+
-geom_polygon(fill = wave_df$fill,
-            color = wave_df$color,
-            linewidth = 3)+
-coord_equal()
-
+  ggplot(aes(x, y)) +
+  theme_void() +
+  geom_polygon(
+    fill = wave_df$fill,
+    color = wave_df$color,
+    linewidth = 3
+  ) +
+  coord_equal()
 
 }

@@ -34,7 +34,7 @@
 #' @examples
 #' library(ggplot2)
 #' set.seed(0310)
-#' packed_circles <- circle_packer(
+#' packed_circles <- packer(
 #'   n = 50, big_r = 5, med_r = 3, small_r = 1,
 #'   min_x = 0, max_x = 100, min_y = 0, max_y = 100
 #' )
@@ -47,128 +47,126 @@
 #'   geom_polygon(fill = "white", color = "red") +
 #'   coord_equal()
 #'
-circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
+packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
                           big_r = 5, med_r = 3, small_r = 1,
                           color_pal = NULL, color_type = "regular",
-                          circle_type = "whole"
-) {
-
-  #===========================================================================#
+                          circle_type = "whole") {
+  # ===========================================================================#
   # Logic Checks---------------------------------------------------------------
-  #===========================================================================#
+  # ===========================================================================#
 
   # Checks for proper "n" input
   # n is present
-  if(missing(n)){
+  if (missing(n)) {
     c(
       paste("The {.var n} variable is", callout("missing")),
-      "x" = paste("A {.var n} variable with a minimum value of 10 is",error("required")),
+      "x" = paste("A {.var n} variable with a minimum value of 10 is", error("required")),
       "i" = "Check the {.var n} variable you've supplied."
     ) |>
       cli::cli_abort()
   }
 
   # n has a length of 1
-  if(length(n) > 1){
+  if (length(n) > 1) {
     c(
       paste("The {.var n} variable has a length of", callout("{length(n)}")),
-      "x" = paste("A {.var n} variable with a length of 1 is",error("required")),
+      "x" = paste("A {.var n} variable with a length of 1 is", error("required")),
       "i" = "Check the {.var n} variable you've supplied."
     ) |>
       cli::cli_abort()
   }
 
   # n is numeric
-  if(!is.numeric(n)){
+  if (!is.numeric(n)) {
     c(
       paste("{.var n} must be of class", callout("<numeric>")),
-      "x" = paste("The {.var n} variable you've supplied is of class",error("<{class(n)}>")),
+      "x" = paste("The {.var n} variable you've supplied is of class", error("<{class(n)}>")),
       "i" = "Check the {.var n} variable you've supplied."
     ) |>
       cli::cli_abort()
   }
 
   # n is at least 10
-  if(n < 10){
+  if (n < 10) {
     c(
       paste("{.var n} must have a minimum value of", callout(10)),
-      "x" = paste("The {.var n} value you've supplied is",error(n)),
+      "x" = paste("The {.var n} value you've supplied is", error(n)),
       "i" = "Check the {.var n} value you've supplied."
     ) |>
       cli::cli_abort()
   }
 
   # xlim is numeric
-  if(!is.numeric(min_x)){
+  if (!is.numeric(min_x)) {
     c(
       paste("{.var min_x} must be of class", callout("<numeric>")),
-      "x" = paste("The {.var min_x} variable you've supplied is of class",error("<{class(min_x)}>")),
+      "x" = paste("The {.var min_x} variable you've supplied is of class", error("<{class(min_x)}>")),
       "i" = "Check the {.var min_x} variable you've supplied."
     ) |>
       cli::cli_abort()
   }
 
-  if(!is.numeric(max_x)){
+  if (!is.numeric(max_x)) {
     c(
       paste("{.var max_x} must be of class", callout("<numeric>")),
-      "x" = paste("The {.var max_x} variable you've supplied is of class",error("<{class(max_x)}>")),
+      "x" = paste("The {.var max_x} variable you've supplied is of class", error("<{class(max_x)}>")),
       "i" = "Check the {.var max_x} variable you've supplied."
     ) |>
       cli::cli_abort()
   }
 
-  #xlim is a length of 1
-  if(length(min_x) > 1){
+  # xlim is a length of 1
+  if (length(min_x) > 1) {
     c(
       paste("The {.var min_x} variable has a length of", callout("{length(min_x)}")),
-      "x" = paste("A {.var min_x} variable with a length of 1 is",error("required")),
+      "x" = paste("A {.var min_x} variable with a length of 1 is", error("required")),
       "i" = "Check the {.var min_x} variable you've supplied."
     ) |>
       cli::cli_abort()
   }
 
-  if(length(max_x) > 1){
+  if (length(max_x) > 1) {
     c(
       paste("The {.var max_x} variable has a length of", callout("{length(max_x)}")),
-      "x" = paste("A {.var max_x} variable with a length of 1 is",error("required")),
+      "x" = paste("A {.var max_x} variable with a length of 1 is", error("required")),
       "i" = "Check the {.var max_x} variable you've supplied."
     ) |>
       cli::cli_abort()
   }
 
   # ylim is numeric
-  if(!is.numeric(min_y)){
+  if (!is.numeric(min_y)) {
     c(
       paste("{.var min_y} must be of class", callout("<numeric>")),
-      "x" = paste("The {.var min_y} variable you've supplied is of class",error("<{class(min_y)}>")),
+      "x" = paste("The {.var min_y} variable you've supplied is of class", error("<{class(min_y)}>")),
       "i" = "Check the {.var min_y} variable you've supplied."
     ) |>
       cli::cli_abort()
   }
 
-  if(!is.numeric(max_y)){
+  if (!is.numeric(max_y)) {
     c(
       paste("{.var max_y} must be of class", callout("<numeric>")),
-      "x" = paste("The {.var max_y} variable you've supplied is of class",error("<{class(max_y)}>")),
+      "x" = paste("The {.var max_y} variable you've supplied is of class", error("<{class(max_y)}>")),
       "i" = "Check the {.var max_y} variable you've supplied."
     ) |>
       cli::cli_abort()
   }
 
-  #ylim has a length of 1
-  if(length(min_y) > 1){
+  # ylim has a length of 1
+  if (length(min_y) > 1) {
     c(
       paste("The {.var min_y} variable has a length of", callout("{length(min_y)}")),
-      "x" = paste("A {.var min_y} variable with a length of 1 is",error("required")),
+      "x" = paste("A {.var min_y} variable with a length of 1 is", error("required")),
       "i" = "Check the {.var min_y} variable you've supplied."
     ) |>
       cli::cli_abort()
   }
 
-  if(length(max_y) > 1){
+  if (length(max_y) > 1) {
     c(
       paste("The {.var max_y} variable has a length of", callout("{length(max_y)}")),
-      "x" = paste("A {.var max_y} variable with a length of 1 is",error("required")),
+      "x" = paste("A {.var max_y} variable with a length of 1 is", error("required")),
       "i" = "Check the {.var max_y} variable you've supplied."
     ) |>
       cli::cli_abort()
@@ -181,102 +179,98 @@ circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
     "small_r" = small_r
   )
 
-  radi_check = NULL
+  radi_check <- NULL
 
-  radi_check <- purrr::imap(radis,
-                     ~if (length(.x) != 1){
-                       radi_check <- "1"
-                     } else if (!is.numeric(.x)){
-                       radi_check <- "2"
-                     } else if (.x <= 0){
-                       radi_check <- "3"
-                     },
-                       names(radi_check) <- radis[.y]
+  radi_check <- purrr::imap(
+    radis,
+    ~ if (length(.x) != 1) {
+      radi_check <- "1"
+    } else if (!is.numeric(.x)) {
+      radi_check <- "2"
+    } else if (.x <= 0) {
+      radi_check <- "3"
+    },
+    names(radi_check) <- radis[.y]
   )
 
-  if(!all(sapply(radi_check, is.null))){
-
+  if (!all(sapply(radi_check, is.null))) {
     first_non_null <- radi_check[!sapply(radi_check, is.null)][1] |> unlist()
 
-    switch(
-      first_non_null,
+    switch(first_non_null,
       "1" = c(
-             paste("{.var {names(first_non_null)}} must be of length", callout(1)),
-             "x" = paste("The {.var {names(first_non_null)}} you've supplied has a length of",error(length(radis[[names(first_non_null)]]))),
-             "i" = "Check the {.var {names(first_non_null)}} value you've supplied."
-             ) |>
-    cli::cli_abort(),
-           "2" = c(
-             paste("{.var {names(first_non_null)}} must be of type", callout("numeric")),
-             "x" = paste0("You've supplied a ", error(class(radis[[names(first_non_null)]]))),
-             "i" = "Check the {.var {names(first_non_null)}} value you've supplied."
-             ) |>
-      cli::cli_abort(),
-           "3" = c(
-             paste("{.var {names(first_non_null)}} must be", callout("greater than zero")),
-             "x" = paste("{.var {names(first_non_null)}} =", error(radis[[names(first_non_null)]])),
-             "i" = "Check the {.var {names(first_non_null)}} value you've supplied."
-           ) |>
-      cli::cli_abort()
+        paste("{.var {names(first_non_null)}} must be of length", callout(1)),
+        "x" = paste("The {.var {names(first_non_null)}} you've supplied has a length of", error(length(radis[[names(first_non_null)]]))),
+        "i" = "Check the {.var {names(first_non_null)}} value you've supplied."
+      ) |>
+        cli::cli_abort(),
+      "2" = c(
+        paste("{.var {names(first_non_null)}} must be of type", callout("numeric")),
+        "x" = paste0("You've supplied a ", error(class(radis[[names(first_non_null)]]))),
+        "i" = "Check the {.var {names(first_non_null)}} value you've supplied."
+      ) |>
+        cli::cli_abort(),
+      "3" = c(
+        paste("{.var {names(first_non_null)}} must be", callout("greater than zero")),
+        "x" = paste("{.var {names(first_non_null)}} =", error(radis[[names(first_non_null)]])),
+        "i" = "Check the {.var {names(first_non_null)}} value you've supplied."
+      ) |>
+        cli::cli_abort()
     )
   }
 
   # Checks for pre-set inputs
   # Color Type check
-  if(!color_type %in% c('regular', 'reverse','random')) {
+  if (!color_type %in% c("regular", "reverse", "random")) {
     c(
       paste("{.var color_type} is", error("unknown")),
-      "x" = paste("{.var color_type} must be one of the following:", status('"regular"'),",",status('"reverse"'),", or",status('"random"')),
+      "x" = paste("{.var color_type} must be one of the following:", status('"regular"'), ",", status('"reverse"'), ", or", status('"random"')),
       "i" = "You've supplied a {.var color_type} value of", callout("{.var {color_type}}")
     ) |>
       cli::cli_abort()
   }
 
   # Circle Type check
-  if(!circle_type %in% c('whole', 'swirl')) {
+  if (!circle_type %in% c("whole", "swirl")) {
     c(
       paste("{.var circle_type} is", error("unknown")),
-      "x" = paste("{.var circle_type} must be one of the following:", status('"whole"'), "or",status('"swirl"')),
+      "x" = paste("{.var circle_type} must be one of the following:", status('"whole"'), "or", status('"swirl"')),
       "i" = "You've supplied a {.var circle_type} value of", callout("{.var {circle_type}}")
     ) |>
       cli::cli_abort()
   }
 
-  #Checks for valid color palettes
-  if(!is.null(color_pal)){
+  # Checks for valid color palettes
+  if (!is.null(color_pal)) {
     color_check <- any(!is.color(color_pal))
 
-    if(color_check){
-
+    if (color_check) {
       invalid_colors <- names(is.color(color_pal)[is.color(color_pal) == FALSE])
 
       c(
         paste("{.var color_pal} contains", error("invalid colors")),
-        "x" = paste("{.var color_pal} must contain valid:", status('`r` colors from `colors()`'),"or",status('hexadecimal webcolors')),
+        "x" = paste("{.var color_pal} must contain valid:", status("`r` colors from `colors()`"), "or", status("hexadecimal webcolors")),
         "i" = paste("{knitr::combine_words(invalid_colors, before = '\"', after ='\"' )}", ifelse(length(invalid_colors) > 1, "are", "is"), callout("invalid colors"))
       ) |>
         cli::cli_abort()
-
     }
-
   }
 
-  #===========================================================================#
+  # ===========================================================================#
   # Packing Work---------------------------------------------------------------
-  #===========================================================================#
+  # ===========================================================================#
 
   # n work to determine circle amount
-    # Big circles are 20%, medium is 50%, and small is 30%
-    big_max = floor(n * .2)
-    med_max = floor(n * .5)
-    small_max = floor(n * .3)
-    leftover = n - (big_max + med_max + small_max)
-    small_max = small_max + leftover - 1
+  # Big circles are 20%, medium is 50%, and small is 30%
+  big_max <- floor(n * .2)
+  med_max <- floor(n * .5)
+  small_max <- floor(n * .3)
+  leftover <- n - (big_max + med_max + small_max)
+  small_max <- small_max + leftover - 1
 
-  #Setting theta angles for each circle
+  # Setting theta angles for each circle
   theta <- seq(0, 2 * pi, length = 100)
 
-  #Distance function to determine radi overlap
+  # Distance function to determine radi overlap
   distance <- function(x1, y1, x2, y2) {
     sqrt(((x2 - x1)^2) + ((y2 - y1)^2))
   }
@@ -308,32 +302,32 @@ circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
   }
 
 
-    new_iter <- 1:length(big_y)
+  new_iter <- 1:length(big_y)
 
   big_angles <- sample(0:360, length(big_y), replace = TRUE)
 
 
   big_circles <- switch(circle_type,
-                        "whole" = purrr::pmap(list(
-                          big_x,
-                          big_y,
-                          new_iter
-                        ), ~ tibble::tibble(
-                          x = cos(theta) * big_r + ..1,
-                          y = sin(theta) * big_r + ..2,
-                          group = paste0("big_", ..3)
-                        )) |> purrr::list_rbind(),
-                        "swirl" = purrr::pmap(list(
-                          big_x,
-                          big_y,
-                          new_iter,
-                          big_angles
-                        ), ~ artpack::rotator(tibble::tibble(
-                          x = (cos(theta) * seq(1, 0, length = 1000)) * big_r + ..1,
-                          y = (sin(theta) * seq(1, 0, length = 1000)) * big_r + ..2,
-                          group = paste0("big_", ..3),
-                          linewidth = .8
-                        ),x,y, ..4)) |> purrr::list_rbind()
+    "whole" = purrr::pmap(list(
+      big_x,
+      big_y,
+      new_iter
+    ), ~ tibble::tibble(
+      x = cos(theta) * big_r + ..1,
+      y = sin(theta) * big_r + ..2,
+      group = paste0("big_", ..3)
+    )) |> purrr::list_rbind(),
+    "swirl" = purrr::pmap(list(
+      big_x,
+      big_y,
+      new_iter,
+      big_angles
+    ), ~ artpack::rotator(tibble::tibble(
+      x = (cos(theta) * seq(1, 0, length = 1000)) * big_r + ..1,
+      y = (sin(theta) * seq(1, 0, length = 1000)) * big_r + ..2,
+      group = paste0("big_", ..3),
+      linewidth = .8
+    ), x, y, ..4)) |> purrr::list_rbind()
   )
 
 
@@ -377,26 +371,26 @@ circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
 
 
   med_circles <- switch(circle_type,
-                        "whole" = purrr::pmap(list(
-                          med_x,
-                          med_y,
-                          new_iter
-                        ), ~ tibble::tibble(
-                          x = cos(theta) * med_r + ..1,
-                          y = sin(theta) * med_r + ..2,
-                          group = paste0("med_", ..3)
-                        )) |> purrr::list_rbind(),
-                        "swirl" = purrr::pmap(list(
-                          med_x,
-                          med_y,
-                          new_iter,
-                          med_angles
-                        ), ~ artpack::rotator(tibble::tibble(
-                          x = (cos(theta) * seq(1, 0, length = 1000)) * med_r + ..1,
-                          y = (sin(theta) * seq(1, 0, length = 1000)) * med_r + ..2,
-                          group = paste0("med_", ..3),
-                          linewidth = .4
-                        ),x,y, ..4)) |> purrr::list_rbind()
+    "whole" = purrr::pmap(list(
+      med_x,
+      med_y,
+      new_iter
+    ), ~ tibble::tibble(
+      x = cos(theta) * med_r + ..1,
+      y = sin(theta) * med_r + ..2,
+      group = paste0("med_", ..3)
+    )) |> purrr::list_rbind(),
+    "swirl" = purrr::pmap(list(
+      med_x,
+      med_y,
+      new_iter,
+      med_angles
+    ), ~ artpack::rotator(tibble::tibble(
+      x = (cos(theta) * seq(1, 0, length = 1000)) * med_r + ..1,
+      y = (sin(theta) * seq(1, 0, length = 1000)) * med_r + ..2,
+      group = paste0("med_", ..3),
+      linewidth = .4
+    ), x, y, ..4)) |> purrr::list_rbind()
   )
   message("Med Circles Complete!")
 
@@ -434,32 +428,32 @@ circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
   small_y <- small_y[-1]
 
 
-    new_iter <- 1:length(small_y)
+  new_iter <- 1:length(small_y)
 
   small_angles <- sample(0:360, length(small_y), replace = TRUE)
 
 
   small_circles <- switch(circle_type,
-                          "whole" = purrr::pmap(list(
-                            small_x,
-                            small_y,
-                            new_iter
-                          ), ~ tibble::tibble(
-                            x = cos(theta) * small_r + ..1,
-                            y = sin(theta) * small_r + ..2,
-                            group = paste0("small_", ..3)
-                          )) |> purrr::list_rbind(),
-                          "swirl" = purrr::pmap(list(
-                            small_x,
-                            small_y,
-                            new_iter,
-                            small_angles
-                          ), ~ artpack::rotator(tibble::tibble(
-                            x = (cos(theta) * seq(1, 0, length = 1000)) * small_r + ..1,
-                            y = (sin(theta) * seq(1, 0, length = 1000)) * small_r + ..2,
-                            group = paste0("small_", ..3),
-                            linewidth = .1
-                          ),x,y, ..4)) |> purrr::list_rbind()
+    "whole" = purrr::pmap(list(
+      small_x,
+      small_y,
+      new_iter
+    ), ~ tibble::tibble(
+      x = cos(theta) * small_r + ..1,
+      y = sin(theta) * small_r + ..2,
+      group = paste0("small_", ..3)
+    )) |> purrr::list_rbind(),
+    "swirl" = purrr::pmap(list(
+      small_x,
+      small_y,
+      new_iter,
+      small_angles
+    ), ~ artpack::rotator(tibble::tibble(
+      x = (cos(theta) * seq(1, 0, length = 1000)) * small_r + ..1,
+      y = (sin(theta) * seq(1, 0, length = 1000)) * small_r + ..2,
+      group = paste0("small_", ..3),
+      linewidth = .1
+    ), x, y, ..4)) |> purrr::list_rbind()
   )
 
   message("Small Circles Complete!")
@@ -475,9 +469,9 @@ circle_packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
 
     total_groups <- length(group_ns)
     color_opts <- switch(color_type,
-                         "regular" = rep(colorRampPalette(color_pal)(total_groups), each = group_ns[1]),
-                         "reverse" = rev(rep(colorRampPalette(color_pal)(total_groups), each = group_ns[1])),
-                         "random" = rep(sample(colorRampPalette(color_pal)(total_groups)), each = group_ns[1])
+      "regular" = rep(colorRampPalette(color_pal)(total_groups), each = group_ns[1]),
+      "reverse" = rev(rep(colorRampPalette(color_pal)(total_groups), each = group_ns[1])),
+      "random" = rep(sample(colorRampPalette(color_pal)(total_groups)), each = group_ns[1])
     )
 
 

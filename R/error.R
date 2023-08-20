@@ -14,16 +14,16 @@
 #' @importFrom cli combine_ansi_styles
 
 # For pretty red error messaging
-error <- function(...){
+error <- function(...) {
   cli::combine_ansi_styles("red", "bold")(...)
 }
 
 # For pretty orange callout messaging
-callout <- function(...){
+callout <- function(...) {
   cli::combine_ansi_styles("darkorange", "bold")(...)
 }
 
 # For pretty blue status messaging
-status <- function(...){
+status <- function(...) {
   cli::combine_ansi_styles("#0493ba", "bold")(...)
 }

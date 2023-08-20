@@ -25,148 +25,149 @@
 #' @importFrom grDevices colors
 #'
 #' @examples
-#'library(ggplot2)
-#'wave_df <- wave_data(start = 0, end = 10,
-#'                   fill = "purple",
-#'                   color = "green")
+#' library(ggplot2)
+#' wave_df <- wave_data(
+#'   start = 0, end = 10,
+#'   fill = "purple",
+#'   color = "green"
+#' )
 #'
-#'wave_df |>
-#'ggplot(aes(x,y))+
-#'theme_void()+
-#'geom_polygon(fill = wave_df$fill,
-#'             color = wave_df$color,
-#'             linewidth = 3)+
-#'coord_equal()
-#'
+#' wave_df |>
+#'   ggplot(aes(x, y)) +
+#'   theme_void() +
+#'   geom_polygon(
+#'     fill = wave_df$fill,
+#'     color = wave_df$color,
+#'     linewidth = 3
+#'   ) +
+#'   coord_equal()
 #'
 wave_data <- function(start, end, size = 1,
                       type = "sin", rotate = NULL, orientation = "horiz",
                       freq = 3, n_points = 1000, color = NULL, fill = NULL, group = FALSE,
-                      dampen = NULL, amplify = NULL ){
-
-  #Numeric Catches#
-  if(!is.numeric(start) == TRUE){
+                      dampen = NULL, amplify = NULL) {
+  # Numeric Catches#
+  if (!is.numeric(start) == TRUE) {
     stop("`start` must be a numeric value.") # nocov
-  } else if(!is.numeric(end) == TRUE){
+  } else if (!is.numeric(end) == TRUE) {
     stop("`end` must be a numeric value.") # nocov
   }
 
-  if(!is.numeric(size) == TRUE){
+  if (!is.numeric(size) == TRUE) {
     stop("`size` must be a positive numeric value.") # nocov
-  } else if((size > 0) != TRUE){
+  } else if ((size > 0) != TRUE) {
     stop("`size` must be a positive numeric value.") # nocov
   }
 
-  if(is.null(rotate) == FALSE){
-    if(!is.numeric(rotate) == TRUE){
+  if (is.null(rotate) == FALSE) {
+    if (!is.numeric(rotate) == TRUE) {
       stop("`rotate` must be a positive numeric value between -360 to 360.") # nocov
-    } else if(!rotate >= -360 & rotate <= 360){
+    } else if (!rotate >= -360 & rotate <= 360) {
       stop("`rotate` must be a positive numeric value between -360 to 360.") # nocov
     }
   }
 
-  if(!is.numeric(n_points) == TRUE){
+  if (!is.numeric(n_points) == TRUE) {
     stop("`n_points` must be a positive numeric value.") # nocov
-  } else if((n_points > 0) != TRUE){
+  } else if ((n_points > 0) != TRUE) {
     stop("`n_points` must be a positive numeric value.") # nocov
   }
 
-  if(!is.null(dampen)){
-  if(!is.numeric(dampen) == TRUE){
-    stop("`dampen` factor must be a positive numeric value.") # nocov
-  } else if((dampen > 0) != TRUE){
-    stop("`dampen` factor must be a positive numeric value.") # nocov
-  }
-  }
-
-  if(!is.null(amplify)){
-  if(!is.numeric(amplify) == TRUE){
-    stop("`amplify` factor must be a positive numeric value.") # nocov
-  } else if((amplify > 0) != TRUE){
-    stop("`amplify` factor must be a positive numeric value.") # nocov
-  }
+  if (!is.null(dampen)) {
+    if (!is.numeric(dampen) == TRUE) {
+      stop("`dampen` factor must be a positive numeric value.") # nocov
+    } else if ((dampen > 0) != TRUE) {
+      stop("`dampen` factor must be a positive numeric value.") # nocov
+    }
   }
 
+  if (!is.null(amplify)) {
+    if (!is.numeric(amplify) == TRUE) {
+      stop("`amplify` factor must be a positive numeric value.") # nocov
+    } else if ((amplify > 0) != TRUE) {
+      stop("`amplify` factor must be a positive numeric value.") # nocov
+    }
+  }
 
-  #String Catches#
-  if(!type %in% c("sin","cos")){
+
+  # String Catches#
+  if (!type %in% c("sin", "cos")) {
     stop("`type` must be a string value of:\n\"sin\" or \"cos\".") # nocov
   }
 
-  if(!orientation %in% c("horiz","horizontal", "vert", "vertical")){
+  if (!orientation %in% c("horiz", "horizontal", "vert", "vertical")) {
     stop("`orientation` must be a string value of:\n\"horiz\", \"horizontal\", \"vert\", or \"vertical\"") # nocov
   }
 
-  if(is.null(color) == FALSE){
-    if(!grepl("^#[[:alnum:]]{6}",color)){
-      if(!color %in% colors()){
+  if (is.null(color) == FALSE) {
+    if (!grepl("^#[[:alnum:]]{6}", color)) {
+      if (!color %in% colors()) {
         stop("`color` must be a valid R color or a 6 digit alphanumeric hex code.") # nocov
       }
     }
   }
 
-  if(is.null(fill) == FALSE){
-    if(!grepl("^#[[:alnum:]]{6}",fill)){
-      if(!fill %in% colors()){
+  if (is.null(fill) == FALSE) {
+    if (!grepl("^#[[:alnum:]]{6}", fill)) {
+      if (!fill %in% colors()) {
         stop("`fill` must be a valid R color or a 6 digit alphanumeric hex code.") # nocov
       }
     }
   }
 
-  #Logic Catches#
-  if(!is.logical(group)){
+  # Logic Catches#
+  if (!is.logical(group)) {
     stop("`group` variable must be a logical `TRUE` or `FALSE` value.") # nocov
   }
 
-freq <- (2*pi)*freq
+  freq <- (2 * pi) * freq
 
 
-wave <- switch(type,
-               "sin" = sin(seq(0,freq, length = n_points)),
-               "cos" = cos(seq(0,freq, length = n_points))
-               )
+  wave <- switch(type,
+    "sin" = sin(seq(0, freq, length = n_points)),
+    "cos" = cos(seq(0, freq, length = n_points))
+  )
 
-if(!is.null(dampen)){
-  wave <- wave/dampen
+  if (!is.null(dampen)) {
+    wave <- wave / dampen
+  }
+
+  if (!is.null(amplify)) {
+    wave <- wave * amplify
+  }
+
+  path <- seq(start, end, length = n_points)
+
+  if (orientation %in% c("vert", "vertical")) {
+    wave_df <- tibble(
+      x = c(wave, wave[n_points], rev(wave + size), wave[1]),
+      y = c(path, path[n_points], rev(path), path[1])
+    )
+  } else {
+    wave_df <- tibble(
+      x = c(path, path[n_points], rev(path), path[1]),
+      y = c(wave, wave[n_points], rev(wave + size), wave[1])
+    )
+  }
+
+  if (!is.null(color)) {
+    wave_df <- wave_df |>
+      mutate(color = color)
+  }
+
+  if (!is.null(fill)) {
+    wave_df <- wave_df |>
+      mutate(fill = fill)
+  }
+
+  if (!is.null(group)) {
+    wave_df <- wave_df |>
+      mutate(group = "wave")
+  }
+
+  if (!is.null(rotate)) {
+    wave_df <- rotator(wave_df, angle = rotate)
+  }
+
+  return(wave_df)
 }
-
-if(!is.null(amplify)){
-  wave <- wave * amplify
-}
-
-path <- seq(start, end, length = n_points)
-
-if(orientation %in% c("vert", "vertical")){
-  wave_df <- tibble(x = c(wave, wave[n_points],rev(wave + size), wave[1]),
-                    y = c(path, path[n_points], rev(path), path[1])
-                    )
-} else{
-  wave_df <- tibble(x = c(path, path[n_points], rev(path), path[1]),
-                    y = c(wave, wave[n_points], rev(wave + size), wave[1])
-                    )
-}
-
-if(!is.null(color)){
-  wave_df <- wave_df |>
-    mutate(color = color)
-}
-
-if(!is.null(fill)){
-  wave_df <- wave_df |>
-    mutate(fill = fill)
-}
-
-if(!is.null(group)){
-  wave_df <- wave_df |>
-    mutate(group = "wave")
-}
-
-if(!is.null(rotate)){
-  wave_df <- rotator(wave_df, angle = rotate)
-}
-
-return(wave_df)
-
-}
-
-

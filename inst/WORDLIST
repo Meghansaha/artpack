@@ -1,6 +1,7 @@
 CMD
 Rtistry
 Tibble
+Tidyverse
 aRt
 aRtists
 aRtpack
@@ -9,5 +10,7 @@ geoms
 ggplot
 icecream
 jitter
+styler
 sunnyside
 tibble
+webcolor

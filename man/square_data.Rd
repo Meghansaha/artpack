@@ -4,21 +4,30 @@
 \alias{square_data}
 \title{Data Generation for Squares}
 \usage{
-square_data(x, y, size, group_var = FALSE)
+square_data(
+  x,
+  y,
+  size,
+  color = NULL,
+  fill = NULL,
+  group_var = FALSE,
+  group_prefix = "square_"
+)
 }
 \arguments{
-\item{x}{Numeric - The bottom left \code{x} value of the square.}
+\item{x}{Numeric value of length 1 - The bottom left \code{x} value of the square.}
 
-\item{y}{Numeric - The bottom left \code{y} value of the square.}
+\item{y}{Numeric value of length 1 - The bottom left \code{y} value of the square.}
 
-\item{size}{Numeric - The size of the square.
+\item{size}{Numeric value of length 1 that must be greater than 0 - The size of the square.}
 
-Must be a value greater than zero.}
+\item{color}{Character value of length 1 - The color of the square's border. A valid \code{R} color from \code{colors()} or a standard 6 digit hexadecimal webcolor like "#000000"}
 
-\item{group_var}{\code{TRUE}/\code{FALSE}. Default is \code{FALSE}.
+\item{fill}{Character value of length 1 - The color of the square. A valid \code{R} color from \code{colors()} or a standard 6 digit hexadecimal webcolor like "#000000"}
 
-If \code{TRUE}, adds a grouping variable to the data frame.
-Default is switched to \code{TRUE} when more than one \code{x}, \code{y}, and \code{size} values are present.}
+\item{group_var}{Logical. Default is \code{FALSE}. If \code{TRUE}, a \code{group} variable will be added to the dataframe. Useful in iterative data generation.}
+
+\item{group_prefix}{Character string of length 1 - The prefix used for the \code{group} variable. Default is "square_"}
 }
 \value{
 A Tibble
@@ -28,28 +37,62 @@ A tool for creating a data frame of values that create a square with a specified
 when plotted.
 }
 \examples{
+# Creating one square
 library(ggplot2)
-set.seed(0310)
 one_square <- square_data(x = 0, y = 0, size = 5)
 
+# Plot The Data
 one_square |>
-ggplot(aes(x,y))+
-geom_path(color = "green")+
-coord_equal()
+  ggplot(aes(x,y))+
+  geom_path(color = "green")+
+  coord_equal()
 
+# To create multiple squares, use your preferred method of iteration:
+# Creating two squares
+
+library(purrr)
+library(dplyr)
+
+# Make your specs
 x_vals <- c(0,4)
 y_vals <- c(0,0)
 sizes <- c(1,3)
-sq_cols <- c("purple", "yellow")
+fills <- c("purple", "yellow")
+square_n <- 1:2
 
-two_squares <- square_data(x = x_vals, y = y_vals, size = sizes)
+# Prep for your iteration
+lst_square_specs <-
+  list(
+    x_vals,
+    y_vals,
+    sizes,
+    fills,
+    square_n
+  )
+
+# Use `square_data()` in your preferred iteration methods
+two_squares <- pmap(lst_square_specs, ~square_data(
+  x = ..1,
+  y = ..2,
+  size = ..3,
+  fill = ..4,
+  color = "#000000",
+  group_var = TRUE
+) |>
+  # square_data adds a `group` variable if `group_var` = TRUE.
+  # For multiple squares, a unique identifier should be added/pasted in.
+  mutate(group = paste0(group,..5))
+) |>
+  list_rbind()
+
+# Plot the data
 
 two_squares |>
-ggplot(aes(x,y, group = group, fill = group))+
-scale_fill_manual(values = sq_cols)+
-theme(legend.position = "none")+
-geom_polygon()+
-coord_equal()
+  ggplot(aes(x, y, group = group))+
+  theme(legend.position = "none")+
+  geom_polygon(color = two_squares$color,
+               fill = two_squares$fill) +
+  coord_equal()
 
 
 }
