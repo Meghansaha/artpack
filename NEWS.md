@@ -1,3 +1,10 @@
+# artpack (development version) - 1.0.0
+
+* Improved testing suite for `square_data()`
+* Overhauled `square_data()` with improved logic testing and handling for inputs
+* Renamed old "circle_packer()" function to `packer()`
+* Restyled package to follow Tidyverse Style Guidelines via the styler package.
+
 # artpack (development version) - 0.0.0.9003
 
 * Improved testing suite for `circle_packer()`
