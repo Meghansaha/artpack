@@ -1,6 +1,7 @@
 
-# <img src="man/figures/logo.png" align="center">
-
+<p align="center" width="100%">
+<img src="man/figures/logo.png">
+</p>
 <!-- badges: start -->
 
 [![](https://codecov.io/gh/Meghansaha/artpack/branch/master/graph/badge.svg?token=X1Y9P4QEVC)](https://codecov.io/gh/Meghansaha/artpack)
