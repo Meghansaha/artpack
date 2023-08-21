@@ -5,7 +5,7 @@
 #'
 #' @param xlim A numeric vector with two X limits. A minimum and maximum limit for the X axis. Must be a length of 2.
 #' @param ylim A numeric vector with two Y limits. A minimum and maximum limit for the Y axis. Must be a length of 2.
-#' @param size A numeric input. The size of the grid. How many shapes will appear in a single row or column. Must be a length of 1 and greater than 0.
+#' @param size A numeric input. The size of the grid. How many shapes will appear in a single row or column. Must be a length of 1, greater than 0, and less than or equal to the max `xlim` and max `ylim`.
 #' @param fill_pal Optional. A character vector of 6 digit hexadecimal webcolor code, or `R` `colors()` color strings to be applied to fill the grid.
 #' @param fill_style Optional. A character input. "range" or "random". Determines how the fill color palette is mapped.
 #' @param color_pal Optional. A character vector of 6 digit hexadecimal webcolor code, or `R` `colors()` color strings to be applied to borders of the grid.
@@ -26,23 +26,25 @@
 #' @export
 #'
 #' @examples
-#' library(ggplot2)
-#' grid_data <- grid_maker(
-#'   xlim = c(0, 1),
-#'   ylim = c(0, 1),
-#'   size = 10,
-#'   fill_pal = c("red", "black", "purple"),
-#'   color_pal = "#ffffff"
-#' )
+#' # Creating data for a grid:
 #'
-#' ggplot() +
-#'   geom_polygon(
-#'     data = grid_data,
-#'     aes(x, y, group = group),
-#'     fill = grid_data$fill,
-#'     color = grid_data$color
-#'   ) +
-#'   coord_equal()
+#' library(ggplot2)
+# grid_data <- grid_maker(
+#   xlim = c(0, 1),
+#   ylim = c(0, 1),
+#   size = 10,
+#   fill_pal = c("turquoise", "black", "purple"),
+#   color_pal = c("black","limegreen")
+# )
+#
+# ggplot() +
+#   geom_polygon(
+#     data = grid_data,
+#     aes(x, y, group = group),
+#     fill = grid_data$fill,
+#     color = grid_data$color
+#   ) +
+#   coord_equal()
 #'
 grid_maker <- function(xlim, ylim, size,
                        fill_pal = NULL, fill_style = "range",
@@ -141,6 +143,32 @@ grid_maker <- function(xlim, ylim, size,
       cli::cli_abort()
   }
 
+  size_int_check <- size %% 1 != 0
+
+  if (size_int_check) {
+    c(
+      paste("{.var size} must be", callout("a whole number"), "with", callout("no decimals")),
+      "x" = paste("{.var size} is", error({
+        size
+      })),
+      "i" = "Check the {.var size} variable"
+    ) |>
+      cli::cli_abort()
+  }
+
+  size_lim_check <- size > max(xlim) | size > max(ylim)
+
+  if (size_lim_check) {
+    c(
+      paste("{.var size} must be", callout("less than or equal to the max limits for x and y")),
+      "x" = paste("{.var size} is", error({size})),
+      "i" = paste("max xlim is", status({max(xlim)})),
+      "i" = paste("max ylim is", status({max(ylim)})),
+      "i" = "Check the {.var size} variable"
+    ) |>
+      cli::cli_abort()
+  }
+
   # Check that applicable character inputs are characters
   char_args <- c(
     "fill_pal" = !is.character(fill_pal) & !is.null(fill_pal),
@@ -171,7 +199,7 @@ grid_maker <- function(xlim, ylim, size,
   if (!is.null(fill_pal)) {
     color_check <- any(is.color(c(fill_pal)) == FALSE)
 
-    if (!color_check) {
+    if (color_check) {
       invalid_cols <- names(which(is.color(c(fill_pal)) == FALSE))
 
       c(
@@ -186,7 +214,7 @@ grid_maker <- function(xlim, ylim, size,
   if (!is.null(color_pal)) {
     color_check <- any(is.color(c(color_pal)) == FALSE)
 
-    if (!color_check) {
+    if (color_check) {
       invalid_cols <- names(which(is.color(c(color_pal)) == FALSE))
 
       c(
@@ -224,6 +252,10 @@ grid_maker <- function(xlim, ylim, size,
     ) |>
       cli::cli_abort()
   }
+
+  #===========================================================================#
+  # Data Generation------------------------------------------------------------
+  #===========================================================================#
 
   # Creating group names for each individual square#
   grp_nums <- rep(1:(size * size), each = 5)
@@ -339,8 +371,9 @@ grid_maker <- function(xlim, ylim, size,
     grid <- purrr::pmap(grid_comps, ~ tibble::tibble(
       x = ..1,
       y = ..2,
-      color = ..3,
-      group = ..4
+      fill = ..3,
+      color = ..4,
+      group = ..5
     )) |>
       purrr::list_rbind()
 

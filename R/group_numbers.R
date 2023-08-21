@@ -1,6 +1,6 @@
 #' Convert Numbers into Padded Strings for Easier Group Numbering
 #'
-#' @param ... #A numeric vector with a length of at least 1.
+#' @param numbers #A numeric vector with a length of at least 1.
 #'
 #' @return #A Character Vector
 #'
@@ -29,17 +29,17 @@
 #' # Will sort as expected when padded:
 #' sort(paste0("group_", padded_numbers))
 
-group_numbers <- function(...){
+group_numbers <- function(numbers){
 
   #===========================================================================#
   # Input Check----------------------------------------------------------------
   #===========================================================================#
 
-  if (!is.numeric(...)) {
+  if (!is.numeric(numbers)) {
     c(
-      paste("The input for `group_numbers()` must be of class", callout("<numeric>")),
-      "x" = paste("The input you've supplied: {.var {...}} is of class", error("{.cls{class(...)}}")),
-      "i" = "Check the `group_numbers()` input."
+      paste("{.var numbers} must be of class", callout("<numeric>")),
+      "x" = paste("The input you've supplied: {.var {numbers}} is of class", error("{.cls {class(numbers)}}")),
+      "i" = "Check the {.var numbers} input."
     ) |>
       cli::cli_abort()
 
@@ -50,10 +50,10 @@ group_numbers <- function(...){
     #=========================================================================#
 
     # Grab width of largest number#
-    string_width <- stringr::str_length(max(...))
+    string_width <- stringr::str_length(max(numbers))
 
     # Sort the input
-    sorted <- sort(c(...))
+    sorted <- sort(c(numbers))
 
     # Convert to padded strings
     out_numbers <-

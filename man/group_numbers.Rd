@@ -4,10 +4,10 @@
 \alias{group_numbers}
 \title{Convert Numbers into Padded Strings for Easier Group Numbering}
 \usage{
-group_numbers(...)
+group_numbers(numbers)
 }
 \arguments{
-\item{...}{#A numeric vector with a length of at least 1.}
+\item{numbers}{#A numeric vector with a length of at least 1.}
 }
 \value{
 #A Character Vector

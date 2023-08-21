@@ -11,7 +11,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# aRtpack <img src="man/figures/logo.png" align="right" height="138"/>
+# aRtpack <img src="man/figures/logo.png" align="center">
 
 <!-- badges: start -->
 
@@ -33,3 +33,5 @@ You can install the development version of artpack from [GitHub](https://github.
 # install.packages("devtools")
 devtools::install_github("Meghansaha/artpack")
 ```
+## Overview
+aRtpack is currently is in early development. 

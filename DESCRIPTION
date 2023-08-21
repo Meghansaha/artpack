@@ -12,7 +12,7 @@ RoxygenNote: 7.2.3
 Suggests: 
     covr,
     testthat (>= 3.0.0),
-    ggplot2,
+    ggplot2 (>= 3.4.2),
     withr,
     spelling
 Config/testthat/edition: 3
@@ -20,6 +20,7 @@ Imports:
     purrr (>= 0.3.4),
     tibble (>= 3.1.6),
     dplyr (>= 1.0.8),
+    stringr (>= 1.5.0),
     grDevices,
     cli,
     rlang,

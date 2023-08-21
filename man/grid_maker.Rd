@@ -19,7 +19,7 @@ grid_maker(
 
 \item{ylim}{A numeric vector with two Y limits. A minimum and maximum limit for the Y axis. Must be a length of 2.}
 
-\item{size}{A numeric input. The size of the grid. How many shapes will appear in a single row or column. Must be a length of 1 and greater than 0.}
+\item{size}{A numeric input. The size of the grid. How many shapes will appear in a single row or column. Must be a length of 1, greater than 0, and less than or equal to the max \code{xlim} and max \code{ylim}.}
 
 \item{fill_pal}{Optional. A character vector of 6 digit hexadecimal webcolor code, or \code{R} \code{colors()} color strings to be applied to fill the grid.}
 
@@ -37,22 +37,8 @@ Creates a dataframe of \code{x} and \code{y} points to visualize a square grid b
 Providing a color palette and fill style are optional.
 }
 \examples{
-library(ggplot2)
-grid_data <- grid_maker(
-  xlim = c(0, 1),
-  ylim = c(0, 1),
-  size = 10,
-  fill_pal = c("red", "black", "purple"),
-  color_pal = "#ffffff"
-)
+# Creating data for a grid:
 
-ggplot() +
-  geom_polygon(
-    data = grid_data,
-    aes(x, y, group = group),
-    fill = grid_data$fill,
-    color = grid_data$color
-  ) +
-  coord_equal()
+library(ggplot2)
 
 }
