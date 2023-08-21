@@ -30,7 +30,7 @@ grid_maker(
 \item{color_style}{Optional. A character input. "range" or "random". Determines how the border color palette is mapped.}
 }
 \value{
-a tibble
+A Tibble
 }
 \description{
 Creates a dataframe of \code{x} and \code{y} points to visualize a square grid based on given \code{x} and \code{y} limits.

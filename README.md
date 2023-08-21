@@ -16,6 +16,12 @@ the [`ggplot2`](https://ggplot2.tidyverse.org/) package.
 
 ## Installation
 
+You can install {artpack} from CRAN with the following code:
+
+``` r
+install.packages("artpack")
+```
+
 You can install the development version of artpack from
 [GitHub](https://github.com/) with:
 

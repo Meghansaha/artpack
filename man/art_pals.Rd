@@ -40,7 +40,7 @@ Default is \code{5}. \code{n} must be a positive integer with a value greater th
 Default is "regular". Only two options accepted: "regular" or "reverse"}
 }
 \value{
-A character vector.
+A Character Vector.
 }
 \description{
 The aRtpack palette picker. The \code{art_pals} function consists of 18 palettes: "arctic",

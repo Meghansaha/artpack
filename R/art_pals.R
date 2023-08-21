@@ -35,7 +35,7 @@
 #'
 #' Default is "regular". Only two options accepted: "regular" or "reverse"
 #'
-#' @return A character vector.
+#' @return A Character Vector.
 #'
 #' @importFrom knitr combine_words
 #' @importFrom rlang is_bare_numeric

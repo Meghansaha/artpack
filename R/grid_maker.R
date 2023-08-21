@@ -11,7 +11,7 @@
 #' @param color_pal Optional. A character vector of 6 digit hexadecimal webcolor code, or `R` `colors()` color strings to be applied to borders of the grid.
 #' @param color_style Optional. A character input. "range" or "random". Determines how the border color palette is mapped.
 
-#' @return a tibble
+#' @return A Tibble
 #'
 #' @importFrom purrr pmap
 #' @importFrom purrr map2

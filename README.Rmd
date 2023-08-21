@@ -28,6 +28,11 @@ knitr::opts_chunk$set(
 The goal of aRtpack is to help generative artists of all levels create generative art in R. The aRtpack package is intended for use with the [`tidyverse`](https://www.tidyverse.org/) suite. More specifically, with the [`ggplot2`](https://ggplot2.tidyverse.org/) package.
 
 ## Installation
+You can install {artpack} from CRAN with the following code:
+
+```r
+install.packages("artpack")
+```
 
 You can install the development version of artpack from [GitHub](https://github.com/) with:
 
