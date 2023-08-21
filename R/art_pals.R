@@ -42,7 +42,6 @@
 #'
 #' @export
 #'
-#' @examplesIf rlang::is_installed("ggplot2")
 #' @examples
 #' library(ggplot2)
 #' dots <- data.frame(x = c(1:10), y = 2.5)

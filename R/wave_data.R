@@ -25,7 +25,6 @@
 #' @importFrom dplyr mutate
 #' @importFrom grDevices colors
 #'
-#' @examplesIf rlang::is_installed("ggplot2")
 #' @examples
 #' library(ggplot2)
 #' wave_df <- wave_data(

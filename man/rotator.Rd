@@ -26,8 +26,6 @@ rotator(data, x, y, angle = 5, anchor = "center", drop = FALSE)
 Rotates the \code{x} and \code{y} points in a given data frame by a given angle based on a designated anchor point.
 }
 \examples{
-\dontshow{if (rlang::is_installed("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-\dontshow{\}) # examplesIf}
 library(ggplot2)
 original_square <- data.frame(
   x = c(0, 3, 3, 0, 0),

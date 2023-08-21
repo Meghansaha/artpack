@@ -19,7 +19,6 @@
 #' @importFrom purrr map_chr
 #' @importFrom knitr combine_words
 #'
-#' @examplesIf rlang::is_installed("ggplot2")
 #' @examples
 #' library(ggplot2)
 #' original_square <- data.frame(

@@ -39,8 +39,6 @@ when plotted.
 The \code{geom_path} and \code{geom_polygon} geoms are recommended with this data for use in \code{ggplot2} for generative art.
 }
 \examples{
-\dontshow{if (rlang::is_installed("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-\dontshow{\}) # examplesIf}
 # Creating one square
 library(ggplot2)
 one_square <- square_data(x = 0, y = 0, size = 5)
