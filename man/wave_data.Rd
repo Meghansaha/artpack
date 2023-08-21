@@ -9,49 +9,47 @@ wave_data(
   end,
   size = 1,
   type = "sin",
-  rotate = NULL,
-  orientation = "horiz",
+  orientation = "horizontal",
   freq = 3,
-  n_points = 1000,
+  n_points = 500,
   color = NULL,
   fill = NULL,
-  group = FALSE,
+  group_var = FALSE,
   dampen = NULL,
   amplify = NULL
 )
 }
 \arguments{
-\item{start}{Numeric value. The starting point of the wave on the coordinate system.}
+\item{start}{Numeric value. The starting point of the wave on the coordinate system. By default refers to the x-axis. Will refer to the y-axis if \code{orientation} is set to \code{vertical}. Must be of length 1.}
 
-\item{end}{Numeric value. The ending point of the wave on the coordinate system.}
+\item{end}{Numeric value. The ending point of the wave on the coordinate system. By default refers to the x-axis. Will refer to the y-axis if \code{orientation} is set to \code{vertical} Must be of length 1.}
 
-\item{size}{Numeric value. The height or width of the wave. Orientation is set to \code{horizontal} by default, thus size will affect height by default. When orientation is set to \code{vertical}, size controls the width of the wave.}
+\item{size}{Numeric value. The height or width of the wave. Orientation is set to \code{horizontal} by default, thus size will affect height by default. When orientation is set to \code{vertical}, size controls the width of the wave. Must be a positive numeric value. Must be of length 1.}
 
-\item{type}{String value. "sin" or "cos" for sine or cosine waves. \code{sin} is default.}
+\item{type}{String value. "sin" or "cos" for sine or cosine waves. \code{sin} is default. Must be of length 1.}
 
-\item{rotate}{Optional. If rotation is desired, accepts a numerical value between -360 to 360 to rotate the wave by input degrees.}
+\item{orientation}{String value. Default is \code{horizontal} which will draw the wave from left to right (x-axis) on the coordinate system. \code{vertical} will draw the wave from bottom to top (y-axis) on the coordinate system. Must be of length 1.}
 
-\item{orientation}{String value. Default is \code{horizontal} which will draw the wave from left to right on the coordinate system. \code{vertical} will draw the wave from bottom to top on the coordinate system.}
+\item{freq}{Numeric value. Default is 3 cycles per second. This affects how many "peaks" are created in the wave. Must be a positive numeric value. Must be of length 1.}
 
-\item{freq}{Numeric value. Default is 3 cycles per second. This affects how many "peaks" are created in the wave. Must be a positive numeric value.}
+\item{n_points}{Numeric value. Default is 500. This determines how many points each half of the wave will have. This option can come in handy when using jitter options or other texture/illusion methods. Must be of length 1.}
 
-\item{n_points}{Numeric value. Default is 1000. This determines how many points each half of the wave will have. This option can come in handy when using jitter options or other texture/illusion methods.}
+\item{color}{Optional String Value. A 6 digit hexadecimal webcolor code, or \code{R} \code{colors()} color string for the border color of the wave. Must be of length 1.}
 
-\item{color}{Optional. A hex color code, or \code{R} color string for the border color of the wave.}
+\item{fill}{Optional String Value. A 6 digit hexadecimal webcolor code, or \code{R} \code{colors()} color string for the fill color of the wave. Must be of length 1.}
 
-\item{fill}{Optional. A hex color code, or \code{R} color string for the fill color of the wave.}
+\item{group_var}{Logic value. \code{TRUE} or \code{FALSE}. Default is \code{FALSE}. If \code{TRUE}, Adds a group variable to the data frame. Useful for iterative work to make multiple waves in a single data frame.}
 
-\item{group}{Logic value. \code{TRUE} or \code{FALSE}. Default is \code{FALSE}. If \code{TRUE}, Adds a group variable to the data frame. Useful for iterative work to make multiple waves in a single data frame.}
+\item{dampen}{Optional. A factor in which to dampen the wave (make "flatter"). Must be of length 1.}
 
-\item{dampen}{Optional. A factor in which to dampen the wave (make "flatter").}
-
-\item{amplify}{Optional. A factor in which to amplify the wave (make "sharper").}
+\item{amplify}{Optional. A factor in which to amplify the wave (make "sharper"). Must be of length 1.}
 }
 \value{
 A Tibble
 }
 \description{
 A tool for making data frames filled with data that displays sine or cosine waves when graphed.
+
 The \code{geom_path} and \code{geom_polygon} geoms are recommended with this data for use in \code{ggplot2} for generative art.
 }
 \examples{

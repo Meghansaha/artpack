@@ -4,6 +4,8 @@
 #' A tool for creating a data frame of values that create a square with a specified size
 #' when plotted.
 #'
+#' The `geom_path` and `geom_polygon` geoms are recommended with this data for use in `ggplot2` for generative art.
+#'
 #' @param x Numeric value of length 1 - The bottom left `x` value of the square.
 #' @param y Numeric value of length 1 - The bottom left `y` value of the square.
 #' @param size Numeric value of length 1 that must be greater than 0 - The size of the square.
@@ -138,7 +140,7 @@ square_data <- function(x,
       "x" = knitr::combine_words(purrr::map2(invalid_args, invalid_lengths, ~ paste(.x, "has a length of", error(.y)))),
       "i" = paste("Check the", knitr::combine_words(invalid_args), ifelse(length(invalid_args) > 1, "variables", "variable"))
     ) |>
-      cli_abort()
+      cli::cli_abort()
   }
 
   # Check for numeric x/y
@@ -178,7 +180,7 @@ square_data <- function(x,
   if (group_check) {
     c(
       error("Warning:\n"),
-      "i" = paste("You have provided a custom {.var group_prefix} of:", callout('"{group_prefix}"'),"\n"),
+      "i" = paste("You have provided a custom {.var group_prefix} of:", callout('"{group_prefix}"'), "\n"),
       "!" = paste("But {.var group_var} is `FALSE`\n"),
       ">" = "Did you mean to set {.var group_var = TRUE}?"
     ) |>
@@ -205,7 +207,6 @@ square_data <- function(x,
 
   # If group_var is TRUE, add a group variable
   if (group_var) {
-
     # Check that group_prefix in a character
     if (!is.character(group_prefix)) {
       c(
@@ -218,7 +219,7 @@ square_data <- function(x,
 
     df <- df |>
       mutate(group = group_prefix)
-    }
+  }
 
   # If color is not null, add it
   if (!is.null(color)) {

@@ -35,6 +35,8 @@ A Tibble
 \description{
 A tool for creating a data frame of values that create a square with a specified size
 when plotted.
+
+The \code{geom_path} and \code{geom_polygon} geoms are recommended with this data for use in \code{ggplot2} for generative art.
 }
 \examples{
 # Creating one square

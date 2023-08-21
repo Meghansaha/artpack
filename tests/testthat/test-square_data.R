@@ -1,10 +1,10 @@
-#=============================================================================#
+# =============================================================================#
 # square_data() - Testing Suite------------------------------------------------
-#=============================================================================#
+# =============================================================================#
 
-#=============================================================================#
+# =============================================================================#
 # Input Testing----------------------------------------------------------------
-#=============================================================================#
+# =============================================================================#
 
 # Testing that missing args throw an error
 cli::test_that_cli("Test that missing x throws an error",
@@ -34,29 +34,29 @@ cli::test_that_cli("Test that missing y throws an error",
 )
 
 cli::test_that_cli("Test that non-numeric x throws an error",
-                   {
-                     testthat::local_edition(3)
-                     testthat::expect_snapshot(
-                       {
-                         square_data(x = "0", y = 0, size = 10)
-                       },
-                       error = TRUE
-                     )
-                   },
-                   configs = "ansi"
+  {
+    testthat::local_edition(3)
+    testthat::expect_snapshot(
+      {
+        square_data(x = "0", y = 0, size = 10)
+      },
+      error = TRUE
+    )
+  },
+  configs = "ansi"
 )
 
 cli::test_that_cli("Test that non-numeric y throws an error",
-                   {
-                     testthat::local_edition(3)
-                     testthat::expect_snapshot(
-                       {
-                         square_data(x = 0, y = "0", size = 10)
-                       },
-                       error = TRUE
-                     )
-                   },
-                   configs = "ansi"
+  {
+    testthat::local_edition(3)
+    testthat::expect_snapshot(
+      {
+        square_data(x = 0, y = "0", size = 10)
+      },
+      error = TRUE
+    )
+  },
+  configs = "ansi"
 )
 
 cli::test_that_cli("Test that invalid size throws an error",
@@ -232,38 +232,39 @@ testthat::test_that("Output does not have group variable", {
 # Test that the output transforms the group prefix properly
 testthat::test_that("Output has default group prefix", {
   testthat::expect_true(
-    "square_" == square_data(x = 1, y = 2, size = 1, group_var = TRUE) |> dplyr::select(group) |> dplyr::distinct()
+    "square_" == square_data(x = 1, y = 2, size = 1, group_var = TRUE) |>
+      dplyr::select(group) |>
+      dplyr::distinct()
   )
 })
 
 testthat::test_that("Output has user-defined group prefix", {
   testthat::expect_true(
-    "Number 1" == square_data(x = 1, y = 2, size = 1, group_var = TRUE, group_prefix = "Number 1") |> dplyr::select(group) |> dplyr::distinct()
-    )
+    "Number 1" == square_data(x = 1, y = 2, size = 1, group_var = TRUE, group_prefix = "Number 1") |>
+      dplyr::select(group) |>
+      dplyr::distinct()
+  )
 })
 
 cli::test_that_cli("Non character group prefix throws an error",
-                   {
-                     testthat::local_edition(3)
-                     testthat::expect_snapshot(
-                       {
-                         square_data(x = 1, y = 2, size = 1, group_var = TRUE, group_prefix = 1)
-                       },
-                       error = TRUE
-                     )
-                   },
-                   configs = "ansi"
+  {
+    testthat::local_edition(3)
+    testthat::expect_snapshot(
+      {
+        square_data(x = 1, y = 2, size = 1, group_var = TRUE, group_prefix = 1)
+      },
+      error = TRUE
+    )
+  },
+  configs = "ansi"
 )
 
 cli::test_that_cli("User-defined group prefix gives a warning if group var is FALSE",
-                   {
-                     testthat::local_edition(3)
-                     testthat::expect_snapshot(
-                       {
-                         square_data(0,0,3, group_prefix = "box")
-                       }
-                     )
-                   },
-                   configs = "ansi"
+  {
+    testthat::local_edition(3)
+    testthat::expect_snapshot({
+      square_data(0, 0, 3, group_prefix = "box")
+    })
+  },
+  configs = "ansi"
 )
-
