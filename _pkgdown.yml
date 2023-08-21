@@ -1,4 +1,5 @@
 url: https://meghansaha.github.io/artpack/
+
 template:
   bootstrap: 5
   bootswatch: sketchy
@@ -9,21 +10,36 @@ template:
     heading_font:
       google: Gantari
     text-muted: '#FFFFFF'
+
 authors:
   Meghan S. Harris:
     href: https://www.theidytrekker.com/
+
 development:
   mode: auto
   version_label: default
 navbar:
   bg: primary
+  left:
+  - icon: fa-home
+    href: index.html
+  - text: Reference
+    href: reference/index.html
+  - text: Articles
+    menu:
+    - text: "Brief Examples"
+      href: articles/brief_examples.html
+  - text: News
+    href: news/index.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/Meghansaha/artpack
+
+
+
+
 reference:
-- title: Color Palette Tools
-- contents:
-  - art_pals
-- title: Transformation Tools
-- contents:
-  - rotator
+
 - title: Asset Creation
 - contents:
   - grid_maker
@@ -31,6 +47,17 @@ reference:
   - square_data
   - wave_data
 
-news:
+- title: Color Palette Tools
+- contents:
+  - art_pals
+
+- title: Transformation Tools
+- contents:
+  - rotator
+
+- title: Misc. Tools
+- contents:
+  - group_numbers
+
 
 

@@ -2,20 +2,32 @@
 % Please edit documentation in R/grid_maker.R
 \name{grid_maker}
 \alias{grid_maker}
-\title{Create Data for A Custom-built Square Grid}
+\title{Data Generation for A Custom-built Square Grid}
 \usage{
-grid_maker(xlim, ylim, size, pal = NULL, fill_style = "range")
+grid_maker(
+  xlim,
+  ylim,
+  size,
+  fill_pal = NULL,
+  fill_style = "range",
+  color_pal = NULL,
+  color_style = "range"
+)
 }
 \arguments{
-\item{xlim}{A numeric vector with two X limits. A minimum and maximum limit for the X axis.}
+\item{xlim}{A numeric vector with two X limits. A minimum and maximum limit for the X axis. Must be a length of 2.}
 
-\item{ylim}{A numeric vector with two Y limits. A minimum and maximum limit for the Y axis.}
+\item{ylim}{A numeric vector with two Y limits. A minimum and maximum limit for the Y axis. Must be a length of 2.}
 
-\item{size}{A numeric input. The size of the grid. How many shapes will appear in a single row or column.}
+\item{size}{A numeric input. The size of the grid. How many shapes will appear in a single row or column. Must be a length of 1, greater than 0, and less than or equal to the max \code{xlim} and max \code{ylim}.}
 
-\item{pal}{Optional. A character vector of color codes to be applied to the grid.}
+\item{fill_pal}{Optional. A character vector of 6 digit hexadecimal webcolor code, or \code{R} \code{colors()} color strings to be applied to fill the grid.}
 
-\item{fill_style}{Optional. A character input. "range" or "random". Determines how the color palette is mapped.}
+\item{fill_style}{Optional. A character input. "range" or "random". Determines how the fill color palette is mapped.}
+
+\item{color_pal}{Optional. A character vector of 6 digit hexadecimal webcolor code, or \code{R} \code{colors()} color strings to be applied to borders of the grid.}
+
+\item{color_style}{Optional. A character input. "range" or "random". Determines how the border color palette is mapped.}
 }
 \value{
 a tibble
@@ -25,20 +37,8 @@ Creates a dataframe of \code{x} and \code{y} points to visualize a square grid b
 Providing a color palette and fill style are optional.
 }
 \examples{
-library(ggplot2)
-grid_data <- grid_maker(
-  xlim = c(0, 1),
-  ylim = c(0, 1),
-  size = 2,
-  pal = c("red", "black", "purple")
-)
+# Creating data for a grid:
 
-ggplot() +
-  geom_polygon(
-    data = grid_data,
-    aes(x, y, group = group),
-    fill = grid_data$fill
-  ) +
-  coord_equal()
+library(ggplot2)
 
 }

@@ -48,6 +48,15 @@
       [31mx[39m `color` must be a valid: [1m[36m`r` color from `colors()`[39m[22m or a valid 6 digit [1m[36mhexadecimal webcolor[39m[22m
       [36mi[39m `#000` is an [1m[33minvalid color[39m[22m
 
+# Fill checks [ansi]
+
+    Code
+      wave_data(start = 1, end = 0, fill = "#000")
+    Error <rlang_error>
+      [1m[22m`fill` is [1m[31minvalid[39m[22m
+      [31mx[39m `fill` must be a valid: [1m[36m`r` color from `colors()`[39m[22m or a valid 6 digit [1m[36mhexadecimal webcolor[39m[22m
+      [36mi[39m `#000` is an [1m[33minvalid color[39m[22m
+
 # Wave type checks [ansi]
 
     Code

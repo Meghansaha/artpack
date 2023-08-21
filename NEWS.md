@@ -1,4 +1,11 @@
-# artpack (development version) - 0.1.0.9000
+# artpack (development version) - 0.1.0.9001
+
+* Improved testing suite for `grid_maker()`
+* Overhauled `grid_maker()` with improved logic testing and handling for inputs
+* Created helper function `group_numbers()` for export.
+
+
+# artpack  - 0.1.0.9000
 
 * Improved testing suite for `wave_data()`
 * Overhauled `wave_data()` with improved logic testing and handling for inputs
