@@ -40,5 +40,21 @@ Providing a color palette and fill style are optional.
 # Creating data for a grid:
 
 library(ggplot2)
+grid_data <- grid_maker(
+  xlim = c(0, 50),
+  ylim = c(0, 50),
+  size = 10,
+  fill_pal = c("turquoise", "black", "purple"),
+  color_pal = c("black","limegreen")
+)
+
+ggplot() +
+  geom_polygon(
+    data = grid_data,
+    aes(x, y, group = group),
+    fill = grid_data$fill,
+    color = grid_data$color
+  ) +
+  coord_equal()
 
 }
