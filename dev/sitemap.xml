@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://meghansaha.github.io/artpack/dev/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://meghansaha.github.io/artpack/dev/LICENSE.html</loc>
-  </url>
-  <url>
     <loc>https://meghansaha.github.io/artpack/dev/articles/brief_examples.html</loc>
   </url>
   <url>
@@ -17,6 +11,12 @@
   </url>
   <url>
     <loc>https://meghansaha.github.io/artpack/dev/index.html</loc>
+  </url>
+  <url>
+    <loc>https://meghansaha.github.io/artpack/dev/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://meghansaha.github.io/artpack/dev/LICENSE.html</loc>
   </url>
   <url>
     <loc>https://meghansaha.github.io/artpack/dev/news/index.html</loc>
