@@ -31,6 +31,7 @@
 #' @importFrom cli cli_abort
 #' @importFrom cli combine_ansi_styles
 #'
+#' @examplesIf rlang::is_installed("ggplot2")
 #' @examples
 #' library(ggplot2)
 #' set.seed(0310)

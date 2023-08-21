@@ -4,7 +4,7 @@
 </p>
 <!-- badges: start -->
 
-[![](https://codecov.io/gh/Meghansaha/artpack/branch/master/graph/badge.svg?token=X1Y9P4QEVC)](https://codecov.io/gh/Meghansaha/artpack)
+[![codecov](https://codecov.io/gh/Meghansaha/artpack/graph/badge.svg?token=X1Y9P4QEVC)](https://codecov.io/gh/Meghansaha/artpack)
 
 [![R-CMD-check](https://github.com/Meghansaha/artpack/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Meghansaha/artpack/actions/workflows/R-CMD-check.yaml)
 

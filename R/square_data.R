@@ -25,6 +25,7 @@
 #'
 #' @export
 #'
+#' @examplesIf rlang::is_installed("ggplot2")
 #' @examples
 #' # Creating one square
 

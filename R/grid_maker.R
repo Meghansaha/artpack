@@ -25,7 +25,9 @@
 #' @importFrom cli cli_abort
 #' @export
 #'
+#' @examplesIf rlang::is_installed("ggplot2")
 #' @examples
+
 #' # Creating data for a grid:
 #'
 #' library(ggplot2)
