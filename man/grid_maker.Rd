@@ -2,20 +2,32 @@
 % Please edit documentation in R/grid_maker.R
 \name{grid_maker}
 \alias{grid_maker}
-\title{Create Data for A Custom-built Square Grid}
+\title{Data Generation for A Custom-built Square Grid}
 \usage{
-grid_maker(xlim, ylim, size, pal = NULL, fill_style = "range")
+grid_maker(
+  xlim,
+  ylim,
+  size,
+  fill_pal = NULL,
+  fill_style = "range",
+  color_pal = NULL,
+  color_style = "range"
+)
 }
 \arguments{
-\item{xlim}{A numeric vector with two X limits. A minimum and maximum limit for the X axis.}
+\item{xlim}{A numeric vector with two X limits. A minimum and maximum limit for the X axis. Must be a length of 2.}
 
-\item{ylim}{A numeric vector with two Y limits. A minimum and maximum limit for the Y axis.}
+\item{ylim}{A numeric vector with two Y limits. A minimum and maximum limit for the Y axis. Must be a length of 2.}
 
-\item{size}{A numeric input. The size of the grid. How many shapes will appear in a single row or column.}
+\item{size}{A numeric input. The size of the grid. How many shapes will appear in a single row or column. Must be a length of 1 and greater than 0.}
 
-\item{pal}{Optional. A character vector of color codes to be applied to the grid.}
+\item{fill_pal}{Optional. A character vector of 6 digit hexadecimal webcolor code, or \code{R} \code{colors()} color strings to be applied to fill the grid.}
 
-\item{fill_style}{Optional. A character input. "range" or "random". Determines how the color palette is mapped.}
+\item{fill_style}{Optional. A character input. "range" or "random". Determines how the fill color palette is mapped.}
+
+\item{color_pal}{Optional. A character vector of 6 digit hexadecimal webcolor code, or \code{R} \code{colors()} color strings to be applied to borders of the grid.}
+
+\item{color_style}{Optional. A character input. "range" or "random". Determines how the border color palette is mapped.}
 }
 \value{
 a tibble
@@ -29,15 +41,17 @@ library(ggplot2)
 grid_data <- grid_maker(
   xlim = c(0, 1),
   ylim = c(0, 1),
-  size = 2,
-  pal = c("red", "black", "purple")
+  size = 10,
+  fill_pal = c("red", "black", "purple"),
+  color_pal = "#ffffff"
 )
 
 ggplot() +
   geom_polygon(
     data = grid_data,
     aes(x, y, group = group),
-    fill = grid_data$fill
+    fill = grid_data$fill,
+    color = grid_data$color
   ) +
   coord_equal()
 
