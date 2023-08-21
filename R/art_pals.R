@@ -73,9 +73,9 @@
 #'   )
 #'
 art_pals <- function(pal = NULL, n = 5, direction = "regular") {
-  # =============================================================================#
+  #=============================================================================#
   # aRtpack Palettes-------------------------------------------------------------
-  # =============================================================================#
+  #=============================================================================#
   pals <-
     list(
       arctic = list(c("#006ACD", "#4596D7", "#8AC2E1", "#BDDFEB", "#DEEFF5", "#FFFFFF")),
@@ -99,48 +99,52 @@ art_pals <- function(pal = NULL, n = 5, direction = "regular") {
     )
 
 
-  # =============================================================================#
+  #=============================================================================#
   # Logic checks for `n`
-  # =============================================================================#
+  #=============================================================================#
   # Is numeric#
   if (!rlang::is_bare_numeric(n)) {
-    cli::cli_abort(c(
+    c(
       paste0("{.var n} must be of type ", callout("<numeric>")),
       "x" = paste0("The {.var n} object you've supplied is of type ", error(paste0("<", class(n), ">"))),
       "i" = paste0(status("Check the {.var n} value"), " you've supplied.")
-    ))
+    ) |>
+      cli::cli_abort()
   }
 
   # Is only one number#
   if (length(n) != 1) {
-    cli::cli_abort(c(
+    c(
       paste0("{.var n} must be a length of ", callout("1")),
       "x" = paste0("The {.var n} object you've supplied has a length of ", error(length(n))),
       "i" = paste0(status("Check the {.var n} value"), " you've supplied.")
-    ))
+    ) |>
+      cli::cli_abort()
   }
 
   # Is one or more#
   if (n < 1) {
-    cli::cli_abort(c(
+    c(
       paste0("{.var n} must be a numeric value greater than or equal to ", callout("1")),
       "x" = paste0("The {.var n} object you've supplied has a value of ", error(n)),
       "i" = paste0(status("Check the {.var n} value"), " you've supplied.")
-    ))
+    ) |>
+      cli::cli_abort()
   }
 
   # Is number a whole/integer number#
   if (n %% 1 != 0) {
-    cli::cli_abort(c(
+    c(
       paste0("{.var n} must be a ", callout("numeric integer (no decimals)")),
       "x" = paste0("The {.var n} object you've supplied is ", error(n)),
       "i" = paste0(status("Check the {.var n} value"), " you've supplied.")
-    ))
+    ) |>
+      cli::cli_abort()
   }
 
-  # =============================================================================#
+  #=============================================================================#
   # Palette Logic Checks-------------------------------------------------------
-  # =============================================================================#
+  #=============================================================================#
 
   # Setting a default palette if none selected#
   if (rlang::is_null(pal)) {
@@ -149,22 +153,24 @@ art_pals <- function(pal = NULL, n = 5, direction = "regular") {
 
   # Checking that pal is only a length of 1#
   if (length(pal) != 1) {
-    cli::cli_abort(c(
+    c(
       paste0("{.var pal} must be a length of ", callout("1")),
       "x" = paste0("The {.var pal} object you've supplied has a length of ", error(length(pal))),
       "i" = paste0(status("Check the {.var pal} value"), " you've supplied.")
-    ))
+    ) |>
+      cli::cli_abort()
   }
 
   # Checking that palette input is a string#
   string_check <- rlang::is_character(pal)
 
   if (!string_check) {
-    cli::cli_abort(c(
+    c(
       paste0("{.var pal} must be of type ", callout("<character>")),
       "x" = paste0("The {.var pal} object you've supplied is of type ", error(paste0("<", class(pal), ">"))),
       "i" = paste0(status("Check the {.var pal} value"), " you've supplied.")
-    ))
+    ) |>
+      cli::cli_abort()
   }
 
   # Checking for capitalization#
@@ -179,7 +185,7 @@ art_pals <- function(pal = NULL, n = 5, direction = "regular") {
   pal_check <- pal %in% names(pals)
 
   if (!pal_check) {
-    cli::cli_abort(c(
+    c(
       "x" = paste0('"', pal, '"', " is not a known ", callout("aRtpack"), " color palette."),
       "i" = paste0(
         status("Please enter one of the following:\n"),
@@ -192,30 +198,33 @@ art_pals <- function(pal = NULL, n = 5, direction = "regular") {
           oxford_comma = FALSE
         )
       )
-    ))
+    ) |>
+      cli::cli_abort()
   }
 
-  # =============================================================================#
+  #=============================================================================#
   # Direction Logic Check------------------------------------------------------
-  # =============================================================================#
+  #=============================================================================#
   # Checking that direction is only a length of 1#
   if (length(direction) != 1) {
-    cli::cli_abort(c(
+    c(
       paste0("{.var direction} must be a length of ", callout("1")),
       "x" = paste0("The {.var direction} object you've supplied has a length of ", error(length(direction))),
       "i" = paste0(status("Check the {.var direction} value"), " you've supplied.")
-    ))
+    ) |>
+      cli::cli_abort()
   }
 
   # Checking that direction input is a string#
   string_check <- rlang::is_character(direction)
 
   if (!string_check) {
-    cli::cli_abort(c(
+    c(
       paste0("{.var direction} must be of type ", callout("<character>")),
       "x" = paste0("The {.var direction} object you've supplied is of type ", error(paste0("<", class(direction), ">"))),
       "i" = paste0(status("Check the {.var direction} value"), " you've supplied.")
-    ))
+    ) |>
+      cli::cli_abort()
   }
 
   # Checking for capitalization#
@@ -231,7 +240,7 @@ art_pals <- function(pal = NULL, n = 5, direction = "regular") {
     direction %in% c("rev", "reverse", "reg", "regular")
 
   if (!direction_check) {
-    cli::cli_abort(c(
+    c(
       "x" = paste0('\"', direction, '\" is not a ', callout("valid direction")),
       "i" = paste0(
         status("Please enter one of the following:"),
@@ -244,12 +253,13 @@ art_pals <- function(pal = NULL, n = 5, direction = "regular") {
           oxford_comma = FALSE
         )
       )
-    ))
+    ) |>
+      cli::cli_abort()
   }
 
-  # =============================================================================#
+  #=============================================================================#
   # Direction set up-----------------------------------------------------------
-  # =============================================================================#
+  #=============================================================================#
   if (direction %in% c("rev", "reverse")) {
     return(rev(colorRampPalette(unlist(pals[[pal]]))(n)))
   } else {

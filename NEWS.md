@@ -1,4 +1,10 @@
-# artpack (development version) - 0.1.0
+# artpack (development version) - 0.1.0.9000
+
+* Improved testing suite for `wave_data()`
+* Overhauled `wave_data()` with improved logic testing and handling for inputs
+* Restyled package to follow Tidyverse Style Guidelines via the styler package.
+
+# artpack - 0.1.0
 
 * Improved testing suite for `square_data()`
 * Overhauled `square_data()` with improved logic testing and handling for inputs
