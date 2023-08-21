@@ -42,8 +42,8 @@ The geom_path and geom_polygon geoms are recommended with this data for use in g
     </div>
 
     <div class="ref-description section level2">
-    <p>A tool for making data frames filled with data that displays sine or cosine waves when graphed.
-The <code>geom_path</code> and <code>geom_polygon</code> geoms are recommended with this data for use in <code>ggplot2</code> for generative art.</p>
+    <p>A tool for making data frames filled with data that displays sine or cosine waves when graphed.</p>
+<p>The <code>geom_path</code> and <code>geom_polygon</code> geoms are recommended with this data for use in <code>ggplot2</code> for generative art.</p>
     </div>
 
     <div class="section level2">
@@ -53,13 +53,12 @@ The <code>geom_path</code> and <code>geom_polygon</code> geoms are recommended w
 <span>  <span class="va">end</span>,</span>
 <span>  size <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"sin"</span>,</span>
-<span>  rotate <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  orientation <span class="op">=</span> <span class="st">"horiz"</span>,</span>
+<span>  orientation <span class="op">=</span> <span class="st">"horizontal"</span>,</span>
 <span>  freq <span class="op">=</span> <span class="fl">3</span>,</span>
-<span>  n_points <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>  n_points <span class="op">=</span> <span class="fl">500</span>,</span>
 <span>  color <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fill <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  group <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  group_var <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  dampen <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  amplify <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -68,55 +67,51 @@ The <code>geom_path</code> and <code>geom_polygon</code> geoms are recommended w
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>start</dt>
-<dd><p>Numeric value. The starting point of the wave on the coordinate system.</p></dd>
+<dd><p>Numeric value. The starting point of the wave on the coordinate system. By default refers to the x-axis. Will refer to the y-axis if <code>orientation</code> is set to <code>vertical</code>. Must be of length 1.</p></dd>
 
 
 <dt>end</dt>
-<dd><p>Numeric value. The ending point of the wave on the coordinate system.</p></dd>
+<dd><p>Numeric value. The ending point of the wave on the coordinate system. By default refers to the x-axis. Will refer to the y-axis if <code>orientation</code> is set to <code>vertical</code> Must be of length 1.</p></dd>
 
 
 <dt>size</dt>
-<dd><p>Numeric value. The height or width of the wave. Orientation is set to <code>horizontal</code> by default, thus size will affect height by default. When orientation is set to <code>vertical</code>, size controls the width of the wave.</p></dd>
+<dd><p>Numeric value. The height or width of the wave. Orientation is set to <code>horizontal</code> by default, thus size will affect height by default. When orientation is set to <code>vertical</code>, size controls the width of the wave. Must be a positive numeric value. Must be of length 1.</p></dd>
 
 
 <dt>type</dt>
-<dd><p>String value. "sin" or "cos" for sine or cosine waves. <code>sin</code> is default.</p></dd>
-
-
-<dt>rotate</dt>
-<dd><p>Optional. If rotation is desired, accepts a numerical value between -360 to 360 to rotate the wave by input degrees.</p></dd>
+<dd><p>String value. "sin" or "cos" for sine or cosine waves. <code>sin</code> is default. Must be of length 1.</p></dd>
 
 
 <dt>orientation</dt>
-<dd><p>String value. Default is <code>horizontal</code> which will draw the wave from left to right on the coordinate system. <code>vertical</code> will draw the wave from bottom to top on the coordinate system.</p></dd>
+<dd><p>String value. Default is <code>horizontal</code> which will draw the wave from left to right (x-axis) on the coordinate system. <code>vertical</code> will draw the wave from bottom to top (y-axis) on the coordinate system. Must be of length 1.</p></dd>
 
 
 <dt>freq</dt>
-<dd><p>Numeric value. Default is 3 cycles per second. This affects how many "peaks" are created in the wave. Must be a positive numeric value.</p></dd>
+<dd><p>Numeric value. Default is 3 cycles per second. This affects how many "peaks" are created in the wave. Must be a positive numeric value. Must be of length 1.</p></dd>
 
 
 <dt>n_points</dt>
-<dd><p>Numeric value. Default is 1000. This determines how many points each half of the wave will have. This option can come in handy when using jitter options or other texture/illusion methods.</p></dd>
+<dd><p>Numeric value. Default is 500. This determines how many points each half of the wave will have. This option can come in handy when using jitter options or other texture/illusion methods. Must be of length 1.</p></dd>
 
 
 <dt>color</dt>
-<dd><p>Optional. A hex color code, or <code>R</code> color string for the border color of the wave.</p></dd>
+<dd><p>Optional String Value. A 6 digit hexadecimal webcolor code, or <code>R</code> <code><a href="https://rdrr.io/r/grDevices/colors.html" class="external-link">colors()</a></code> color string for the border color of the wave. Must be of length 1.</p></dd>
 
 
 <dt>fill</dt>
-<dd><p>Optional. A hex color code, or <code>R</code> color string for the fill color of the wave.</p></dd>
+<dd><p>Optional String Value. A 6 digit hexadecimal webcolor code, or <code>R</code> <code><a href="https://rdrr.io/r/grDevices/colors.html" class="external-link">colors()</a></code> color string for the fill color of the wave. Must be of length 1.</p></dd>
 
 
-<dt>group</dt>
+<dt>group_var</dt>
 <dd><p>Logic value. <code>TRUE</code> or <code>FALSE</code>. Default is <code>FALSE</code>. If <code>TRUE</code>, Adds a group variable to the data frame. Useful for iterative work to make multiple waves in a single data frame.</p></dd>
 
 
 <dt>dampen</dt>
-<dd><p>Optional. A factor in which to dampen the wave (make "flatter").</p></dd>
+<dd><p>Optional. A factor in which to dampen the wave (make "flatter"). Must be of length 1.</p></dd>
 
 
 <dt>amplify</dt>
-<dd><p>Optional. A factor in which to amplify the wave (make "sharper").</p></dd>
+<dd><p>Optional. A factor in which to amplify the wave (make "sharper"). Must be of length 1.</p></dd>
 
 </dl></div>
     <div class="section level2">
