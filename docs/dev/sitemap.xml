@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://meghansaha.github.io/artpack/dev/articles/brief_examples.html</loc>
+  </url>
+  <url>
+    <loc>https://meghansaha.github.io/artpack/dev/articles/index.html</loc>
+  </url>
+  <url>
     <loc>https://meghansaha.github.io/artpack/dev/authors.html</loc>
   </url>
   <url>
@@ -20,6 +26,9 @@
   </url>
   <url>
     <loc>https://meghansaha.github.io/artpack/dev/reference/grid_maker.html</loc>
+  </url>
+  <url>
+    <loc>https://meghansaha.github.io/artpack/dev/reference/group_numbers.html</loc>
   </url>
   <url>
     <loc>https://meghansaha.github.io/artpack/dev/reference/index.html</loc>

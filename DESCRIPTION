@@ -14,7 +14,8 @@ Suggests:
     testthat (>= 3.0.0),
     ggplot2 (>= 3.4.2),
     withr,
-    spelling
+    spelling,
+    rmarkdown
 Config/testthat/edition: 3
 Imports:
     purrr (>= 0.3.4),
@@ -27,3 +28,4 @@ Imports:
     knitr
 URL: https://meghansaha.github.io/artpack/
 Language: en-US
+VignetteBuilder: knitr
