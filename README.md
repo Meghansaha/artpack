@@ -1,5 +1,5 @@
 
-# aRtpack <img src="man/figures/logo.png" align="center">
+# <img src="man/figures/logo.png" align="center">
 
 <!-- badges: start -->
 
