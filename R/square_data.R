@@ -18,11 +18,6 @@
 #' @return A Tibble
 #'
 #' @importFrom purrr map2_dbl
-#' @importFrom purrr map2
-#' @importFrom purrr map
-#' @importFrom purrr list_c
-
-#' @importFrom dplyr mutate
 #'
 #' @export
 #'

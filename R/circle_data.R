@@ -14,8 +14,9 @@
 #' @param group_var Logical. Default is `FALSE`. If `TRUE`, a `group` variable will be added to the dataframe. Useful in iterative data generation.
 #' @param group_prefix Character string of length 1 - The prefix used for the `group` variable. Default is "square_"
 #'
-#'
 #' @return A Tibble
+#'
+#' @importFrom purrr map2_dbl
 #' @export
 #'
 #' @examplesIf rlang::is_installed("ggplot2")
