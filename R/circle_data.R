@@ -38,7 +38,7 @@
 #' library(dplyr)
 #'
 #' # Make your specs
-#' x_vals <- c(0, 4)
+#' x_vals <- c(0, 10)
 #' y_vals <- c(0, 0)
 #' radi <- c(1, 3)
 #' fills <- c("purple", "yellow")
@@ -77,7 +77,7 @@
 #'     color = two_circles$color,
 #'     fill = two_circles$fill
 #'   ) +
-#'   coord_equal()
+#'   coord_equal() #Always use coord_equal() or coord_fixed for circles!
 #'
 circle_data <- function(x,
                         y,
@@ -212,19 +212,12 @@ circle_data <- function(x,
   # Data Generation------------------------------------------------------------
   # ===========================================================================#
 
-  # Setting vars
-  x1 <- x
-  x2 <- purrr::map2_dbl(x1, radius, ~ .x + .y)
-  y1 <- y
-  y2 <- purrr::map2_dbl(y1, radius, ~ .x + .y)
-
-
   # Base dataframe creation
   # Creating theta
   theta <- seq(0, 2 * pi, length = n_points)
   df <- dplyr::tibble(
-    x = cos(theta) * radius,
-    y = sin(theta) * radius
+    x = (cos(theta) * radius) + x,
+    y = (sin(theta) * radius) + y
   )
 
   # If group_var is TRUE, add a group variable

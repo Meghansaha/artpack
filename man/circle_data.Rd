@@ -62,7 +62,7 @@ library(purrr)
 library(dplyr)
 
 # Make your specs
-x_vals <- c(0, 4)
+x_vals <- c(0, 10)
 y_vals <- c(0, 0)
 radi <- c(1, 3)
 fills <- c("purple", "yellow")
@@ -101,6 +101,6 @@ two_circles |>
     color = two_circles$color,
     fill = two_circles$fill
   ) +
-  coord_equal()
+  coord_equal() #Always use coord_equal() or coord_fixed for circles!
 
 }

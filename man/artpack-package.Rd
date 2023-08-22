@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Functionality for generative artists of all skill levels.
+Functionality for creating data for generative art.
 }
 \seealso{
 Useful links:
