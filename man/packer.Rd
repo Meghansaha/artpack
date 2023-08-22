@@ -52,6 +52,7 @@ in a ggplot. When "swirl" is used, the output should be mapped with \code{geom_p
 \examples{
 \dontshow{if (rlang::is_installed("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \dontshow{\}) # examplesIf}
+
 library(ggplot2)
 set.seed(0310)
 packed_circles <- packer(

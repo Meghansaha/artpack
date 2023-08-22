@@ -191,6 +191,45 @@ cli::test_that_cli("Test that invalid fills throws an error",
   configs = "ansi"
 )
 
+# Testing that numeric arguments only accept numeric
+cli::test_that_cli("Numeric argument check",
+  {
+    testthat::local_edition(3)
+    testthat::expect_snapshot(
+      {
+        square_data(
+          x = 0,
+          y = 0,
+          size = 5,
+          n_points = "500"
+        )
+      },
+      error = TRUE
+    )
+  },
+  configs = "ansi"
+)
+
+# Testing that numeric arguments only accept valid inputs
+cli::test_that_cli("Numeric argument check",
+  {
+    testthat::local_edition(3)
+    testthat::expect_snapshot(
+      {
+        square_data(
+          x = 0,
+          y = 0,
+          size = 5,
+          n_points = 1
+        )
+      },
+      error = TRUE
+    )
+  },
+  configs = "ansi"
+)
+
+
 # =============================================================================#
 # Output Testing---------------------------------------------------------------
 # =============================================================================#

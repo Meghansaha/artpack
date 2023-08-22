@@ -47,7 +47,7 @@ grid_data <- grid_maker(
   ylim = c(0, 50),
   size = 10,
   fill_pal = c("turquoise", "black", "purple"),
-  color_pal = c("black","limegreen")
+  color_pal = c("black", "limegreen")
 )
 
 ggplot() +

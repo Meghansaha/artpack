@@ -11,17 +11,13 @@
 #' @param size Numeric value of length 1 that must be greater than 0 - The size of the square.
 #' @param color Character value of length 1 - The color of the square's border. A valid `R` color from `colors()` or a standard 6 digit hexadecimal webcolor like "#000000"
 #' @param fill Character value of length 1 - The color of the square. A valid `R` color from `colors()` or a standard 6 digit hexadecimal webcolor like "#000000"
+#' @param n_points Numeric value. Default is 100. This determines how many points the square will have. This option can come in handy when using jitter options or other texture/illusion methods. Must be of length 1 and at least a value of 4.
 #' @param group_var Logical. Default is `FALSE`. If `TRUE`, a `group` variable will be added to the dataframe. Useful in iterative data generation.
 #' @param group_prefix Character string of length 1 - The prefix used for the `group` variable. Default is "square_"
 #'
 #' @return A Tibble
 #'
 #' @importFrom purrr map2_dbl
-#' @importFrom purrr map2
-#' @importFrom purrr map
-#' @importFrom purrr list_c
-#' @importFrom dplyr tibble
-#' @importFrom dplyr mutate
 #'
 #' @export
 #'
@@ -91,11 +87,12 @@ square_data <- function(x,
                         size,
                         color = NULL,
                         fill = NULL,
+                        n_points = 100,
                         group_var = FALSE,
                         group_prefix = "square_") {
-  #===========================================================================#
+  # ===========================================================================#
   # Input Checks---------------------------------------------------------------
-  #===========================================================================#
+  # ===========================================================================#
 
   # Check for required inputs
   required_args <- c(
@@ -124,6 +121,7 @@ square_data <- function(x,
       "size" = length(size) != 1,
       "color" = length(color) != 1 & !is.null(color),
       "fill" = length(fill) != 1 & !is.null(fill),
+      "n_points" = length(n_points) != 1,
       "group_prefix" = length(group_prefix) != 1
     )
 
@@ -148,18 +146,42 @@ square_data <- function(x,
   if (!is.numeric(x)) {
     c(
       paste("{.var x} must be of class", callout("<numeric>")),
-      "x" = paste("{.var x} is of class", error("{.cls{class(x)}}")),
+      "x" = paste("{.var x} is of class", error("{.cls {class(x)}}")),
       "i" = "Check the {.var x} variable"
     ) |>
       cli::cli_abort()
   } else if (!is.numeric(y)) {
     c(
       paste("{.var y} must be of class", callout("<numeric>")),
-      "x" = paste("{.var y} is of class", error("{.cls{class(y)}}")),
+      "x" = paste("{.var y} is of class", error("{.cls {class(y)}}")),
       "i" = "Check the {.var y} variable"
     ) |>
       cli::cli_abort()
   }
+
+  # Numeric n_points
+  if (!is.numeric(n_points)) {
+    c(
+      paste("{.var n_points} must be of class", callout("<numeric>")),
+      "x" = paste("{.var n_points} is of class", error("{.cls {class(n_points)}}")),
+      "i" = "Check the {.var n_points} variable"
+    ) |>
+      cli::cli_abort()
+  }
+
+  # Check for valid n_points
+  n_point_check <- n_points < 4
+  if (n_point_check) {
+    c(
+      paste("{.var n_points} must be", callout("greater than or equal to 4")),
+      "x" = paste("{.var n_points} is", error({
+        n_points
+      })),
+      "i" = "Check the {.var n_points} variable"
+    ) |>
+      cli::cli_abort()
+  }
+
 
   # Check for valid size
   size_check <- size <= 0
@@ -189,9 +211,9 @@ square_data <- function(x,
   }
 
 
-  #===========================================================================#
+  # ===========================================================================#
   # Data Generation------------------------------------------------------------
-  #===========================================================================#
+  # ===========================================================================#
 
   # Setting vars
   x1 <- x
@@ -201,9 +223,23 @@ square_data <- function(x,
 
 
   # Base dataframe creation
+  # Split the datapoints
+  split_points <- floor(n_points / 4)
+  leftover <- n_points - split_points
+
   df <- dplyr::tibble(
-    x = c(x1, x2, x2, x1, x1),
-    y = c(y1, y1, y2, y2, y1)
+    x = c(
+      seq(x1, x2, length = split_points),
+      seq(x2, x2, length = split_points),
+      seq(x2, x1, length = split_points),
+      seq(x1, x1, length = split_points + leftover)
+    ),
+    y = c(
+      seq(y1, y1, length = split_points),
+      seq(y1, y2, length = split_points),
+      seq(y2, y2, length = split_points),
+      seq(y2, y1, length = split_points + leftover)
+    )
   )
 
   # If group_var is TRUE, add a group variable

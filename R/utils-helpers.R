@@ -1,3 +1,5 @@
+#' Internal Helper Functions
+#'
 #' Test If A String Is A Valid `R` Color or Hexadecimal Color Code - Internal Function
 #'
 #' @param ... #A character string to be tested to see if it is a base R color or a hexadecimal color code.

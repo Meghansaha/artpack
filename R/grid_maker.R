@@ -13,21 +13,15 @@
 
 #' @return A Tibble
 #'
-#' @importFrom purrr pmap
-#' @importFrom purrr map2
-#' @importFrom purrr map
-#' @importFrom purrr list_rbind
-#' @importFrom purrr list_c
-#' @importFrom tibble tibble
+
 #' @importFrom knitr combine_words
 #' @importFrom grDevices colorRampPalette
 #' @importFrom rlang is_empty
-#' @importFrom cli cli_abort
+#'
 #' @export
 #'
 #' @examplesIf rlang::is_installed("ggplot2")
 #' @examples
-
 #' # Creating data for a grid:
 #'
 #' library(ggplot2)
@@ -36,7 +30,7 @@
 #'   ylim = c(0, 50),
 #'   size = 10,
 #'   fill_pal = c("turquoise", "black", "purple"),
-#'   color_pal = c("black","limegreen")
+#'   color_pal = c("black", "limegreen")
 #' )
 #'
 #' ggplot() +
@@ -163,9 +157,15 @@ grid_maker <- function(xlim, ylim, size,
   if (size_lim_check) {
     c(
       paste("{.var size} must be", callout("less than or equal to the max limits for x and y")),
-      "x" = paste("{.var size} is", error({size})),
-      "i" = paste("max xlim is", status({max(xlim)})),
-      "i" = paste("max ylim is", status({max(ylim)})),
+      "x" = paste("{.var size} is", error({
+        size
+      })),
+      "i" = paste("max xlim is", status({
+        max(xlim)
+      })),
+      "i" = paste("max ylim is", status({
+        max(ylim)
+      })),
       "i" = "Check the {.var size} variable"
     ) |>
       cli::cli_abort()
@@ -255,9 +255,9 @@ grid_maker <- function(xlim, ylim, size,
       cli::cli_abort()
   }
 
-  #===========================================================================#
+  # ===========================================================================#
   # Data Generation------------------------------------------------------------
-  #===========================================================================#
+  # ===========================================================================#
 
   # Creating group names for each individual square#
   grp_nums <- rep(1:(size * size), each = 5)
