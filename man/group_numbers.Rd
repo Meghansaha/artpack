@@ -10,7 +10,7 @@ group_numbers(numbers)
 \item{numbers}{#A numeric vector with a length of at least 1.}
 }
 \value{
-#A Character Vector
+A Character Vector
 }
 \description{
 Convert Numbers into Padded Strings for Easier Group Numbering

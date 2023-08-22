@@ -20,18 +20,12 @@
 #' @return A Tibble
 #' @export
 #'
-#' @importFrom purrr map
 #' @importFrom purrr set_names
-#' @importFrom purrr map2
-#' @importFrom purrr list_rbind
-#' @importFrom purrr pmap
-#' @importFrom dplyr tibble
-#' @importFrom dplyr group_by
-#' @importFrom dplyr group_size
-#' @importFrom cli cli_abort
-#' @importFrom cli combine_ansi_styles
+#' @importFrom dplyr group_by group_size
 #'
+#' @examplesIf rlang::is_installed("ggplot2")
 #' @examples
+#'
 #' library(ggplot2)
 #' set.seed(0310)
 #' packed_circles <- packer(
@@ -51,9 +45,9 @@ packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
                    big_r = 5, med_r = 3, small_r = 1,
                    color_pal = NULL, color_type = "regular",
                    circle_type = "whole") {
-  #===========================================================================#
+  # ===========================================================================#
   # Logic Checks---------------------------------------------------------------
-  #===========================================================================#
+  # ===========================================================================#
 
   # Checks for proper "n" input
   # n is present
@@ -255,9 +249,9 @@ packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
     }
   }
 
-  #===========================================================================#
+  # ===========================================================================#
   # Packing Work---------------------------------------------------------------
-  #===========================================================================#
+  # ===========================================================================#
 
   # n work to determine circle amount
   # Big circles are 20%, medium is 50%, and small is 30%
@@ -276,6 +270,7 @@ packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
   }
 
   # Big Circles----
+  cli::cli_progress_step("Sampling for big-sized circles started", spinner = TRUE)
   big_iter <- 1:big_max
   big_x <- c(x = sample(min_x + (big_r):max_x - (big_r), 1))
   big_y <- c(y = sample(min_y + (big_r):max_y - (big_r), 1))
@@ -296,7 +291,7 @@ packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
       break
     }
     if (tries == 3000 + length(big_iter)) {
-      message("Maximum sampling reached for big circles!")
+      cli::cli_alert_info("Maximum sampling reached for big-sized circles")
       break
     }
   }
@@ -312,7 +307,7 @@ packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
       big_x,
       big_y,
       new_iter
-    ), ~ tibble::tibble(
+    ), ~ dplyr::tibble(
       x = cos(theta) * big_r + ..1,
       y = sin(theta) * big_r + ..2,
       group = paste0("big_", ..3)
@@ -322,7 +317,7 @@ packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
       big_y,
       new_iter,
       big_angles
-    ), ~ artpack::rotator(tibble::tibble(
+    ), ~ artpack::rotator(dplyr::tibble(
       x = (cos(theta) * seq(1, 0, length = 1000)) * big_r + ..1,
       y = (sin(theta) * seq(1, 0, length = 1000)) * big_r + ..2,
       group = paste0("big_", ..3),
@@ -331,9 +326,10 @@ packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
   )
 
 
-  message("Big Circles Complete!")
+  cli::cli_progress_step("Big-sized circles complete!")
 
   # med Circles----
+  cli::cli_progress_step("Sampling for medium-sized circles started", spinner = TRUE)
   med_iter <- 1:med_max
   med_x <- c(x = sample(min_x + (med_r):max_x - (med_r), 1))
   med_y <- c(y = sample(min_y + (med_r):max_y - (med_r), 1))
@@ -357,7 +353,7 @@ packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
       break
     }
     if (tries == 10000 + length(med_iter)) {
-      message("Maximum sampling reached for medium circles!")
+      cli::cli_alert_info("Maximum sampling reached for medium-sized circles!")
       break
     }
   }
@@ -375,7 +371,7 @@ packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
       med_x,
       med_y,
       new_iter
-    ), ~ tibble::tibble(
+    ), ~ dplyr::tibble(
       x = cos(theta) * med_r + ..1,
       y = sin(theta) * med_r + ..2,
       group = paste0("med_", ..3)
@@ -385,17 +381,18 @@ packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
       med_y,
       new_iter,
       med_angles
-    ), ~ artpack::rotator(tibble::tibble(
+    ), ~ artpack::rotator(dplyr::tibble(
       x = (cos(theta) * seq(1, 0, length = 1000)) * med_r + ..1,
       y = (sin(theta) * seq(1, 0, length = 1000)) * med_r + ..2,
       group = paste0("med_", ..3),
       linewidth = .4
     ), x, y, ..4)) |> purrr::list_rbind()
   )
-  message("Med Circles Complete!")
+  cli::cli_progress_step("Medium-sized circles complete!")
 
 
   # small Circles----
+  cli::cli_progress_step("Sampling for small-sized circles started", spinner = TRUE)
   small_iter <- 1:small_max
   small_x <- c(x = sample(min_x + (small_r):max_x - (small_r), 1))
   small_y <- c(y = sample(min_y + (small_r):max_y - (small_r), 1))
@@ -420,7 +417,7 @@ packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
       break
     }
     if (tries == 9000 + length(small_iter)) {
-      message("Maximum sampling reached for small circles!")
+      cli::cli_alert_info("Maximum sampling reached for small-sized circles!")
       break
     }
   }
@@ -438,7 +435,7 @@ packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
       small_x,
       small_y,
       new_iter
-    ), ~ tibble::tibble(
+    ), ~ dplyr::tibble(
       x = cos(theta) * small_r + ..1,
       y = sin(theta) * small_r + ..2,
       group = paste0("small_", ..3)
@@ -448,7 +445,7 @@ packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
       small_y,
       new_iter,
       small_angles
-    ), ~ artpack::rotator(tibble::tibble(
+    ), ~ artpack::rotator(dplyr::tibble(
       x = (cos(theta) * seq(1, 0, length = 1000)) * small_r + ..1,
       y = (sin(theta) * seq(1, 0, length = 1000)) * small_r + ..2,
       group = paste0("small_", ..3),
@@ -456,7 +453,7 @@ packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
     ), x, y, ..4)) |> purrr::list_rbind()
   )
 
-  message("Small Circles Complete!")
+  cli::cli_progress_step("Small-sized circles complete!")
 
   all_circles <- rbind(big_circles, med_circles, small_circles)
 

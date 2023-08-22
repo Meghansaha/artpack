@@ -4,16 +4,17 @@
 \name{artpack-package}
 \alias{artpack}
 \alias{artpack-package}
-\title{artpack: "Assists with Creating Generative Art"}
+\title{artpack: Creates Generative Art}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-aRtpack is a package that contains a tool set for aRtists of all skill levels. aRtpack seeks to make life easier for more seasoned aRtists by providing helper functions to save time on more complex pieces. aRtpack also seeks to introduce more beginners into Rtistry by providing quick and easy ways to create aRt right away.
+Functionality for generative artists of all skill levels.
 }
 \seealso{
 Useful links:
 \itemize{
   \item \url{https://meghansaha.github.io/artpack/}
+  \item Report bugs at \url{https://github.com/Meghansaha/artpack/issues}
 }
 
 }

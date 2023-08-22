@@ -4,13 +4,13 @@
 </p>
 <!-- badges: start -->
 
-[![codecov](https://codecov.io/gh/Meghansaha/artpack/graph/badge.svg?token=X1Y9P4QEVC)](https://codecov.io/gh/Meghansaha/artpack)
+[![codecov](https://app.codecov.io/gh/Meghansaha/artpack/graph/badge.svg?token=X1Y9P4QEVC)](https://app.codecov.io/gh/Meghansaha/artpack)
 
 [![R-CMD-check](https://github.com/Meghansaha/artpack/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Meghansaha/artpack/actions/workflows/R-CMD-check.yaml)
 
 <!-- badges: end -->
-The goal of aRtpack is to help generative artists of all levels create
-generative art in R. The aRtpack package is intended for use with the
+The goal of artpack is to help generative artists of all levels create
+generative art in R. The artpack package is intended for use with the
 [`tidyverse`](https://www.tidyverse.org/) suite. More specifically, with
 the [`ggplot2`](https://ggplot2.tidyverse.org/) package.
 
@@ -32,9 +32,9 @@ devtools::install_github("Meghansaha/artpack")
 
 ## Overview
 
-aRtpack is a package that helps users create generative art in R with a
+artpack is a package that helps users create generative art in R with a
 ***“data-centric”*** approach and is currently in early development.
-aRtpack is intended to be used with
+artpack is intended to be used with
 [`ggplot2`](https://ggplot2.tidyverse.org/) for artistic purposes.
 
 <br>
@@ -51,7 +51,7 @@ supplemental packages.
 #### Why data outputs? Wouldn’t geoms be more efficient or user-friendly?
 
 Not necessarily. Data outputs are provided to afford the user freedom of
-manipulation and choice. aRtpack is developed to make the user’s life
+manipulation and choice. artpack is developed to make the user’s life
 easier by making data generation for `ggplot2` art easier. All data
 outputs are intended to be used with existing `ggplot2` geoms like
 [`geom_polygon()`](https://ggplot2.tidyverse.org/reference/geom_polygon.html)
@@ -64,7 +64,7 @@ direct data frames, as opposed to trying to “hack” geoms.
 
 ## Brief Examples
 
-aRtpack can be used create specified dataframes that will map art when
+artpack can be used create specified dataframes that will map art when
 fed into `ggplot2` functions:
 
 For example, `square_data()` creates a data frame that maps a square on
@@ -76,12 +76,13 @@ library(artpack)
 
 # Use the function to create a data frame #
 df_square <-
-  square_data(x = 0,
-              y = 0,
-              size = 5,
-              color = "purple",
-              fill = "black"
-              )
+  square_data(
+    x = 0,
+    y = 0,
+    size = 5,
+    color = "purple",
+    fill = "black"
+  )
 
 # Feed it into a ggplot #
 df_square |>
@@ -120,13 +121,17 @@ rotated_square <- rotator(
   anchor = "center"
 )
 
-ggplot()+
-  geom_path(data = original_square,
-            aes(x,y),
-            color = "red") +
-  geom_polygon(data = rotated_square,
-               aes(x,y),
-               fill = "green") +
+ggplot() +
+  geom_path(
+    data = original_square,
+    aes(x, y),
+    color = "red"
+  ) +
+  geom_polygon(
+    data = rotated_square,
+    aes(x, y),
+    fill = "green"
+  ) +
   coord_equal()
 ```
 
@@ -134,7 +139,7 @@ ggplot()+
 
 ------------------------------------------------------------------------
 
-aRtpack functions are designed to be used in any part of your workflow.
+artpack functions are designed to be used in any part of your workflow.
 Experiment for some cool results:
 
 ``` r
@@ -153,44 +158,50 @@ library(tibble)
 library(artpack)
 
 # Create a base square #
-square <- square_data(x = 0, y = 0, size = 1, group_var = TRUE) 
+square <- square_data(x = 0, y = 0, size = 1, group_var = TRUE)
 
 # Create square specs to be iterated on #
 n_square <- 50
-scaler <-seq(1,5, length = n_square)
+scaler <- seq(1, 5, length = n_square)
 fills <- art_pals("imagination", n = n_square)
-angles <- seq(0,360, length = n_square)
+angles <- seq(0, 360, length = n_square)
 group_n <- group_numbers(1:n_square)
 
 # Add a random transformation for a little razzle dazzle ✨
-theta <- seq(0,2*pi, length = 250)
+theta <- seq(0, 2 * pi, length = 250)
 
-list_opts <- list(scaler,
-                  fills,
-                  angles,
-                  group_n)
+list_opts <- list(
+  scaler,
+  fills,
+  angles,
+  group_n
+)
 
-df <- pmap(list_opts, ~rotator(square |>
-                                 mutate(x = (x + ..1),
-                                        y = (y + ..1) ,
-                                        fill = ..2,
-                                        group = paste0(group,..4)
-                                 ),
-                               x = x, y = y, angle = ..3)
-) |> 
+df <- pmap(list_opts, ~ rotator(
+  square |>
+    mutate(
+      x = (x + ..1),
+      y = (y + ..1),
+      fill = ..2,
+      group = paste0(group, ..4)
+    ),
+  x = x, y = y, angle = ..3
+)) |>
   list_rbind() |>
-  mutate(x = x * cos(theta) + x,
-         y = y * sin(theta))
+  mutate(
+    x = x * cos(theta) + x,
+    y = y * sin(theta)
+  )
 
 
 
 df |>
   ggplot(aes(x = x, y = y, group = group)) +
-  theme_void()+
+  theme_void() +
   theme(plot.background = element_rect(fill = "#000000")) +
   geom_polygon(
     fill = df$fill,
-    color = "#000000", 
+    color = "#000000",
     alpha = .5
   ) +
   coord_equal(expand = FALSE)

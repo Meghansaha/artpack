@@ -48,6 +48,8 @@ The aRtpack palette picker. The \code{art_pals} function consists of 18 palettes
 "majestic", "nature", "neon", "ocean", "plants", "rainbow", "sunnyside", "super"
 }
 \examples{
+\dontshow{if (rlang::is_installed("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{\}) # examplesIf}
 library(ggplot2)
 dots <- data.frame(x = c(1:10), y = 2.5)
 dots$fills <- art_pals("rainbow", 10)

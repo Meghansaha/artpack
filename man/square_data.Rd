@@ -10,6 +10,7 @@ square_data(
   size,
   color = NULL,
   fill = NULL,
+  n_points = 100,
   group_var = FALSE,
   group_prefix = "square_"
 )
@@ -25,6 +26,8 @@ square_data(
 
 \item{fill}{Character value of length 1 - The color of the square. A valid \code{R} color from \code{colors()} or a standard 6 digit hexadecimal webcolor like "#000000"}
 
+\item{n_points}{Numeric value. Default is 100. This determines how many points the square will have. This option can come in handy when using jitter options or other texture/illusion methods. Must be of length 1 and at least a value of 4.}
+
 \item{group_var}{Logical. Default is \code{FALSE}. If \code{TRUE}, a \code{group} variable will be added to the dataframe. Useful in iterative data generation.}
 
 \item{group_prefix}{Character string of length 1 - The prefix used for the \code{group} variable. Default is "square_"}
@@ -39,6 +42,8 @@ when plotted.
 The \code{geom_path} and \code{geom_polygon} geoms are recommended with this data for use in \code{ggplot2} for generative art.
 }
 \examples{
+\dontshow{if (rlang::is_installed("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{\}) # examplesIf}
 # Creating one square
 library(ggplot2)
 one_square <- square_data(x = 0, y = 0, size = 5)

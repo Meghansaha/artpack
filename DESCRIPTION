@@ -1,16 +1,14 @@
 Package: artpack
-Title: "Assists with Creating Generative Art"
-Version: 0.1.0.9001
+Title: Creates Generative Art
+Version: 0.1.0
 Authors@R: 
     person("Meghan", "Harris", , "meghanha01@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0003-3922-8101"))
-Description: aRtpack is a package that contains a tool set for aRtists of
-    all skill levels. aRtpack seeks to make life easier for more seasoned
-    aRtists by providing helper functions to save time on more complex
-    pieces. aRtpack also seeks to introduce more beginners into Rtistry by
-    providing quick and easy ways to create aRt right away.
+Maintainer: Meghan Harris <meghanha01@gmail.com>
+Description: Functionality for generative artists of all skill levels. 
 License: MIT + file LICENSE
 URL: https://meghansaha.github.io/artpack/
+BugReports: https://github.com/Meghansaha/artpack/issues
 Imports:
     cli,
     dplyr (>= 1.0.8),
@@ -22,10 +20,10 @@ Imports:
     tibble (>= 3.1.6)
 Suggests: 
     covr,
-    ggplot2 (>= 3.4.2),
     rmarkdown,
     spelling,
     testthat (>= 3.0.0),
+    ggplot2 (>= 3.4.2),
     withr
 VignetteBuilder: 
     knitr

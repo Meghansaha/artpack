@@ -2,13 +2,10 @@
 #'
 #' @param numbers #A numeric vector with a length of at least 1.
 #'
-#' @return #A Character Vector
+#' @return A Character Vector
 #'
-#' @importFrom purrr map
-#' @importFrom purrr list_c
 #' @importFrom stringr str_pad
 #' @importFrom stringr str_length
-#' @importFrom cli cli_abort
 #'
 #' @export
 #'
@@ -28,12 +25,10 @@
 #'
 #' # Will sort as expected when padded:
 #' sort(paste0("group_", padded_numbers))
-
-group_numbers <- function(numbers){
-
-  #===========================================================================#
+group_numbers <- function(numbers) {
+  # ===========================================================================#
   # Input Check----------------------------------------------------------------
-  #===========================================================================#
+  # ===========================================================================#
 
   if (!is.numeric(numbers)) {
     c(
@@ -42,29 +37,26 @@ group_numbers <- function(numbers){
       "i" = "Check the {.var numbers} input."
     ) |>
       cli::cli_abort()
-
-    }
-
-    #=========================================================================#
-    # Numbering Conversion-----------------------------------------------------
-    #=========================================================================#
-
-    # Grab width of largest number#
-    string_width <- stringr::str_length(max(numbers))
-
-    # Sort the input
-    sorted <- sort(c(numbers))
-
-    # Convert to padded strings
-    out_numbers <-
-      purrr::map(sorted, ~stringr::str_pad(.x,
-                                           width = string_width,
-                                           side = "left",
-                                           pad = "0"
-                                           )
-                 ) |>
-      purrr::list_c()
-
-    return(out_numbers)
-
   }
+
+  # =========================================================================#
+  # Numbering Conversion-----------------------------------------------------
+  # =========================================================================#
+
+  # Grab width of largest number#
+  string_width <- stringr::str_length(max(numbers))
+
+  # Sort the input
+  sorted <- sort(c(numbers))
+
+  # Convert to padded strings
+  out_numbers <-
+    purrr::map(sorted, ~ stringr::str_pad(.x,
+      width = string_width,
+      side = "left",
+      pad = "0"
+    )) |>
+    purrr::list_c()
+
+  return(out_numbers)
+}

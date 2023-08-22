@@ -1,10 +1,10 @@
-#=============================================================================#
+# =============================================================================#
 # Packer - Testing Suite-------------------------------------------------------
-#=============================================================================#
+# =============================================================================#
 
-#=============================================================================#
+# =============================================================================#
 # Input Testing----------------------------------------------------------------
-#=============================================================================#
+# =============================================================================#
 
 # Testing n input
 testthat::test_that("Test that missing n throws an error", {
@@ -183,44 +183,45 @@ purrr::map(
   })
 )
 
-#=============================================================================#
+# =============================================================================#
 # Side Effect/Internal Testing------------------------------------------------
-#=============================================================================#
+# =============================================================================#
 
 # Testing the Break Logic works for all circle sizes
-testthat::test_that("Max sampling with big circles works", {
+testthat::test_that("Max big sampling logic works", {
   testthat::expect_message(
     withr::with_seed(
       55,
       packer(10, big_r = 29)
     ),
-    "Maximum sampling reached for big circles"
+    "Maximum sampling reached"
   )
 })
 
-testthat::test_that("Max sampling with medium circles works", {
+testthat::test_that("Max medium sampling logic works", {
   testthat::expect_message(
     withr::with_seed(
       55,
       packer(10, med_r = 29)
     ),
-    "Maximum sampling reached for medium circles"
+    "Maximum sampling reached"
   )
 })
 
-testthat::test_that("Max sampling with small circles works", {
+testthat::test_that("Max small sampling logic works", {
   testthat::expect_message(
     withr::with_seed(
       55,
       packer(10, small_r = 29)
     ),
-    "Maximum sampling reached for small circles"
+    "Maximum sampling reached"
   )
 })
 
-#=============================================================================#
+
+# =============================================================================#
 # Output Testing---------------------------------------------------------------
-#=============================================================================#
+# =============================================================================#
 
 # Test that a data frame is returned
 testthat::test_that("test that a df is returned", {

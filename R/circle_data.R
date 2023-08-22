@@ -1,100 +1,92 @@
-#' Data Generation for Squares
+#' Data Generation for Circles
 #' @description
 #'
-#' A tool for creating a data frame of values that create a square with a specified size
+#' A tool for creating a data frame of values that create a circle with a specified radius
 #' when plotted.
 #'
 #' The `geom_path` and `geom_polygon` geoms are recommended with this data for use in `ggplot2` for generative art.
-#'
-#' @param x Numeric value of length 1 - The bottom left `x` value of the square.
-#' @param y Numeric value of length 1 - The bottom left `y` value of the square.
-#' @param size Numeric value of length 1 that must be greater than 0 - The size of the square.
+#' @param x Numeric value of length 1 - The center `x` coordinate value of the circle.
+#' @param y Numeric value of length 1 - The center `y` coordinate value of the circle.
+#' @param radius Numeric value of length 1 that must be greater than 0 - The radius of the circle.
 #' @param color Character value of length 1 - The color of the square's border. A valid `R` color from `colors()` or a standard 6 digit hexadecimal webcolor like "#000000"
 #' @param fill Character value of length 1 - The color of the square. A valid `R` color from `colors()` or a standard 6 digit hexadecimal webcolor like "#000000"
-#' @param n_points Numeric value. Default is 100. This determines how many points the square will have. This option can come in handy when using jitter options or other texture/illusion methods. Must be of length 1 and at least a value of 4.
+#' @param n_points Numeric value. Default is 100. This determines how many points the square will have. This option can come in handy when using jitter options or other texture/illusion methods. Must be of length 1 and at least a value of 100.
 #' @param group_var Logical. Default is `FALSE`. If `TRUE`, a `group` variable will be added to the dataframe. Useful in iterative data generation.
 #' @param group_prefix Character string of length 1 - The prefix used for the `group` variable. Default is "square_"
 #'
+#'
 #' @return A Tibble
-#'
-#' @importFrom purrr map2_dbl
-#' @importFrom purrr map2
-#' @importFrom purrr map
-#' @importFrom purrr list_c
-
-#' @importFrom dplyr mutate
-#'
 #' @export
 #'
 #' @examplesIf rlang::is_installed("ggplot2")
 #' @examples
-#' # Creating one square
-
+#' # Creating one circle
+#'
 #' library(ggplot2)
-#' one_square <- square_data(x = 0, y = 0, size = 5)
+#' one_circle <- circle_data(x = 0, y = 0, radius = 5)
 #'
 #' # Plot The Data
-#' one_square |>
-#'   ggplot(aes(x,y))+
-#'   geom_path(color = "green")+
+#' one_circle |>
+#'   ggplot(aes(x, y)) +
+#'   geom_path(color = "green") +
 #'   coord_equal()
 #'
-#' # To create multiple squares, use your preferred method of iteration:
-#' # Creating two squares
+#' # To create multiple circles, use your preferred method of iteration:
+#' # Creating two circles
 #'
 #' library(purrr)
 #' library(dplyr)
 #'
 #' # Make your specs
-#' x_vals <- c(0,4)
-#' y_vals <- c(0,0)
-#' sizes <- c(1,3)
+#' x_vals <- c(0, 4)
+#' y_vals <- c(0, 0)
+#' radi <- c(1, 3)
 #' fills <- c("purple", "yellow")
-#' square_n <- 1:2
+#' circle_n <- 1:2
 #'
 #' # Prep for your iteration
-#' lst_square_specs <-
+#' lst_circle_specs <-
 #'   list(
 #'     x_vals,
 #'     y_vals,
-#'     sizes,
+#'     radi,
 #'     fills,
-#'     square_n
+#'     circle_n
 #'   )
 #'
-#' # Use `square_data()` in your preferred iteration methods
-#' two_squares <- pmap(lst_square_specs, ~square_data(
+#' # Use `circle_data()` in your preferred iteration methods
+#' two_circles <- pmap(lst_circle_specs, ~ circle_data(
 #'   x = ..1,
 #'   y = ..2,
-#'   size = ..3,
+#'   radi = ..3,
 #'   fill = ..4,
 #'   color = "#000000",
 #'   group_var = TRUE
 #' ) |>
-#'   # square_data adds a `group` variable if `group_var` = TRUE.
-#'   # For multiple squares, a unique identifier should be added/pasted in.
-#'   mutate(group = paste0(group,..5))
-#' ) |>
+#'   # circle_data adds a `group` variable if `group_var` = TRUE.
+#'   # For multiple circles, a unique identifier should be added/pasted in.
+#'   mutate(group = paste0(group, ..5))) |>
 #'   list_rbind()
 #'
 #' # Plot the data
 #'
-#' two_squares |>
-#'   ggplot(aes(x, y, group = group))+
-#'   theme(legend.position = "none")+
-#'   geom_polygon(color = two_squares$color,
-#'                fill = two_squares$fill) +
+#' two_circles |>
+#'   ggplot(aes(x, y, group = group)) +
+#'   theme(legend.position = "none") +
+#'   geom_polygon(
+#'     color = two_circles$color,
+#'     fill = two_circles$fill
+#'   ) +
 #'   coord_equal()
 #'
-#'
-square_data <- function(x,
+circle_data <- function(x,
                         y,
-                        size,
+                        radius,
                         color = NULL,
                         fill = NULL,
                         n_points = 100,
                         group_var = FALSE,
-                        group_prefix = "square_") {
+                        group_prefix = "circle_") {
   # ===========================================================================#
   # Input Checks---------------------------------------------------------------
   # ===========================================================================#
@@ -123,7 +115,7 @@ square_data <- function(x,
     c(
       "x" = length(x) != 1,
       "y" = length(y) != 1,
-      "size" = length(size) != 1,
+      "radius" = length(radius) != 1,
       "color" = length(color) != 1 & !is.null(color),
       "fill" = length(fill) != 1 & !is.null(fill),
       "n_points" = length(n_points) != 1,
@@ -175,10 +167,10 @@ square_data <- function(x,
   }
 
   # Check for valid n_points
-  n_point_check <- n_points < 4
+  n_point_check <- n_points < 100
   if (n_point_check) {
     c(
-      paste("{.var n_points} must be", callout("greater than or equal to 4")),
+      paste("{.var n_points} must be", callout("greater than or equal to 100")),
       "x" = paste("{.var n_points} is", error({
         n_points
       })),
@@ -188,22 +180,22 @@ square_data <- function(x,
   }
 
 
-  # Check for valid size
-  size_check <- size <= 0
+  # Check for valid radius
+  radius_check <- radius <= 0
 
-  if (size_check) {
+  if (radius_check) {
     c(
-      paste("{.var size} must be", callout("greater than 0")),
-      "x" = paste("{.var size} is", error({
-        size
+      paste("{.var radius} must be", callout("greater than 0")),
+      "x" = paste("{.var radius} is", error({
+        radius
       })),
-      "i" = "Check the {.var size} variable"
+      "i" = "Check the {.var radius} variable"
     ) |>
       cli::cli_abort()
   }
 
   # Check if group_prefix is provided but group_var is FALSE
-  group_check <- !group_var & group_prefix != "square_"
+  group_check <- !group_var & group_prefix != "circle_"
 
   if (group_check) {
     c(
@@ -222,29 +214,17 @@ square_data <- function(x,
 
   # Setting vars
   x1 <- x
-  x2 <- purrr::map2_dbl(x1, size, ~ .x + .y)
+  x2 <- purrr::map2_dbl(x1, radius, ~ .x + .y)
   y1 <- y
-  y2 <- purrr::map2_dbl(y1, size, ~ .x + .y)
+  y2 <- purrr::map2_dbl(y1, radius, ~ .x + .y)
 
 
   # Base dataframe creation
-  # Split the datapoints
-  split_points <- floor(n_points / 4)
-  leftover <- n_points - split_points
-
+  # Creating theta
+  theta <- seq(0, 2 * pi, length = n_points)
   df <- dplyr::tibble(
-    x = c(
-      seq(x1, x2, length = split_points),
-      seq(x2, x2, length = split_points),
-      seq(x2, x1, length = split_points),
-      seq(x1, x1, length = split_points + leftover)
-    ),
-    y = c(
-      seq(y1, y1, length = split_points),
-      seq(y1, y2, length = split_points),
-      seq(y2, y2, length = split_points),
-      seq(y2, y1, length = split_points + leftover)
-    )
+    x = cos(theta) * radius,
+    y = sin(theta) * radius
   )
 
   # If group_var is TRUE, add a group variable
