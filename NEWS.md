@@ -1,5 +1,6 @@
 # artpack - 0.1.0
 
+* Initial CRAN Release
 * Improved testing suite for `grid_maker()`
 * Overhauled `grid_maker()` with improved logic testing and handling for inputs
 * Created helper function `group_numbers()` for export.
