@@ -4,11 +4,11 @@
 \name{artpack-package}
 \alias{artpack}
 \alias{artpack-package}
-\title{artpack: Creates Generative Art}
+\title{artpack: Creates Generative Art Data}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Functionality for creating data for generative art.
+Create data that displays generative art when mapped into a ggplot2 plot. Functionality includes specialized data frame creation for geometric shapes, tools that define artistic color palettes, tools for geometrically transforming data, and other miscellaneous tools that are helpful when using ggplot2 for generative art.
 }
 \seealso{
 Useful links:
@@ -19,7 +19,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Meghan Harris \email{meghanha01@gmail.com} (\href{https://orcid.org/0000-0003-3922-8101}{ORCID}) [copyright holder]
+\strong{Maintainer}: Meghan Harris \email{meghanha01@gmail.com} (\href{https://orcid.org/0000-0003-3922-8101}{ORCID})
 
 }
 \keyword{internal}
