@@ -9,7 +9,7 @@
 #' @param anchor The anchor point for the rotation. Default is "center". Options include:"center", "bottom", "top", "left", and "right"
 #' @param drop Logical `TRUE` or `FALSE` that determines if all other variables that are not being rotated are removed from the final output. Default is `FALSE`.
 #'
-#' @return #A data frame
+#' @return A data frame
 #' @export
 #'
 #' @importFrom dplyr mutate

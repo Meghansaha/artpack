@@ -1,13 +1,13 @@
-#' Custom-built aRtpack Color Palettes
+#' Custom-built artpack Color Palettes
 #' @description
 #'
-#' The aRtpack palette picker. The `art_pals` function consists of 18 palettes: "arctic",
+#' The artpack palette picker. The `art_pals` function consists of 18 palettes: "arctic",
 #' "beach", "bw", "brood", "cosmos", "explorer", "gemstones", "grays", "icecream", "imagination",
 #' "majestic", "nature", "neon", "ocean", "plants", "rainbow", "sunnyside", "super"
 #'
-#' @param pal A character string of the desired aRtpack palette.
+#' @param pal A character string of the desired artpack palette.
 #'
-#' The 18 aRtpack palettes include:
+#' The 18 artpack palettes include:
 #' - "arctic" - Icy blue and white colors
 #' - "beach" - Sand-colored tans and ocean-colored blue colors
 #' - "bw" - A gradient of black to white colors
@@ -76,7 +76,7 @@
 #'
 art_pals <- function(pal = NULL, n = 5, direction = "regular") {
   # =============================================================================#
-  # aRtpack Palettes-------------------------------------------------------------
+  # artpack Palettes-------------------------------------------------------------
   # =============================================================================#
   pals <-
     list(
@@ -188,7 +188,7 @@ art_pals <- function(pal = NULL, n = 5, direction = "regular") {
 
   if (!pal_check) {
     c(
-      "x" = paste0('"', pal, '"', " is not a known ", callout("aRtpack"), " color palette."),
+      "x" = paste0('"', pal, '"', " is not a known ", callout("artpack"), " color palette."),
       "i" = paste0(
         status("Please enter one of the following:\n"),
         knitr::combine_words(

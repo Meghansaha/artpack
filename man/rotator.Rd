@@ -20,7 +20,7 @@ rotator(data, x, y, angle = 5, anchor = "center", drop = FALSE)
 \item{drop}{Logical \code{TRUE} or \code{FALSE} that determines if all other variables that are not being rotated are removed from the final output. Default is \code{FALSE}.}
 }
 \value{
-#A data frame
+A data frame
 }
 \description{
 Rotates the \code{x} and \code{y} points in a given data frame by a given angle based on a designated anchor point.

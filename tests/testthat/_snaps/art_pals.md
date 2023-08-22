@@ -21,7 +21,7 @@
     Code
       art_pals(pal = .x)
     Error <rlang_error>
-      [1m[22m[31mx[39m "bupu" is not a known [1m[33maRtpack[39m[22m color palette.
+      [1m[22m[31mx[39m "bupu" is not a known [1m[33martpack[39m[22m color palette.
       [36mi[39m [1m[36mPlease enter one of the following: [39m[22m"arctic", "beach", "bw", "brood", "cosmos", "explorer", "gemstones", "grays", "icecream", "imagination", "majestic", "nature", "neon", "ocean", "plants", "rainbow", "sunnyside" or "super"
 
 # n checks [ansi]

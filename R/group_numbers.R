@@ -1,6 +1,6 @@
 #' Convert Numbers into Padded Strings for Easier Group Numbering
 #'
-#' @param numbers #A numeric vector with a length of at least 1.
+#' @param numbers A numeric vector with a length of at least 1.
 #'
 #' @return A Character Vector
 #'

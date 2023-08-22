@@ -7,7 +7,7 @@
 group_numbers(numbers)
 }
 \arguments{
-\item{numbers}{#A numeric vector with a length of at least 1.}
+\item{numbers}{A numeric vector with a length of at least 1.}
 }
 \value{
 A Character Vector
