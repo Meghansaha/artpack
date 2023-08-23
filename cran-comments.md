@@ -1,9 +1,9 @@
 ## Resubmission
 This is a resubmission. In this version I have:
 
-* Updated the Description and Title fields in the DESCRIPTION file to add more detail about the package.
+* Updated the Description to write package names in single quotes e.g: 'ggplot2'
 
-* Corrected the LICENSE file so that the copyright holder is clearly identified and matches between the DESCRIPTION and LICENSE files.
+* Not added any references describing the methods in this package as I'm not aware of any that need to be listed. To the best of my knowledge, no references are needed.
 
 
 ## R CMD check results

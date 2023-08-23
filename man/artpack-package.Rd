@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Create data that displays generative art when mapped into a ggplot2 plot. Functionality includes specialized data frame creation for geometric shapes, tools that define artistic color palettes, tools for geometrically transforming data, and other miscellaneous tools that are helpful when using ggplot2 for generative art.
+Create data that displays generative art when mapped into a 'ggplot2' plot. Functionality includes specialized data frame creation for geometric shapes, tools that define artistic color palettes, tools for geometrically transforming data, and other miscellaneous tools that are helpful when using 'ggplot2' for generative art.
 }
 \seealso{
 Useful links:
