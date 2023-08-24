@@ -16,7 +16,7 @@ authors:
     href: https://www.theidytrekker.com/
 
 development:
-  mode: unreleased
+  mode: auto
   version_label: default
 navbar:
   bg: primary
