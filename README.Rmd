@@ -11,19 +11,22 @@ knitr::opts_chunk$set(
 )
 ```
 
+
+<!-- badges: start -->
+[![codecov](https://codecov.io/gh/Meghansaha/artpack/graph/badge.svg?token=X1Y9P4QEVC)](https://app.codecov.io/gh/Meghansaha/artpack)
+[![R-CMD-check](https://github.com/Meghansaha/artpack/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Meghansaha/artpack/actions/workflows/R-CMD-check.yaml)
+[![CRAN checks](https://badges.cranchecks.info/summary/artpack.svg)](https://cran.r-project.org/web/checks/check_results_artpack.html)
+[![](https://www.r-pkg.org/badges/version/artpack)](https://cran.r-project.org/package=artpack)
+[![](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+
+
+<!-- badges: end -->
+
 <p align="center" width="100%">
 <img src="man/figures/logo.png">
 </p>
 
-<!-- badges: start -->
 
-[![codecov](https://codecov.io/gh/Meghansaha/artpack/graph/badge.svg?token=X1Y9P4QEVC)](https://app.codecov.io/gh/Meghansaha/artpack)
-
-[![R-CMD-check](https://github.com/Meghansaha/artpack/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Meghansaha/artpack/actions/workflows/R-CMD-check.yaml)
-
-<!-- badges: end -->
-
-`r lifecycle::badge("experimental")`
 
 The goal of artpack is to help generative artists of all levels create generative art in R. The artpack package is intended for use with the [`tidyverse`](https://www.tidyverse.org/) suite. More specifically, with the [`ggplot2`](https://ggplot2.tidyverse.org/) package.
 
