@@ -1,13 +1,14 @@
-cff-version: 1.2.0
-message: "To cite artpack in publications use:"
-
-title: "artpack - A Comprehensive Rtistry Toolkit"
 authors:
-  - family-names: "Harris"
-    given-names: "Meghan"
+  - family-names: Harris
+    given-names: Meghan
     orcid: "https://orcid.org/0000-0003-3922-8101"
-    email: meghanha01@gmail.com
-    website: "https://thetidytrekker.com""
-url: https://github.com/Meghansaha/artpack
-date-released: 2023-08-24
-version: 0.1.0
+cff-version: 1.2.0
+date-released: "2023-08-24"
+identifiers:
+  - type: url
+    value: "https://meghansaha.github.io/artpack/"
+    description: Latest version
+
+message: To cite artpack in publications use these metadata
+repository-code: "https://github.com/Meghansaha/artpack"
+title: artpack
