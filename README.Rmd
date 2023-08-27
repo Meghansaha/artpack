@@ -13,11 +13,14 @@ knitr::opts_chunk$set(
 
 
 <!-- badges: start -->
+<center>
+
 [![codecov](https://codecov.io/gh/Meghansaha/artpack/graph/badge.svg?token=X1Y9P4QEVC)](https://app.codecov.io/gh/Meghansaha/artpack)
 [![R-CMD-check](https://github.com/Meghansaha/artpack/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Meghansaha/artpack/actions/workflows/R-CMD-check.yaml)
 [![CRAN checks](https://badges.cranchecks.info/summary/artpack.svg)](https://cran.r-project.org/web/checks/check_results_artpack.html)
 [![](https://www.r-pkg.org/badges/version/artpack)](https://cran.r-project.org/package=artpack)
-[![](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+
+</center>
 
 
 <!-- badges: end -->
@@ -136,17 +139,17 @@ library(tibble)
 library(artpack)
 
 # Create a base square #
-square <- square_data(x = 0, y = 0, size = 1, group_var = TRUE)
+square <- square_data(x = 0, y = 0, size = .1, group_var = TRUE)
 
 # Create square specs to be iterated on #
-n_square <- 50
-scaler <- seq(1, 5, length = n_square)
+n_square <- 500
+scaler <- seq(1, 100, length = n_square)
 fills <- art_pals("imagination", n = n_square)
 angles <- seq(0, 360, length = n_square)
 group_n <- group_numbers(1:n_square)
 
 # Add a random transformation for a little razzle dazzle ✨
-theta <- seq(0, 2 * pi, length = 250)
+theta <- seq(0, 30, length = 250)
 
 list_opts <- list(
   scaler,
@@ -159,7 +162,7 @@ df <- pmap(list_opts, ~ rotator(
   square |>
     mutate(
       x = (x + ..1),
-      y = (y + ..1),
+      y = (y * ..1),
       fill = ..2,
       group = paste0(group, ..4)
     ),
@@ -167,8 +170,8 @@ df <- pmap(list_opts, ~ rotator(
 )) |>
   list_rbind() |>
   mutate(
-    x = x * cos(theta) + x,
-    y = y * sin(theta)
+    x = x + cos(theta),
+    y = y + sin(theta)
   )
 
 
@@ -177,10 +180,8 @@ df |>
   ggplot(aes(x = x, y = y, group = group)) +
   theme_void() +
   theme(plot.background = element_rect(fill = "#000000")) +
-  geom_polygon(
-    fill = df$fill,
-    color = "#000000",
-    alpha = .5
-  ) +
-  coord_equal(expand = FALSE)
+  geom_path(
+    color = df$fill,
+    alpha = .2
+  ) 
 ```
