@@ -1,0 +1,87 @@
+---
+title: "Using artpack's Data Outputs with `ggplot2`"
+output: rmarkdown::html_vignette
+date: "Last Updated: `r format(Sys.Date(), '%B %d, %Y')` " 
+vignette: >
+  %\VignetteIndexEntry{Tutorial: working-with-data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.align = "center"
+)
+```
+
+## Introduction
+
+Currently, most {artpack} functions return **data outputs** in the form of a `tibble()` and have been developed to be fed into existing `ggplot2` functions like `ggplot()`, `geom_polygon()`, and friends. 
+
+This vignette shows you:
+- How to use {art}
+
+## Setup
+
+Before starting any generative art workflow, it's important to ensure the necessary packages are installed and loaded. It is very common to add or remove packages as necessary based on the needs of the output. First, install and load {artpack} For ease, you can install the `tidyverse()` package, or any other packages you may need for your work:
+
+
+```{r setup, message=FALSE, warning=FALSE}
+# install.packages("artpack")
+# install.packages("tidyverse")
+library(artpack) # Art Helpers
+library(dplyr) # Data Wrangling and Manipulation
+library(purrr) # Iteration Help
+library(ggplot2) # Plotting
+
+```
+
+## Working With Data Assets
+{artpack} has several functions that create "assets" - data objects that are displayed as images of something when plotted in a graphical system {ggplot2}.These functions return a tibble.
+
+### Basic Shapes
+#### Circles with `circle_data()`
+
+To plot a circle with `circle_data()`, the resulting tibble should be stored in as a object and fed into a ggplot with an equal or fixed coordinate setting with `coord_equal()` or `coord_fixed()`:
+
+<br>
+
+```{css, echo = FALSE}
+.warning {
+  padding: 1em 1em 1em 1em;
+  margin-bottom: 10px;
+  border: 2px solid #8a0101;
+  border-radius: 255px 30px 225px 15px/15px 225px 25px 255px;
+}
+
+.icon{
+  border: 0px solid;
+  float: left;
+}
+```
+
+:::{.warning}
+![](images/warning.png){.icon width="5%"} ***<span style="color:#8a0101">Note</span>**: failing to use ggplot2's `coord_equal()` or `coord_fixed()` may result in an ellipse as opposed to a circle*
+:::
+
+```{r circle-1}
+# Create an object (df_circle) to store the data
+df_circle <- 
+  circle_data(
+    x = 0,
+    y = 0,
+    radius = 5
+  )
+
+# Feed it into a ggplot
+df_circle |>
+  ggplot(aes(x,y)) +
+  geom_polygon() +
+  coord_equal()
+
+```
+
+
