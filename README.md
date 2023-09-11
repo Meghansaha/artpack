@@ -69,7 +69,7 @@ direct data frames, as opposed to trying to “hack” geoms.
 
 ## Brief Examples
 
-artpack can be used create specified dataframes that will map art when
+artpack can be used to create specified dataframes that will map art when
 fed into `ggplot2` functions:
 
 For example, `square_data()` creates a data frame that maps a square on
