@@ -1,18 +1,18 @@
 #' Data Generation for Circles
 #' @description
 #'
-#' A tool for creating a data frame of values that create a circle with a specified radius
+#' A tool for creating a data frame of values that creates a circle with a specified radius
 #' when plotted.
 #'
 #' The `geom_path` and `geom_polygon` geoms are recommended with this data for use in `ggplot2` for generative art.
 #' @param x Numeric value of length 1 - The center `x` coordinate value of the circle.
 #' @param y Numeric value of length 1 - The center `y` coordinate value of the circle.
 #' @param radius Numeric value of length 1 that must be greater than 0 - The radius of the circle.
-#' @param color Character value of length 1 - The color of the square's border. A valid `R` color from `colors()` or a standard 6 digit hexadecimal webcolor like "#000000"
-#' @param fill Character value of length 1 - The color of the square. A valid `R` color from `colors()` or a standard 6 digit hexadecimal webcolor like "#000000"
-#' @param n_points Numeric value. Default is 100. This determines how many points the square will have. This option can come in handy when using jitter options or other texture/illusion methods. Must be of length 1 and at least a value of 100.
+#' @param color Character value of length 1 - The intended color of the circle's border. A valid `R` color from `colors()` or a standard 6 digit hexadecimal webcolor like "#000000"
+#' @param fill Character value of length 1 - The intended color of the circle. A valid `R` color from `colors()` or a standard 6 digit hexadecimal webcolor like "#000000"
+#' @param n_points Numeric value. Default is 100. This determines how many points the circle will have. This option can come in handy when using jitter options or other texture/illusion methods. Must be of length 1 and at least a value of 100.
 #' @param group_var Logical. Default is `FALSE`. If `TRUE`, a `group` variable will be added to the dataframe. Useful in iterative data generation.
-#' @param group_prefix Character string of length 1 - The prefix used for the `group` variable. Default is "square_"
+#' @param group_prefix Character string of length 1 - The prefix used for the `group` variable. Default is "circle_"
 #'
 #' @return A Tibble
 #'

@@ -22,21 +22,21 @@ circle_data(
 
 \item{radius}{Numeric value of length 1 that must be greater than 0 - The radius of the circle.}
 
-\item{color}{Character value of length 1 - The color of the square's border. A valid \code{R} color from \code{colors()} or a standard 6 digit hexadecimal webcolor like "#000000"}
+\item{color}{Character value of length 1 - The intended color of the circle's border. A valid \code{R} color from \code{colors()} or a standard 6 digit hexadecimal webcolor like "#000000"}
 
-\item{fill}{Character value of length 1 - The color of the square. A valid \code{R} color from \code{colors()} or a standard 6 digit hexadecimal webcolor like "#000000"}
+\item{fill}{Character value of length 1 - The intended color of the circle. A valid \code{R} color from \code{colors()} or a standard 6 digit hexadecimal webcolor like "#000000"}
 
-\item{n_points}{Numeric value. Default is 100. This determines how many points the square will have. This option can come in handy when using jitter options or other texture/illusion methods. Must be of length 1 and at least a value of 100.}
+\item{n_points}{Numeric value. Default is 100. This determines how many points the circle will have. This option can come in handy when using jitter options or other texture/illusion methods. Must be of length 1 and at least a value of 100.}
 
 \item{group_var}{Logical. Default is \code{FALSE}. If \code{TRUE}, a \code{group} variable will be added to the dataframe. Useful in iterative data generation.}
 
-\item{group_prefix}{Character string of length 1 - The prefix used for the \code{group} variable. Default is "square_"}
+\item{group_prefix}{Character string of length 1 - The prefix used for the \code{group} variable. Default is "circle_"}
 }
 \value{
 A Tibble
 }
 \description{
-A tool for creating a data frame of values that create a circle with a specified radius
+A tool for creating a data frame of values that creates a circle with a specified radius
 when plotted.
 
 The \code{geom_path} and \code{geom_polygon} geoms are recommended with this data for use in \code{ggplot2} for generative art.

@@ -2,8 +2,9 @@
 
     Code
       circle_data(y = 0, radius = 10)
-    Error <rlang_error>
-      [1m[22m`x` is [1m[31mmissing[39m[22m
+    Condition
+      [1m[33mError[39m in `circle_data()`:[22m
+      [1m[22m[33m![39m `x` is [1m[31mmissing[39m[22m
       [31mx[39m `x` is [1m[36mrequired[39m[22m and should be a numeric value with a length of 1
       [36mi[39m Check the `x` variable
 
@@ -11,8 +12,9 @@
 
     Code
       circle_data(x = 0, radius = 10)
-    Error <rlang_error>
-      [1m[22m`y` is [1m[31mmissing[39m[22m
+    Condition
+      [1m[33mError[39m in `circle_data()`:[22m
+      [1m[22m[33m![39m `y` is [1m[31mmissing[39m[22m
       [31mx[39m `y` is [1m[36mrequired[39m[22m and should be a numeric value with a length of 1
       [36mi[39m Check the `y` variable
 
@@ -20,8 +22,9 @@
 
     Code
       circle_data(x = "0", y = 0, radius = 10)
-    Error <rlang_error>
-      [1m[22m`x` must be of class [1m[33m<numeric>[39m[22m
+    Condition
+      [1m[33mError[39m in `circle_data()`:[22m
+      [1m[22m[33m![39m `x` must be of class [1m[33m<numeric>[39m[22m
       [31mx[39m `x` is of class [1m[34m<character>[39m[22m
       [36mi[39m Check the `x` variable
 
@@ -29,8 +32,9 @@
 
     Code
       circle_data(x = 0, y = "0", radius = 10)
-    Error <rlang_error>
-      [1m[22m`y` must be of class [1m[33m<numeric>[39m[22m
+    Condition
+      [1m[33mError[39m in `circle_data()`:[22m
+      [1m[22m[33m![39m `y` must be of class [1m[33m<numeric>[39m[22m
       [31mx[39m `y` is of class [1m[34m<character>[39m[22m
       [36mi[39m Check the `y` variable
 
@@ -38,8 +42,9 @@
 
     Code
       circle_data(x = 0, y = 0, radius = 0)
-    Error <rlang_error>
-      [1m[22m`radius` must be [1m[33mgreater than 0[39m[22m
+    Condition
+      [1m[33mError[39m in `circle_data()`:[22m
+      [1m[22m[33m![39m `radius` must be [1m[33mgreater than 0[39m[22m
       [31mx[39m `radius` is [1m[31m0[39m[22m
       [36mi[39m Check the `radius` variable
 
@@ -47,8 +52,9 @@
 
     Code
       circle_data(x = 0, y = 0, radius = -10)
-    Error <rlang_error>
-      [1m[22m`radius` must be [1m[33mgreater than 0[39m[22m
+    Condition
+      [1m[33mError[39m in `circle_data()`:[22m
+      [1m[22m[33m![39m `radius` must be [1m[33mgreater than 0[39m[22m
       [31mx[39m `radius` is [1m[31m-10[39m[22m
       [36mi[39m Check the `radius` variable
 
@@ -56,8 +62,9 @@
 
     Code
       circle_data(x = 1:3, y = 0, radius = 5)
-    Error <rlang_error>
-      [1m[22mAll arguments must have a [1m[33mlength of 1[39m[22m
+    Condition
+      [1m[33mError[39m in `circle_data()`:[22m
+      [1m[22m[33m![39m All arguments must have a [1m[33mlength of 1[39m[22m
       [31mx[39m `x` has a length of [1m[31m3[39m[22m
       [36mi[39m Check the `x` variable
 
@@ -65,8 +72,9 @@
 
     Code
       circle_data(x = 0, y = 1:3, radius = 5)
-    Error <rlang_error>
-      [1m[22mAll arguments must have a [1m[33mlength of 1[39m[22m
+    Condition
+      [1m[33mError[39m in `circle_data()`:[22m
+      [1m[22m[33m![39m All arguments must have a [1m[33mlength of 1[39m[22m
       [31mx[39m `y` has a length of [1m[31m3[39m[22m
       [36mi[39m Check the `y` variable
 
@@ -74,8 +82,9 @@
 
     Code
       circle_data(x = 0, y = 0, radius = 1:5)
-    Error <rlang_error>
-      [1m[22mAll arguments must have a [1m[33mlength of 1[39m[22m
+    Condition
+      [1m[33mError[39m in `circle_data()`:[22m
+      [1m[22m[33m![39m All arguments must have a [1m[33mlength of 1[39m[22m
       [31mx[39m `radius` has a length of [1m[31m5[39m[22m
       [36mi[39m Check the `radius` variable
 
@@ -83,8 +92,9 @@
 
     Code
       circle_data(x = 0, y = 0, radius = 1, color = c("#000000", "#333333"))
-    Error <rlang_error>
-      [1m[22mAll arguments must have a [1m[33mlength of 1[39m[22m
+    Condition
+      [1m[33mError[39m in `circle_data()`:[22m
+      [1m[22m[33m![39m All arguments must have a [1m[33mlength of 1[39m[22m
       [31mx[39m `color` has a length of [1m[31m2[39m[22m
       [36mi[39m Check the `color` variable
 
@@ -92,8 +102,9 @@
 
     Code
       circle_data(x = 0, y = 0, radius = 1, fill = c("#000000", "#333333"))
-    Error <rlang_error>
-      [1m[22mAll arguments must have a [1m[33mlength of 1[39m[22m
+    Condition
+      [1m[33mError[39m in `circle_data()`:[22m
+      [1m[22m[33m![39m All arguments must have a [1m[33mlength of 1[39m[22m
       [31mx[39m `fill` has a length of [1m[31m2[39m[22m
       [36mi[39m Check the `fill` variable
 
@@ -101,8 +112,9 @@
 
     Code
       circle_data(x = 1:3, y = 2:5, radius = 1)
-    Error <rlang_error>
-      [1m[22mAll arguments must have a [1m[33mlength of 1[39m[22m
+    Condition
+      [1m[33mError[39m in `circle_data()`:[22m
+      [1m[22m[33m![39m All arguments must have a [1m[33mlength of 1[39m[22m
       [31mx[39m `x` has a length of [1m[31m3[39m[22m and `y` has a length of [1m[31m4[39m[22m
       [36mi[39m Check the `x` and `y` variables
 
@@ -110,8 +122,9 @@
 
     Code
       circle_data(x = 1, y = 2, radius = 1, color = "blAck")
-    Error <rlang_error>
-      [1m[22m`color` is [1m[31minvalid[39m[22m
+    Condition
+      [1m[33mError[39m in `circle_data()`:[22m
+      [1m[22m[33m![39m `color` is [1m[31minvalid[39m[22m
       [31mx[39m `color` must be a valid: [1m[36m`r` color from `colors()`[39m[22m or a valid 6 digit [1m[36mhexadecimal webcolor[39m[22m
       [36mi[39m `blAck` is an [1m[33minvalid color[39m[22m
 
@@ -119,8 +132,9 @@
 
     Code
       circle_data(x = 1, y = 2, radius = 1, fill = "blAck")
-    Error <rlang_error>
-      [1m[22m`fill` is [1m[31minvalid[39m[22m
+    Condition
+      [1m[33mError[39m in `circle_data()`:[22m
+      [1m[22m[33m![39m `fill` is [1m[31minvalid[39m[22m
       [31mx[39m `fill` must be a valid: [1m[36m`r` color from `colors()`[39m[22m or a valid 6 digit [1m[36mhexadecimal webcolor[39m[22m
       [36mi[39m `blAck` is an [1m[33minvalid color[39m[22m
 
@@ -128,8 +142,9 @@
 
     Code
       circle_data(x = 0, y = 0, radius = 5, n_points = "500")
-    Error <rlang_error>
-      [1m[22m`n_points` must be of class [1m[33m<numeric>[39m[22m
+    Condition
+      [1m[33mError[39m in `circle_data()`:[22m
+      [1m[22m[33m![39m `n_points` must be of class [1m[33m<numeric>[39m[22m
       [31mx[39m `n_points` is of class [1m[34m<character>[39m[22m
       [36mi[39m Check the `n_points` variable
 
@@ -137,8 +152,9 @@
 
     Code
       circle_data(x = 0, y = 0, radius = 5, n_points = 1)
-    Error <rlang_error>
-      [1m[22m`n_points` must be [1m[33mgreater than or equal to 100[39m[22m
+    Condition
+      [1m[33mError[39m in `circle_data()`:[22m
+      [1m[22m[33m![39m `n_points` must be [1m[33mgreater than or equal to 100[39m[22m
       [31mx[39m `n_points` is [1m[31m1[39m[22m
       [36mi[39m Check the `n_points` variable
 
@@ -146,8 +162,9 @@
 
     Code
       circle_data(x = 1, y = 2, radius = 1, group_var = TRUE, group_prefix = 1)
-    Error <rlang_error>
-      [1m[22m`group_prefix` must be of class [1m[33m<character>[39m[22m
+    Condition
+      [1m[33mError[39m in `circle_data()`:[22m
+      [1m[22m[33m![39m `group_prefix` must be of class [1m[33m<character>[39m[22m
       [31mx[39m `group_prefix` is of class [1m[34m<numeric>[39m[22m
       [36mi[39m Check the `group_prefix` variable
 
@@ -155,7 +172,7 @@
 
     Code
       circle_data(0, 0, 3, group_prefix = "box")
-    Message <rlang_message>
+    Message
       [1m[22m[1m[31mWarning:[39m[22m
       [36mi[39m You have provided a custom `group_prefix` of: [1m[33m"box"[39m[22m
       [33m![39m But `group_var` is `FALSE`
