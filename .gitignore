@@ -1,4 +1,11 @@
+docs
+doc
 .Rproj.user
 CRAN-SUBMISSION
 cran-comments.md
 inst/doc
+.Rhistory
+.Rprofile
+renv
+renv.lock
+artpack.Rproj
