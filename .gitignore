@@ -1,4 +1,4 @@
-doc
+artpack.Rproj
 .Rproj.user
 CRAN-SUBMISSION
 cran-comments.md
@@ -7,4 +7,5 @@ inst/doc
 .Rprofile
 renv
 renv.lock
-artpack.Rproj
+docs
+dev

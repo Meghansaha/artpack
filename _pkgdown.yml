@@ -35,9 +35,6 @@ navbar:
   - icon: fa-github fa-lg
     href: https://github.com/Meghansaha/artpack
 
-
-
-
 reference:
 
 - title: Asset Creation
@@ -56,9 +53,10 @@ reference:
 - contents:
   - rotator
 
-- title: Misc. Tools
+- title: Group Tools
 - contents:
   - group_numbers
+  - group_sample
 
 
 
