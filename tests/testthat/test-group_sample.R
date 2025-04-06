@@ -35,6 +35,22 @@ cli::test_that_cli(
   configs = "ansi"
 )
 
+## data has at least 1 variable cli output----
+cli::test_that_cli(
+  "Data must have at least 1 variable",
+  {
+    testthat::expect_snapshot(
+      {
+        df_data <- data.frame()
+
+        df_data |> group_sample()
+      },
+      error = TRUE
+    )
+  },
+  configs = "ansi"
+)
+
 ## group var is present cli output----
 cli::test_that_cli(
   "Group variable must be present",

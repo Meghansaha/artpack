@@ -39,7 +39,7 @@ group_sample <- function(data, group, n = 1, prop = NULL, prob = NULL, group_out
   # ===========================================================================#
   # Logic Checks---------------------------------------------------------------
   # ===========================================================================#
-  # Check that Data is present
+  ## Check that Data is present----
   if (missing(data)) {
     c(
       "x" = paste("{.var data} is", error("missing")),
@@ -47,11 +47,21 @@ group_sample <- function(data, group, n = 1, prop = NULL, prob = NULL, group_out
     ) |>
       cli::cli_abort()
   }
-  # check that Data is a dataframe
+
+  ## check that Data is a dataframe----
   if (!is.data.frame(data)) {
     c(
       "x" = paste("{.var data} is", error("{.cls {typeof(data)}}")),
       "!" = paste("{.var data} should be a", status("dataframe"), "or", status("tibble"))
+    ) |>
+      cli::cli_abort()
+  }
+
+  ## check that Data has at least 1 variable----
+  if (length(data) == 0) {
+    c(
+      "x" = paste("{.var data} has", error("0 variables"), "."),
+      "!" = paste("{.var data} should be a dataframe or tibble with at least ", status("1 variable"))
     ) |>
       cli::cli_abort()
   }
@@ -73,9 +83,9 @@ group_sample <- function(data, group, n = 1, prop = NULL, prob = NULL, group_out
 
   if(group_length_invalid){
     c(
-      paste0("{.var group} must be ", callout("1"), " column from {.var data}"),
-      "x" = paste0("You've supplied ", error(group_col_length), "{cli::qty(group_col_length)} column{?s} to the {.var group} argument"),
-      "i" = paste0(status("Check the {.var group} value"), " you've supplied.")
+      paste("{.var group} must be", callout("1"), "column from {.var data}"),
+      "x" = paste("You've supplied", error(group_col_length), "{cli::qty(group_col_length)} column{?s} to the {.var group} argument"),
+      "i" = paste(status("Check the {.var group} value"), "you've supplied.")
     ) |>
       cli::cli_abort()
   }
@@ -85,9 +95,9 @@ group_sample <- function(data, group, n = 1, prop = NULL, prob = NULL, group_out
 
   if(n_length_invalid){
     c(
-      paste0("{.var n} must be a length of ", callout("1")),
-      "x" = paste0("The {.var n} object you've supplied has a length of ", error(length(n))),
-      "i" = paste0(status("Check the {.var n} value"), " you've supplied.")
+      paste("{.var n} must be a length of", callout("1")),
+      "x" = paste("The {.var n} object you've supplied has a length of", error(length(n))),
+      "i" = paste(status("Check the {.var n} value"), "you've supplied.")
     ) |>
       cli::cli_abort()
   }
@@ -97,9 +107,9 @@ group_sample <- function(data, group, n = 1, prop = NULL, prob = NULL, group_out
 
   if(n_type_check){
     c(
-      paste0("{.var n} must be a", callout("numeric"), "integer of length 1."),
-      "x" = paste0("The class of the {.var n} object you've supplied is ", error("<", class(n), ">")),
-      "i" = paste0(status("Check the {.var n} object"), " you've supplied.")
+      paste("{.var n} must be a", callout("numeric"), "integer of length 1."),
+      "x" = paste("The class of the {.var n} object you've supplied is", error("<", class(n), ">")),
+      "i" = paste(status("Check the {.var n} object"), "you've supplied.")
     ) |>
       cli::cli_abort()
   }
@@ -113,9 +123,9 @@ group_sample <- function(data, group, n = 1, prop = NULL, prob = NULL, group_out
 
     if(n_invalid){
       c(
-        paste0("{.var n} must be a positive numeric integer that is", callout("greater than 0")),
-        "x" = paste0("The {.var n} you've supplied is ", error(n)),
-        "i" = paste0(status("Check the {.var n} value"), " you've supplied.")
+        paste("{.var n} must be a positive numeric integer that is", callout("greater than 0")),
+        "x" = paste("The {.var n} you've supplied is", error(n)),
+        "i" = paste(status("Check the {.var n} value"), "you've supplied.")
       ) |>
         cli::cli_abort()
     }
@@ -123,9 +133,9 @@ group_sample <- function(data, group, n = 1, prop = NULL, prob = NULL, group_out
     # Check that n is a whole/integer number#
     if (n %% 1 != 0) {
       c(
-        paste0("{.var n} must be a ", callout("numeric integer (no decimals)")),
-        "x" = paste0("The {.var n} object you've supplied is ", error(n)),
-        "i" = paste0(status("Check the {.var n} value"), " you've supplied.")
+        paste("{.var n} must be a", callout("numeric integer (no decimals)")),
+        "x" = paste("The {.var n} object you've supplied is", error(n)),
+        "i" = paste(status("Check the {.var n} value"), "you've supplied.")
       ) |>
         cli::cli_abort()
     }
@@ -158,9 +168,9 @@ group_sample <- function(data, group, n = 1, prop = NULL, prob = NULL, group_out
 
     if(prop_length_invalid){
       c(
-        paste0("{.var prop} must be a length of ", callout("1")),
-        "x" = paste0("The {.var prop} object you've supplied has a length of ", error(length(prop))),
-        "i" = paste0(status("Check the {.var prop} value"), " you've supplied.")
+        paste("{.var prop} must be a length of", callout("1")),
+        "x" = paste("The {.var prop} object you've supplied has a length of", error(length(prop))),
+        "i" = paste(status("Check the {.var prop} value"), "you've supplied.")
       ) |>
         cli::cli_abort()
     }
@@ -170,9 +180,9 @@ group_sample <- function(data, group, n = 1, prop = NULL, prob = NULL, group_out
 
     if(prop_invalid){
       c(
-        paste0("{.var prop} must be a positive numeric value that is ", callout("less than or equal to 1")),
-        "x" = paste0("The {.var prop} you've supplied is ", error(prop)),
-        "i" = paste0(status("Check the {.var prop} value"), " you've supplied.")
+        paste("{.var prop} must be a positive numeric value that is", callout("less than or equal to 1")),
+        "x" = paste("The {.var prop} you've supplied is", error(prop)),
+        "i" = paste(status("Check the {.var prop} value"), "you've supplied.")
       ) |>
         cli::cli_abort()
     }
@@ -191,9 +201,9 @@ group_sample <- function(data, group, n = 1, prop = NULL, prob = NULL, group_out
 
     if(prob_length_invalid){
       c(
-        paste0("{.var prob} must be a vector of positive numeric values", callout("with the same length as the total unique values in `group`")),
-        "x" = paste0("The length of {.var prob} you've supplied is ", error(length(prob)), " and the total unique values in `group` are", error(vec_groups_n)),
-        "i" = paste0(status("Check the {.var prob} object"), " you've supplied.")
+        paste("{.var prob} must be a vector of positive numeric values", callout("with the same length as the total unique values in `group`")),
+        "x" = paste("The length of {.var prob} you've supplied is", error(length(prob)), "and the total unique values in `group` are", error(vec_groups_n)),
+        "i" = paste(status("Check the {.var prob} object"), "you've supplied.")
       ) |>
         cli::cli_abort()
     }
@@ -205,10 +215,10 @@ group_sample <- function(data, group, n = 1, prop = NULL, prob = NULL, group_out
 
     if(prob_any_invalid){
       c(
-        paste0("{.var prob} must be a vector of ", callout("positive numeric values that are greater than zero")),
-        "x" = if(prob_type_invalid){paste0("The class of the {.var prob} object that you've supplied is of ", error("<",class(prob),">"),". ", callout("Numeric")," is expected.")},
-        "x" = if(prob_values_invalid){paste0(error("Negative"), " values were detected in the `prob` object you've supplied. Only", callout(" positive"), " values are accepted.")},
-        "i" = paste0(status("Check the {.var prob} object"), " you've supplied.")
+        paste("{.var prob} must be a vector of", callout("positive numeric values that are greater than zero")),
+        "x" = if(prob_type_invalid){paste("The class of the {.var prob} object that you've supplied is of", error("<",class(prob),">."), callout("Numeric"),"is expected.")},
+        "x" = if(prob_values_invalid){paste(error("Negative"), "values were detected in the `prob` object you've supplied. Only", callout("positive"), "values are accepted.")},
+        "i" = paste(status("Check the {.var prob} object"), "you've supplied.")
       ) |>
         cli::cli_abort()
     }
@@ -227,9 +237,9 @@ group_sample <- function(data, group, n = 1, prop = NULL, prob = NULL, group_out
 
   if(group_output_check) {
     c(
-      paste0("{.var group_output} must be a logicl boolean of ", callout("`TRUE` or `FALSE`")),
-      "x" = paste0("The class of the {.var group_output} object you've supplied is ", error("<", class(group_output), ">")),
-      "i" = paste0(status("Check the {.var group_output} object"), " you've supplied.")
+      paste("{.var group_output} must be a logical boolean of", callout("`TRUE` or `FALSE`")),
+      "x" = paste("The class of the {.var group_output} object you've supplied is", error("<", class(group_output), ">")),
+      "i" = paste(status("Check the {.var group_output} object"), "you've supplied.")
     ) |>
       cli::cli_abort()
   }
