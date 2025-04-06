@@ -4,7 +4,14 @@
 \alias{group_sample}
 \title{Sample Data Frames by a Group Variable}
 \usage{
-group_sample(data, group, n = 1, prop = NULL, prob = NULL, ungroup_data = TRUE)
+group_sample(
+  data,
+  group,
+  n = 1,
+  prop = NULL,
+  prob = NULL,
+  group_output = FALSE
+)
 }
 \arguments{
 \item{data}{A data frame or tibble with at least 1 variable.}
@@ -15,9 +22,9 @@ group_sample(data, group, n = 1, prop = NULL, prob = NULL, ungroup_data = TRUE)
 
 Default is \code{n} = 1.}
 
-\item{prob}{Optional. A vector of probability weights for obtaining the elements of the vector being sampled. Must be the same length as the total unique values in \code{data}'s \code{group} variable.}
+\item{prob}{Optional. A vector of probability weights for obtaining the elements of the group being sampled. Must be the same length as the total unique values in \code{data}'s \code{group} variable.}
 
-\item{ungroup_data}{A logical boolean \code{TRUE} or \code{FALSE}. If \code{TRUE}, returns a grouped tibble.
+\item{group_output}{A logical boolean \code{TRUE} or \code{FALSE}. If \code{TRUE}, returns a grouped tibble.
 
 Default is \code{FALSE}.}
 }
@@ -38,7 +45,7 @@ df_data <-
 
 df_sampled_data_prop <-
  df_data |>
- group_sample(group_col, prop = .5)
+ group_sample(group_col, prop = .2)
 
 df_sampled_data_prop
 

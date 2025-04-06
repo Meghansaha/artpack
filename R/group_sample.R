@@ -6,8 +6,8 @@
 #'
 #' Default is `n` = 1.
 #'
-#' @param prob Optional. A vector of probability weights for obtaining the elements of the vector being sampled. Must be the same length as the total unique values in `data`'s `group` variable.
-#' @param ungroup_data A logical boolean `TRUE` or `FALSE`. If `TRUE`, returns a grouped tibble.
+#' @param prob Optional. A vector of probability weights for obtaining the elements of the group being sampled. Must be the same length as the total unique values in `data`'s `group` variable.
+#' @param group_output A logical boolean `TRUE` or `FALSE`. If `TRUE`, returns a grouped tibble.
 #'
 #' Default is `FALSE`.
 #'
@@ -35,7 +35,7 @@
 #'
 #'df_sampled_data_n
 #'
-group_sample <- function(data, group, n = 1, prop = NULL, prob = NULL, ungroup_data = FALSE){
+group_sample <- function(data, group, n = 1, prop = NULL, prob = NULL, group_output = FALSE){
   # ===========================================================================#
   # Logic Checks---------------------------------------------------------------
   # ===========================================================================#
@@ -222,20 +222,20 @@ group_sample <- function(data, group, n = 1, prop = NULL, prob = NULL, ungroup_d
     data |>
     dplyr::filter({{ group }} %in% vec_groups_to_keep)
 
-  # Check that ungroup_data is logical
-  ungroup_data_check <- !ungroup_data |> is.logical()
+  # Check that group_output is logical
+  group_output_check <- !group_output |> is.logical()
 
-  if(ungroup_data_check) {
+  if(group_output_check) {
     c(
-      paste0("{.var ungroup_data} must be a logicl boolean of ", callout("`TRUE` or `FALSE`")),
-      "x" = paste0("The class of the {.var ungroup_data} object you've supplied is ", error("<", class(ungroup_data), ">")),
-      "i" = paste0(status("Check the {.var ungroup_data} object"), " you've supplied.")
+      paste0("{.var group_output} must be a logicl boolean of ", callout("`TRUE` or `FALSE`")),
+      "x" = paste0("The class of the {.var group_output} object you've supplied is ", error("<", class(group_output), ">")),
+      "i" = paste0(status("Check the {.var group_output} object"), " you've supplied.")
     ) |>
       cli::cli_abort()
   }
 
-  # If ungroup_data is FALSE, group_by the groups remaining
-  if(!ungroup_data){
+  # If group_output is TRUE, group_by the groups remaining
+  if(group_output){
     df_sampled <-
       data |>
       dplyr::filter({{ group }} %in% vec_groups_to_keep) |>

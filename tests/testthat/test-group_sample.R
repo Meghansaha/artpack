@@ -231,14 +231,14 @@ cli::test_that_cli(
   configs = "ansi"
 )
 
-## ungroup_data is logical cli output----
+## group_output is logical cli output----
 cli::test_that_cli(
-  "ungroup_data must be a logical boolean",
+  "group_output must be a logical boolean",
   {
     testthat::expect_snapshot(
       {
         df_data <- data.frame("x" = 1:5, "y" = 6:10, group = 1:5)
-        df_data |> group_sample(group = group, prop = 1, ungroup_data = "FALSE")
+        df_data |> group_sample(group = group, prop = 1, group_output = "FALSE")
       },
       error = TRUE
     )
@@ -346,9 +346,9 @@ testthat::test_that(
   }
 )
 
-## group_sample ungroup_data works----
+## group_sample group_output works----
 testthat::test_that(
-  "group_sample ungroup_data works", {
+  "group_sample group_output works", {
     vec_coords <- 1:10
 
     df_data <-
@@ -360,7 +360,7 @@ testthat::test_that(
 
     df_data_sampled <-
       df_data |>
-      group_sample(group_col, n = 5, ungroup_data = FALSE)
+      group_sample(group_col, n = 5, group_output = TRUE)
 
     testthat::expect_true(
       "grouped_df" %in% class(df_data_sampled)
@@ -368,9 +368,9 @@ testthat::test_that(
   }
 )
 
-## group_sample ungroup_data works - grouping variable attr correct----
+## group_sample group_output works - grouping variable attr correct----
 testthat::test_that(
-  "group_sample ungroup_data works - group variable properly attributed", {
+  "group_sample group_output works - group variable properly attributed", {
     vec_coords <- 1:10
 
     df_data <-
@@ -382,7 +382,7 @@ testthat::test_that(
 
     df_data_sampled <-
       df_data |>
-      group_sample(group_col, n = 5, ungroup_data = FALSE)
+      group_sample(group_col, n = 5, group_output = TRUE)
 
     group_col_ref <-
       df_data_sampled |>
