@@ -3,7 +3,7 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   brief_examples: brief_examples.html
-last_built: 2025-04-06T20:03Z
+last_built: 2025-04-06T20:19Z
 urls:
   reference: https://meghansaha.github.io/artpack/reference
   article: https://meghansaha.github.io/artpack/articles
