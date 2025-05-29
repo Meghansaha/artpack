@@ -14,6 +14,33 @@
 #' @returns A sliced dataframe
 #' @export
 #'
+#' @examples
+#' vec_coords <- 1:10
+#' df_data <-
+#'  data.frame(
+#'    "x" = vec_coords,
+#'    "y" = vec_coords,
+#'    "group_col" = group_numbers(1:5) |> rep(each = 2)
+#'  )
+#'
+#' df_sliced_data_head <-
+#'  df_data |>
+#'  group_slice(group_col, n = 2, position = "head")
+#'
+#' df_sliced_data_head
+#'
+#' df_sliced_data_tail <-
+#'  df_data |>
+#'  group_slice(group_col, n = 2, position = "tail")
+#'
+#' df_sliced_data_tail
+#'
+#' df_sliced_data_prop <-
+#'  df_data |>
+#'  group_slice(group_col, prop = .80)
+#'
+#' df_sliced_data_prop
+#'
 group_slice <- function(data, group, n = 1, prop = NULL, position = "head", group_output = FALSE){
   # ===========================================================================#
   # Logic Checks---------------------------------------------------------------
@@ -222,6 +249,9 @@ group_slice <- function(data, group, n = 1, prop = NULL, position = "head", grou
   if (position == "tail") {
     df_sliced <- df_sliced [order(df_sliced [["row_id"]], decreasing = TRUE),]
 
+    df_sliced["row_id"] <- NULL
+  } else{
+    # Otherwise, just remove row_id col
     df_sliced["row_id"] <- NULL
   }
 

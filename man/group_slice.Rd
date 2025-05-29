@@ -34,3 +34,31 @@ A sliced dataframe
 \description{
 Subset Data Frames by a Group Variable Using Their Positions
 }
+\examples{
+vec_coords <- 1:10
+df_data <-
+ data.frame(
+   "x" = vec_coords,
+   "y" = vec_coords,
+   "group_col" = group_numbers(1:5) |> rep(each = 2)
+ )
+
+df_sliced_data_head <-
+ df_data |>
+ group_slice(group_col, n = 2, position = "head")
+
+df_sliced_data_head
+
+df_sliced_data_tail <-
+ df_data |>
+ group_slice(group_col, n = 2, position = "tail")
+
+df_sliced_data_tail
+
+df_sliced_data_prop <-
+ df_data |>
+ group_slice(group_col, prop = .80)
+
+df_sliced_data_prop
+
+}

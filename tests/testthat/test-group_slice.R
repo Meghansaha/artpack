@@ -149,7 +149,7 @@ cli::test_that_cli(
   configs = "ansi"
 )
 
-## n is less than or equal to amount of groups in df----
+## n is less than or equal to amount of groups in df (by head)----
 cli::test_that_cli(
   "n must less than or equal to group n",
   {
@@ -158,6 +158,21 @@ cli::test_that_cli(
         df_data <- data.frame("x" = 1:5, "y" = 6:10, group = 1:5)
 
         df_data |> group_slice(group = group, n = 10)
+      }
+    )
+  },
+  configs = "ansi"
+)
+
+## n is less than or equal to amount of groups in df (by tail)----
+cli::test_that_cli(
+  "n must less than or equal to group n",
+  {
+    testthat::expect_snapshot(
+      {
+        df_data <- data.frame("x" = 1:5, "y" = 6:10, group = 1:5)
+
+        df_data |> group_slice(group = group, n = 10, position = "tail")
       }
     )
   },
@@ -231,7 +246,7 @@ cli::test_that_cli(
 # =============================================================================#
 # Testing Outputs---------------------------------------------------------------
 # =============================================================================#
-## group_slice works----
+## group_slice works (by head)----
 testthat::test_that(
   "group_slice works", {
     vec_coords <- 1:10
@@ -246,6 +261,27 @@ testthat::test_that(
     df_data_sampled <-
       df_data |>
       group_slice(group_col)
+
+    testthat::expect_true("group_col" %in% names(df_data_sampled))
+  }
+
+)
+
+## group_slice works (by tail)----
+testthat::test_that(
+  "group_slice works", {
+    vec_coords <- 1:10
+
+    df_data <-
+      data.frame(
+        "x" = vec_coords,
+        "y" = vec_coords,
+        "group_col" = group_numbers(1:5) |> rep(each = 2)
+      )
+
+    df_data_sampled <-
+      df_data |>
+      group_slice(group_col, position = "tail")
 
     testthat::expect_true("group_col" %in% names(df_data_sampled))
   }
@@ -350,5 +386,34 @@ testthat::test_that(
       group_col_ref, attr(df_data_sampled, "groups") |> dplyr::pull(group_col)
     )
   }
+)
+
+## group_slice (by head) has the same columns as the input----
+testthat::test_that(
+  "group_slice works", {
+    vec_coords <- 1:10
+
+    df_data <-
+      data.frame(
+        "x" = vec_coords,
+        "y" = vec_coords,
+        "group_col" = group_numbers(1:5) |> rep(each = 2)
+      )
+
+    vec_df_data_names <-
+      df_data |>
+      names()
+
+    df_data_sampled <-
+      df_data |>
+      group_slice(group_col)
+
+    vec_df_data_sampled_names <-
+      df_data_sampled |>
+      names()
+
+    testthat::expect_equal(vec_df_data_sampled_names, vec_df_data_names)
+  }
+
 )
 
