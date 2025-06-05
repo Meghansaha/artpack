@@ -57,6 +57,7 @@ reference:
 - contents:
   - group_numbers
   - group_sample
+  - group_slice
 
 
 
