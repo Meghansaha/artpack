@@ -40,3 +40,51 @@ is.color <- function(...) {
 
   return(output)
 }
+
+class.check <- function(..., expected_class, call_level = -1) {
+
+  call_level_valid <- is.numeric(call_level)
+
+  if(!call_level_valid){
+    c(
+      "x" = "`call_level` is invalid!",
+      "!" = "check class.check"
+    ) |>
+      cli::cli_abort()
+  }
+
+  var_name <- deparse(substitute(...))
+
+  var_check <-
+    switch(
+      expected_class,
+      "numeric" = is.numeric(...),
+      "character" = is.character(...),
+      "data.frame" = is.data.frame(...),
+      "list" = is.list(...),
+      NA
+    )
+
+  var_check_valid <- !is.na(var_check)
+
+  if(!var_check_valid){
+    c(
+      "x" = "`expected_class` is invalid!",
+      "!" = "check class.check"
+    ) |>
+      cli::cli_abort()
+  } else if(!var_check){
+
+    var_class <- class(...)
+
+    c(
+      paste("{.var {var_name}} must be of class", callout("<{expected_class}>")),
+      "x" = paste("The input you've supplied, {.var {var_name}}, is of class", error("{.cls {var_class}}")),
+      "i" = "Check the {.var {var_name}} input."
+    ) |>
+      cli::cli_abort(call = sys.call(call_level))
+
+  }
+}
+
+

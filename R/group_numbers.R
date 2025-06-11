@@ -25,19 +25,43 @@
 #'
 #' # Will sort as expected when padded:
 #' sort(paste0("group_", padded_numbers))
-group_numbers <- function(numbers) {
+group_numbers <- function(numbers, prefix = NULL, suffix = NULL, sep = "_") {
   # ===========================================================================#
-  # Input Check----------------------------------------------------------------
+  # Input Checks----------------------------------------------------------------
   # ===========================================================================#
+  # initialize the affix toggle#
+  affix_present <- FALSE
+  ## numbers--------------------------------------------------------------------
+  class.check(numbers, expected_class = "numeric")
 
-  if (!is.numeric(numbers)) {
-    c(
-      paste("{.var numbers} must be of class", callout("<numeric>")),
-      "x" = paste("The input you've supplied: {.var {numbers}} is of class", error("{.cls {class(numbers)}}")),
-      "i" = "Check the {.var numbers} input."
-    ) |>
-      cli::cli_abort()
+  ## prefix---------------------------------------------------------------------
+  prefix_present <- !is.null(prefix)
+
+  if (prefix_present) {
+    class.check(prefix, expected_class = "character")
+
+    prefix <- paste0(prefix, sep)
+
+    affix_present <- TRUE
+  } else {
+    prefix <- ""
   }
+
+  ## suffix---------------------------------------------------------------------
+  suffix_present <- !is.null(suffix)
+
+  if (suffix_present) {
+    class.check(suffix, expected_class = "character")
+
+    suffix <- paste0(sep, suffix)
+
+    affix_present <- TRUE
+  } else {
+    suffix <- ""
+  }
+
+  ## sep------------------------------------------------------------------------
+  class.check(sep, expected_class = "character")
 
   # =========================================================================#
   # Numbering Conversion-----------------------------------------------------
@@ -51,12 +75,24 @@ group_numbers <- function(numbers) {
 
   # Convert to padded strings
   out_numbers <-
-    purrr::map(sorted, ~ stringr::str_pad(.x,
-      width = string_width,
-      side = "left",
-      pad = "0"
-    )) |>
+    purrr::map(
+      sorted, ~ stringr::str_pad(
+        .x,
+        width = string_width,
+        side = "left",
+        pad = "0"
+      )
+    ) |>
     purrr::list_c()
 
-  return(out_numbers)
+  # modify the string if an affix is present
+  if (affix_present){
+    out_numbers_affixed <- paste0(prefix, out_numbers, suffix)
+
+    return(out_numbers_affixed)
+
+  } else{
+
+    return(out_numbers)
+  }
 }
