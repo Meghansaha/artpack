@@ -1,4 +1,8 @@
-# artpack 0.1.2.9000 (Development Version)
+# artpack 0.1.3 (Development Version)
+### **New Functions and Updates**
+* Added the `prefix`, `suffix`, and `sep` arguments to `group_numbers()`.
+
+# artpack 0.1.2.9000
 ### **New Functions and Updates**
 * Added `group_slice()` which allows slicing of data frames and tibbles by a group variable.
 

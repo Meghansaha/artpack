@@ -4,10 +4,16 @@
 \alias{group_numbers}
 \title{Convert Numbers into Padded Strings for Easier Group Numbering}
 \usage{
-group_numbers(numbers)
+group_numbers(numbers, prefix = NULL, suffix = NULL, sep = NULL)
 }
 \arguments{
 \item{numbers}{A numeric vector with a length of at least 1.}
+
+\item{prefix}{A single string value that will be affixed in front of the numbers provided.}
+
+\item{suffix}{A single string value that will be affixed behind the numbers provided.}
+
+\item{sep}{A single string value that will be used to separate the \code{prefix} and/or \code{suffix} from the numbers provided. \code{prefix} or \code{suffix} is required to use \code{sep}.}
 }
 \value{
 A Character Vector

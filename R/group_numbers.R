@@ -1,6 +1,9 @@
 #' Convert Numbers into Padded Strings for Easier Group Numbering
 #'
 #' @param numbers A numeric vector with a length of at least 1.
+#' @param prefix A single string value that will be affixed in front of the numbers provided.
+#' @param suffix A single string value that will be affixed behind the numbers provided.
+#' @param sep A single string value that will be used to separate the `prefix` and/or `suffix` from the numbers provided. `prefix` or `suffix` is required to use `sep`.
 #'
 #' @return A Character Vector
 #'
@@ -25,17 +28,18 @@
 #'
 #' # Will sort as expected when padded:
 #' sort(paste0("group_", padded_numbers))
-group_numbers <- function(numbers, prefix = NULL, suffix = NULL, sep = "_") {
+group_numbers <- function(numbers, prefix = NULL, suffix = NULL, sep = NULL) {
   # ===========================================================================#
   # Input Checks----------------------------------------------------------------
   # ===========================================================================#
   # initialize the affix toggle#
   affix_present <- FALSE
+
   ## numbers--------------------------------------------------------------------
   class.check(numbers, expected_class = "numeric")
 
   ## prefix---------------------------------------------------------------------
-  prefix_present <- !is.null(prefix)
+  prefix_present <- is.null(prefix) == FALSE
 
   if (prefix_present) {
     class.check(prefix, expected_class = "character")
@@ -48,7 +52,7 @@ group_numbers <- function(numbers, prefix = NULL, suffix = NULL, sep = "_") {
   }
 
   ## suffix---------------------------------------------------------------------
-  suffix_present <- !is.null(suffix)
+  suffix_present <- is.null(suffix) == FALSE
 
   if (suffix_present) {
     class.check(suffix, expected_class = "character")
@@ -61,7 +65,22 @@ group_numbers <- function(numbers, prefix = NULL, suffix = NULL, sep = "_") {
   }
 
   ## sep------------------------------------------------------------------------
-  class.check(sep, expected_class = "character")
+  sep_present <- is.null(sep) == FALSE
+
+  if (sep_present){
+    class.check(sep, expected_class = "character")
+
+    sep_check <- sep_present & (affix_present == FALSE)
+
+    if (sep_check){
+      c(
+        "x" = "You cannot use `sep` if `prefix` or `suffix` is {error('not present')}.",
+        "!" = "`prefix` and `suffix` {callout('are missing')}.",
+        "i" = "To use `sep`, please {status('provide a character value for `prefix` or `suffix`')}."
+      ) |>
+        cli::cli_abort()
+    }
+  }
 
   # =========================================================================#
   # Numbering Conversion-----------------------------------------------------
