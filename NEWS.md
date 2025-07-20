@@ -1,4 +1,8 @@
-# artpack 0.1.3 (Development Version)
+# artpack 0.1.4 (Development Version)
+### **New Functions and Updates**
+* Added test suite for internal utility helper functions.
+
+# artpack 0.1.3
 ### **New Functions and Updates**
 * Added the `prefix`, `suffix`, and `sep` arguments to `group_numbers()`.
 
