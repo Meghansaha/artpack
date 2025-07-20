@@ -40,3 +40,76 @@ is.color <- function(...) {
 
   return(output)
 }
+
+
+#' @param ... #A character string to be tested to see if it is a base R color or a hexadecimal color code.
+#'
+#' @return #A Logical Value
+#' @noRd
+#'
+#' @examples
+#'
+#' Test If An object has an expected class - Internal Function
+#'
+#' Valid class checks return TRUE
+#'
+#' a_word <- "word"
+#'
+#' class.check(a_word, "character")
+#'
+#' Invalid class checks throw an error
+#'
+#' some_numbers <- 1:10
+#' class.check(some_numbers, "list")
+#'
+
+class.check <- function(..., expected_class, call_level = -1) {
+
+  call_level_valid <- is.numeric(call_level)
+
+  if(!call_level_valid){
+    c(
+      "x" = "`call_level` is invalid!",
+      "!" = "check class.check"
+    ) |>
+      cli::cli_abort()
+  }
+
+  var_name <- deparse(substitute(...))
+
+  var_check <-
+    switch(
+      expected_class,
+      "numeric" = is.numeric(...),
+      "character" = is.character(...),
+      "data.frame" = is.data.frame(...),
+      "list" = is.list(...),
+      NA
+    )
+
+  var_check_valid <- !is.na(var_check)
+
+  if(!var_check_valid){
+    c(
+      "x" = "`expected_class` is invalid!",
+      "!" = "check class.check"
+    ) |>
+      cli::cli_abort()
+  }
+
+  if(!var_check){
+
+    var_class <- class(...)
+
+    c(
+      "x" = paste("{.var {var_name}} must be of class", error("<{expected_class}>")),
+      "!" = paste("The input you've supplied, {.var {var_name}}, is of class", callout("<{var_class}>")),
+      "i" = paste(status("Check the", "{.var {var_name}}"), "input.")
+    ) |>
+      cli::cli_abort(call = sys.call(call_level))
+  } else{
+    return(TRUE)
+  }
+}
+
+
