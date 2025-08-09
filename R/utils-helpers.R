@@ -19,6 +19,7 @@
 #'
 #' # Multiple values can be handled as well
 #' is.color(c("#000", "er4", "#ffffff"))
+
 is.color <- function(...) {
   # is the input a base R color?
   r_color <-
@@ -41,15 +42,16 @@ is.color <- function(...) {
   return(output)
 }
 
-
-#' @param ... #A character string to be tested to see if it is a base R color or a hexadecimal color code.
+#' Test If An object has an expected class - Internal Function
+#'
+#' @param ... #An object to be tested to see if it is of the expected class
+#' @param expected_class #A string of the expected class. Accepted values are `"numeric"`, `"character"`, `"data.frame"`, and `"list"`
+#' @param call_level #A numeric value setting the call level that's invoked when an error is thrown. This controls where in the function's environment the error is declared in the console messaging and is intended to be used for user-facing error messaging.
 #'
 #' @return #A Logical Value
 #' @noRd
 #'
 #' @examples
-#'
-#' Test If An object has an expected class - Internal Function
 #'
 #' Valid class checks return TRUE
 #'
@@ -104,12 +106,278 @@ class.check <- function(..., expected_class, call_level = -1) {
     c(
       "x" = paste("{.var {var_name}} must be of class", error("<{expected_class}>")),
       "!" = paste("The input you've supplied, {.var {var_name}}, is of class", callout("<{var_class}>")),
-      "i" = paste(status("Check the", "{.var {var_name}}"), "input.")
+      "i" = paste(status("Check the ", "{.var {var_name}}"), "input.")
     ) |>
       cli::cli_abort(call = sys.call(call_level))
   } else{
     return(TRUE)
   }
+}
+
+#' Test If An object is `NULL` - Internal Function
+#'
+#' @param ... #An object to be tested to see if it is `NULL`
+#' @param call_level #A numeric value setting the call level that's invoked when an error is thrown. This controls where in the function's environment the error is declared in the console messaging and is intended to be used for user-facing error messaging.
+#'
+#' @return #A Logical Value
+#' @noRd
+#'
+#' @examples
+#'
+#' Test If An object is `NULL` - Internal Function
+#'
+#' Non-`NULL` objects return `TRUE`
+#'
+#' an_object <- "Not `NULL`"
+#'
+#' null.means.missing(an_object)
+#'
+#' `NULL` objects throw an error
+#'
+#' null_object <- NULL
+#' null.means.missing(null_object)
+
+null.means.missing <- function(..., call_level = -1){
+
+  call_level_valid <- is.numeric(call_level)
+
+  if(!call_level_valid){
+    c(
+      "x" = "`call_level` is invalid!",
+      "!" = "check null.means.missing"
+    ) |>
+      cli::cli_abort()
+  }
+
+  var_missing <- is.null(...)
+
+  if(var_missing){
+
+    var_name <- deparse(substitute(...))
+
+    c(
+      "x" = paste("{.var {var_name}} must be provided", error("and not missing nor `NULL`")),
+      "!" = paste("The input you've supplied, {.var {var_name}}, is", callout("missing or `NULL`")),
+      "i" = paste(status("Check the ", "{.var {var_name}}"), "input.")
+    ) |>
+      cli::cli_abort(call = sys.call(call_level))
+  }
+
+  return(TRUE)
+}
+
+#' Test If a numeric value is as expected - Internal Function
+#'
+#' @param ... #A numeric value to be tested to see if it is as expected.
+#' @param expected_type #A string or string vector of numeric "types" to check for. Options include `"positive"`, `"negative"`, `"zero"`,  `"integer"`, `"float"`, `"even"`, `"odd"`.
+#' @param call_level #A numeric value setting the call level that's invoked when an error is thrown. This controls where in the function's environment the error is declared in the console messaging and is intended to be used for user-facing error messaging.
+#'
+#' @return #A Logical Value
+#' @noRd
+#'
+#' @examples
+#'
+#' Test If An object is `NULL` - Internal Function
+#'
+#' Non-`NULL` objects return `TRUE`
+#'
+#' an_object <- "Not `NULL`"
+#'
+#' null.means.missing(an_object)
+#'
+#' `NULL` objects throw an error
+#'
+#' null_object <- NULL
+#' null.means.missing(null_object)
+#'
+is.expected.numeric.type <- function(..., expected_type, call_level = -1){
+
+  var_name <- deparse(substitute(...))
+
+  call_level_valid <- is.numeric(call_level)
+
+  if(!call_level_valid){
+    c(
+      "x" = "`call_level` is invalid!",
+      "!" = "check null.means.missing"
+    ) |>
+      cli::cli_abort()
+  }
+  # add an "all check to this"
+  vec_expected_types <-
+    c(
+      "positive",
+      "negative",
+      "zero",
+      "integer",
+      "float",
+      "even",
+      "odd"
+    )
+
+  invalid_type_check <- !expected_type %in% vec_expected_types |> all()
+  invalid_types <- setdiff(expected_type, vec_expected_types) |> knitr::combine_words(before = "\"")
+
+  if(invalid_type_check){
+    c(
+      "x" = "`expected_type` is invalid!",
+      "i" = "{invalid_types} are invalid `expected_type` values",
+      "!" = "check is.expected.numeric.type"
+    ) |>
+      cli::cli_abort()
+  }
+
+  pos_neg_flag <- c("positive", "negative") %in% expected_type |> all()
+  pos_zero_flag <- c("positive", "zero") %in% expected_type |> all()
+  neg_zero_flag <- c("positive", "zero") %in% expected_type |> all()
+  integer_float_flag <- c("integer", "float") %in% expected_type |> all()
+  even_odd_flag <- c("even", "odd") %in% expected_type |> all()
+
+  if(pos_neg_flag){
+    c(
+      "x" = "`expected_type` is invalid!",
+      "i" = "`\"positive\"` and `\"negative\"` values are both present in `expected_type`. Pick one",
+      "!" = "check is.expected.numeric.type"
+    ) |>
+      cli::cli_abort()
+  }
+
+  if(pos_zero_flag){
+    c(
+      "x" = "`expected_type` is invalid!",
+      "i" = "`\"positive\"` and `\"zero\"` values are both present in `expected_type`. Pick one",
+      "!" = "check is.expected.numeric.type"
+    ) |>
+      cli::cli_abort()
+  }
+
+  if(neg_zero_flag){
+    c(
+      "x" = "`expected_type` is invalid!",
+      "i" = "`\"negative\"` and `\"zero\"` values are both present in `expected_type`. Pick one",
+      "!" = "check is.expected.numeric.type"
+    ) |>
+      cli::cli_abort()
+  }
+
+  if(integer_float_flag){
+    c(
+      "x" = "`expected_type` is invalid!",
+      "i" = "`\"integer\"` and `\"float\"` values are both present in `expected_type`. Pick one",
+      "!" = "check is.expected.numeric.type"
+    ) |>
+      cli::cli_abort()
+  }
+
+  if(even_odd_flag){
+    c(
+      "x" = "`expected_type` is invalid!",
+      "i" = "`\"even\"` and `\"odd\"` values are both present in `expected_type`. Pick one",
+      "!" = "check is.expected.numeric.type"
+    ) |>
+      cli::cli_abort()
+  }
+
+  # Create flags for each check
+  pos_check <- "positive" %in% expected_type
+  neg_check <- "negative" %in% expected_type
+  zero_check <- "zero" %in% expected_type
+  integer_check <- "integer" %in% expected_type
+  float_check <- "float" %in% expected_type
+  even_check <- "even" %in% expected_type
+  odd_check <- "odd" %in% expected_type
+
+  if(pos_check){
+    check <- ... > 0
+
+    if(!check){
+      c(
+        "x" = paste("{.var {var_name}} must be a positive numeric value", error("not negative nor zero")),
+        "!" = paste("The input you've supplied, {.var {var_name}}, is", callout("{(...)}")),
+        "i" = paste(status("Check the ", "{.var {var_name}}"), "input.")
+      ) |>
+        cli::cli_abort(call = sys.call(call_level))
+    }
+  }
+
+  if(neg_check){
+    check <- ... < 0
+
+    if(!check){
+      c(
+        "x" = paste("{.var {var_name}} must be a negative numeric value", error("not positive nor zero")),
+        "!" = paste("The input you've supplied, {.var {var_name}}, is", callout("{(...)}")),
+        "i" = paste(status("Check the ", "{.var {var_name}}"), "input.")
+      ) |>
+        cli::cli_abort(call = sys.call(call_level))
+    }
+  }
+
+  if(zero_check){
+    check <- ... == 0
+
+    if(!check){
+      c(
+        "x" = paste("{.var {var_name}} must have a numeric value of zero", error("not positive nor negative")),
+        "!" = paste("The input you've supplied, {.var {var_name}}, is", callout("{(...)}")),
+        "i" = paste(status("Check the ", "{.var {var_name}}"), "input.")
+      ) |>
+        cli::cli_abort(call = sys.call(call_level))
+    }
+  }
+
+  if(integer_check){
+    check <- abs(... - round(...)) < .Machine$double.eps^0.5
+
+    if(!check){
+      c(
+        "x" = paste("{.var {var_name}} must be a numeric integer;", error("not a float (number with decimals)")),
+        "!" = paste("The input you've supplied, {.var {var_name}}, is", callout("{(...)}")),
+        "i" = paste(status("Check the ", "{.var {var_name}}"), "input.")
+      ) |>
+        cli::cli_abort(call = sys.call(call_level))
+    }
+  }
+
+  if(float_check){
+    check <- abs(... - round(...)) > .Machine$double.eps^0.5
+
+    if(!check){
+      c(
+        "x" = paste("{.var {var_name}} must be a numeric float;", error("not an integer (whole number with no decimals)")),
+        "!" = paste("The input you've supplied, {.var {var_name}}, is", callout("{(...)}")),
+        "i" = paste(status("Check the ", "{.var {var_name}}"), "input.")
+      ) |>
+        cli::cli_abort(call = sys.call(call_level))
+    }
+  }
+
+  if(even_check){
+    check <- (... %% 2) == 0
+
+    if(!check){
+      c(
+        "x" = paste("{.var {var_name}} must be an even numeric value;", error("not an odd numeric value")),
+        "!" = paste("The input you've supplied, {.var {var_name}}, is", callout("{(...)}")),
+        "i" = paste(status("Check the ", "{.var {var_name}}"), "input.")
+      ) |>
+        cli::cli_abort(call = sys.call(call_level))
+    }
+  }
+
+  if(odd_check){
+    check <- (... %% 2) != 0
+
+    if(!check){
+      c(
+        "x" = paste("{.var {var_name}} must be an odd numeric value;", error("not an even numeric value")),
+        "!" = paste("The input you've supplied, {.var {var_name}}, is", callout("{(...)}")),
+        "i" = paste(status("Check the ", "{.var {var_name}}"), "input.")
+      ) |>
+        cli::cli_abort(call = sys.call(call_level))
+    }
+  }
+  return(TRUE)
 }
 
 
