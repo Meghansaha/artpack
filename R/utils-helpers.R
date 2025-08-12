@@ -169,7 +169,7 @@ is.var.present <- function(..., call_level = -1){
 #' Test If a numeric value is as expected - Internal Function
 #'
 #' @param ... #A numeric value to be tested to see if it is as expected.
-#' @param expected_type #A string or string vector of numeric "types" to check for. Options include `"positive"`, `"negative"`, `"zero"`,  `"integer"`, `"float"`, `"even"`, `"odd"`.
+#' @param expected_type #A string or string vector of numeric "types" to check for. Options include `"positive"`, `"negative"`, `"integer"`.
 #' @param call_level #A numeric value setting the call level that's invoked when an error is thrown. This controls where in the function's environment the error is declared in the console messaging and is intended to be used for user-facing error messaging.
 #'
 #' @return #A Logical Value
@@ -206,11 +206,7 @@ is.expected.numeric.type <- function(..., expected_type, call_level = -1){
     c(
       "positive",
       "negative",
-      "zero",
-      "integer",
-      "float",
-      "even",
-      "odd"
+      "integer"
     )
 
   invalid_type_check <- !expected_type %in% vec_expected_types |> all()
@@ -227,10 +223,6 @@ is.expected.numeric.type <- function(..., expected_type, call_level = -1){
   }
 
   pos_neg_flag <- c("positive", "negative") %in% expected_type |> all()
-  pos_zero_flag <- c("positive", "zero") %in% expected_type |> all()
-  neg_zero_flag <- c("positive", "zero") %in% expected_type |> all()
-  integer_float_flag <- c("integer", "float") %in% expected_type |> all()
-  even_odd_flag <- c("even", "odd") %in% expected_type |> all()
 
   if(pos_neg_flag){
     c(
@@ -241,46 +233,9 @@ is.expected.numeric.type <- function(..., expected_type, call_level = -1){
       cli::cli_abort()
   }
 
-  if(pos_zero_flag){
-    c(
-      "x" = "`expected_type` is invalid!",
-      "i" = "`\"positive\"` and `\"zero\"` values are both present in `expected_type`. Pick one",
-      "!" = "check `is.expected.numeric.type`"
-    ) |>
-      cli::cli_abort()
-  }
-
-  if(neg_zero_flag){
-    c(
-      "x" = "`expected_type` is invalid!",
-      "i" = "`\"negative\"` and `\"zero\"` values are both present in `expected_type`. Pick one",
-      "!" = "check `is.expected.numeric.type`"
-    ) |>
-      cli::cli_abort()
-  }
-
-  if(integer_float_flag){
-    c(
-      "x" = "`expected_type` is invalid!",
-      "i" = "`\"integer\"` and `\"float\"` values are both present in `expected_type`. Pick one",
-      "!" = "check `is.expected.numeric.type`"
-    ) |>
-      cli::cli_abort()
-  }
-
-  if(even_odd_flag){
-    c(
-      "x" = "`expected_type` is invalid!",
-      "i" = "`\"even\"` and `\"odd\"` values are both present in `expected_type`. Pick one",
-      "!" = "`check `is.expected.numeric.type`"
-    ) |>
-      cli::cli_abort()
-  }
-
   # Create flags for each check
   pos_check <- "positive" %in% expected_type
   neg_check <- "negative" %in% expected_type
-  zero_check <- "zero" %in% expected_type
   integer_check <- "integer" %in% expected_type
 
   if(pos_check){
@@ -302,19 +257,6 @@ is.expected.numeric.type <- function(..., expected_type, call_level = -1){
     if(!check){
       c(
         "x" = paste("{.var {var_name}} must be a negative numeric value", error("not positive nor zero")),
-        "!" = paste("The input you've supplied, {.var {var_name}}, is", callout("{(...)}")),
-        "i" = paste(status("Check the ", "{.var {var_name}}"), "input.")
-      ) |>
-        cli::cli_abort(call = sys.call(call_level))
-    }
-  }
-
-  if(zero_check){
-    check <- ... == 0
-
-    if(!check){
-      c(
-        "x" = paste("{.var {var_name}} must have a numeric value of zero", error("not positive nor negative")),
         "!" = paste("The input you've supplied, {.var {var_name}}, is", callout("{(...)}")),
         "i" = paste(status("Check the ", "{.var {var_name}}"), "input.")
       ) |>

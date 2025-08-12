@@ -102,57 +102,6 @@ cli::test_that_cli("illogical expected_type vector throws the expected error (po
                    configs = "ansi"
 )
 
-cli::test_that_cli("illogical expected_type vector throws the expected error (pos v zero)",
-                   {
-                     testthat::local_edition(3)
-                     testthat::expect_snapshot(
-                       {
-                         is.expected.numeric.type(8, expected_type = c("positive", "zero"))
-                       },
-                       error = TRUE
-                     )
-                   },
-                   configs = "ansi"
-)
-
-cli::test_that_cli("illogical expected_type vector throws the expected error (neg v zero)",
-                   {
-                     testthat::local_edition(3)
-                     testthat::expect_snapshot(
-                       {
-                         is.expected.numeric.type(8, expected_type = c("negative", "zero"))
-                       },
-                       error = TRUE
-                     )
-                   },
-                   configs = "ansi"
-)
-
-cli::test_that_cli("illogical expected_type vector throws the expected error (integer v float)",
-                   {
-                     testthat::local_edition(3)
-                     testthat::expect_snapshot(
-                       {
-                         is.expected.numeric.type(8, expected_type = c("integer", "float"))
-                       },
-                       error = TRUE
-                     )
-                   },
-                   configs = "ansi"
-)
-
-cli::test_that_cli("illogical expected_type vector throws the expected error (even v odd)",
-                   {
-                     testthat::local_edition(3)
-                     testthat::expect_snapshot(
-                       {
-                         is.expected.numeric.type(8, expected_type = c("even", "odd"))
-                       },
-                       error = TRUE
-                     )
-                   },
-                   configs = "ansi"
-)
 
 #==============================================================================#
 # length.check error messaging--------------------------------------------------

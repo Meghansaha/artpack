@@ -74,46 +74,6 @@
       [36mi[39m `"positive"` and `"negative"` values are both present in `expected_type`. Pick one
       [33m![39m check `is.expected.numeric.type`
 
-# illogical expected_type vector throws the expected error (pos v zero) [ansi]
-
-    Code
-      is.expected.numeric.type(8, expected_type = c("positive", "zero"))
-    Condition
-      [1m[33mError[39m in `is.expected.numeric.type()`:[22m
-      [1m[22m[31mx[39m `expected_type` is invalid!
-      [36mi[39m `"positive"` and `"zero"` values are both present in `expected_type`. Pick one
-      [33m![39m check `is.expected.numeric.type`
-
-# illogical expected_type vector throws the expected error (neg v zero) [ansi]
-
-    Code
-      is.expected.numeric.type(8, expected_type = c("negative", "zero"))
-    Condition
-      [1m[33mError[39m:[22m
-      [1m[22m[31mx[39m `8` must be a negative numeric value [1m[31mnot positive nor zero[39m[22m
-      [33m![39m The input you've supplied, `8`, is [1m[33m8[39m[22m
-      [36mi[39m [1m[36mCheck the `8`[39m[22m input.
-
-# illogical expected_type vector throws the expected error (integer v float) [ansi]
-
-    Code
-      is.expected.numeric.type(8, expected_type = c("integer", "float"))
-    Condition
-      [1m[33mError[39m in `is.expected.numeric.type()`:[22m
-      [1m[22m[31mx[39m `expected_type` is invalid!
-      [36mi[39m `"integer"` and `"float"` values are both present in `expected_type`. Pick one
-      [33m![39m check `is.expected.numeric.type`
-
-# illogical expected_type vector throws the expected error (even v odd) [ansi]
-
-    Code
-      is.expected.numeric.type(8, expected_type = c("even", "odd"))
-    Condition
-      [1m[33mError[39m in `is.expected.numeric.type()`:[22m
-      [1m[22m[31mx[39m `expected_type` is invalid!
-      [36mi[39m `"even"` and `"odd"` values are both present in `expected_type`. Pick one
-      [33m![39m `check `is.expected.numeric.type`
-
 # invalid expected_length throws the expected error [ansi]
 
     Code
