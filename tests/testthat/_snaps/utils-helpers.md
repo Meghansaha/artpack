@@ -64,16 +64,6 @@
       [36mi[39m "negtaive" and "zeroo" are invalid `expected_type` values
       [33m![39m check is.expected.numeric.type
 
-# illogical expected_type vector throws the expected error (pos v neg) [ansi]
-
-    Code
-      is.expected.numeric.type(8, expected_type = c("positive", "negative"))
-    Condition
-      [1m[33mError[39m in `is.expected.numeric.type()`:[22m
-      [1m[22m[31mx[39m `expected_type` is invalid!
-      [36mi[39m `"positive"` and `"negative"` values are both present in `expected_type`. Pick one
-      [33m![39m check `is.expected.numeric.type`
-
 # invalid expected_length throws the expected error [ansi]
 
     Code

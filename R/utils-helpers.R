@@ -205,7 +205,6 @@ is.expected.numeric.type <- function(..., expected_type, call_level = -1){
   vec_expected_types <-
     c(
       "positive",
-      "negative",
       "integer"
     )
 
@@ -222,20 +221,8 @@ is.expected.numeric.type <- function(..., expected_type, call_level = -1){
       cli::cli_abort()
   }
 
-  pos_neg_flag <- c("positive", "negative") %in% expected_type |> all()
-
-  if(pos_neg_flag){
-    c(
-      "x" = "`expected_type` is invalid!",
-      "i" = "`\"positive\"` and `\"negative\"` values are both present in `expected_type`. Pick one",
-      "!" = "check `is.expected.numeric.type`"
-    ) |>
-      cli::cli_abort()
-  }
-
   # Create flags for each check
   pos_check <- "positive" %in% expected_type
-  neg_check <- "negative" %in% expected_type
   integer_check <- "integer" %in% expected_type
 
   if(pos_check){
@@ -244,19 +231,6 @@ is.expected.numeric.type <- function(..., expected_type, call_level = -1){
     if(!check){
       c(
         "x" = paste("{.var {var_name}} must be a positive numeric value", error("not negative nor zero")),
-        "!" = paste("The input you've supplied, {.var {var_name}}, is", callout("{(...)}")),
-        "i" = paste(status("Check the ", "{.var {var_name}}"), "input.")
-      ) |>
-        cli::cli_abort(call = sys.call(call_level))
-    }
-  }
-
-  if(neg_check){
-    check <- ... < 0
-
-    if(!check){
-      c(
-        "x" = paste("{.var {var_name}} must be a negative numeric value", error("not positive nor zero")),
         "!" = paste("The input you've supplied, {.var {var_name}}, is", callout("{(...)}")),
         "i" = paste(status("Check the ", "{.var {var_name}}"), "input.")
       ) |>

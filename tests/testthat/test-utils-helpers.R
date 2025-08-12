@@ -89,20 +89,6 @@ cli::test_that_cli("invalid expected_type throws the expected error (plural)",
                    configs = "ansi"
 )
 
-cli::test_that_cli("illogical expected_type vector throws the expected error (pos v neg)",
-                   {
-                     testthat::local_edition(3)
-                     testthat::expect_snapshot(
-                       {
-                         is.expected.numeric.type(8, expected_type = c("positive", "negative"))
-                       },
-                       error = TRUE
-                     )
-                   },
-                   configs = "ansi"
-)
-
-
 #==============================================================================#
 # length.check error messaging--------------------------------------------------
 #==============================================================================#
