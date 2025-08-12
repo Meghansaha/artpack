@@ -16,7 +16,6 @@
 #'
 #' @return A Tibble
 #'
-#' @importFrom purrr map2_dbl
 #' @export
 #'
 #' @examplesIf rlang::is_installed("ggplot2")

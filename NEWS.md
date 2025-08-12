@@ -1,3 +1,12 @@
+# artpack 0.1.5
+### **New Functions and Updates**
+* Added `seq_bounce()`.
+* Added more internal utility helper functions.
+* Improved test suite for internal utility helper functions.
+* Regenerated pkgdown favicons
+* Rectified unknown global variables
+* Added subtitles to the package index (reference) page
+
 # artpack 0.1.4 (Development Version)
 ### **New Functions and Updates**
 * Added test suite for internal utility helper functions.
