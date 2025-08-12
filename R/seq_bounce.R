@@ -9,14 +9,25 @@
 #' @param by #The number increment of the sequence.
 #'
 #' @returns A numeric vector
+#'
+#' @importFrom utils head tail
 #' @export
 #'
 #' @examples
 #'
 #' #By default, seq_bounce creates sequences by increments of 1
+#' #The length argument accepts any positive integer
 #' seq_bounce(start_n = 1, end_n = 5, length = 15)
 #'
-#' seq_bounce(start_n = 0, end_n = -10, length = 30)
+#' #The by argument accepts any positive numeric
+#' seq_bounce(start_n = 0, end_n = 10, length = 30, by = .247)
+#'
+#' #The end_n value must be greater than the start_n value
+#' #This will give you an error
+#' try(seq_bounce(start_n = 0, end_n = -10, length = 15))
+#'
+#' #Instead, reverse the values
+#' seq_bounce(start_n = -10, end_n = 0, length = 15)
 #'
 seq_bounce <-
   function(start_n = NULL, end_n = NULL, length = NULL, by = 1){
@@ -26,13 +37,24 @@ seq_bounce <-
     ## Check that all inputs are provided---------------------------------------
     # Throw an error if any are missing, otherwise continue#
     ### start_n-----------------------------------------------------------------
-    null.means.missing(start_n)
+    is.var.present(start_n)
     ### end_n-------------------------------------------------------------------
-    null.means.missing(end_n)
+    is.var.present(end_n)
     ### length------------------------------------------------------------------
-    null.means.missing(length)
+    is.var.present(length)
     ### by----------------------------------------------------------------------
-    null.means.missing(by)
+    is.var.present(by)
+
+    ## Check that inputs are of length 1----------------------------------------
+    # Throw an error if any are not numeric, otherwise continue#
+    ### start_n-----------------------------------------------------------------
+    length.check(start_n, expected_length = 1)
+    ### end_n-------------------------------------------------------------------
+    length.check(end_n, expected_length = 1)
+    ### length------------------------------------------------------------------
+    length.check(length, expected_length = 1)
+    ### by----------------------------------------------------------------------
+    length.check(by, expected_length = 1)
 
     ## Check that all inputs are numeric----------------------------------------
     # Throw an error if any are not numeric, otherwise continue#
@@ -69,9 +91,9 @@ seq_bounce <-
     # Sequence Generation-------------------------------------------------------
     #==========================================================================#
     # The rise: From start_n to end_n - 1#
-    vec_rise <- seq(start_n, end_n, by = by) |> tail(-1)
+    vec_rise <- seq(start_n, end_n, by = by) |> utils::tail(-1)
     # The fall: From end_n to start_n + 1#
-    vec_fall <- vec_rise |> head(-1) |> rev()
+    vec_fall <- vec_rise |> utils::head(-1) |> rev()
     # Repeat start_n, rise, fall for length#
     final_seq <- rep_len(c(start_n, vec_rise, vec_fall), length)
     # Return final sequence#

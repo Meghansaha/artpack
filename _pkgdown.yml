@@ -38,6 +38,7 @@ navbar:
 reference:
 
 - title: Asset Creation
+- subtitle: Functions that help with making data for generative art.
 - contents:
   - circle_data
   - grid_maker
@@ -46,14 +47,22 @@ reference:
   - wave_data
 
 - title: Color Palette Tools
+- subtitle: Functions that help with color-related tasks.
 - contents:
   - art_pals
 
+- title: Sequence Tools
+- subtitle: Functions that help with numeric sequencing.
+- contents:
+  - seq_bounce
+
 - title: Transformation Tools
+- subtitle: Functions that help with transforming existing generative art data.
 - contents:
   - rotator
 
 - title: Group Tools
+- subtitle: Functions that help with grouping generative art data.
 - contents:
   - group_numbers
   - group_sample

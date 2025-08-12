@@ -24,8 +24,17 @@ Generate a regular sequence that 'bounces' between the provided \code{start_n} a
 \examples{
 
 #By default, seq_bounce creates sequences by increments of 1
+#The length argument accepts any positive integer
 seq_bounce(start_n = 1, end_n = 5, length = 15)
 
-seq_bounce(start_n = 0, end_n = -10, length = 30)
+#The by argument accepts any positive numeric
+seq_bounce(start_n = 0, end_n = 10, length = 30, by = .247)
+
+#The end_n value must be greater than the start_n value
+#This will give you an error
+try(seq_bounce(start_n = 0, end_n = -10, length = 15))
+
+#Instead, reverse the values
+seq_bounce(start_n = -10, end_n = 0, length = 15)
 
 }
