@@ -9,5 +9,3 @@
 ## usethis namespace: start
 ## usethis namespace: end
 NULL
-
-#utils::globalVariables(c("group", "map2_dbl", ".y", ".x", ":="))

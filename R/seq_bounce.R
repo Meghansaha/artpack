@@ -3,10 +3,10 @@
 #'
 #' Generate a regular sequence that 'bounces' between the provided `start_n` and `end_n` values in increments by the `by` value for the length of the `length` value provided.
 #'
-#' @param start_n #The lower (min) numeric bound of the sequence to be generated. Must be `< end_n`.
-#' @param end_n #The upper (max) numeric bound of the sequence to be generated. Must be `> start_n`.
-#' @param length #The desired length of the generated sequence.
-#' @param by #The number increment of the sequence.
+#' @param start_n The lower (min) numeric bound of the sequence to be generated. Must be `< end_n`.
+#' @param end_n The upper (max) numeric bound of the sequence to be generated. Must be `> start_n`.
+#' @param length The desired length of the generated sequence.
+#' @param by The number increment of the sequence.
 #'
 #' @returns A numeric vector
 #'
