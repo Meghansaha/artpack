@@ -3,144 +3,261 @@
 # =============================================================================#
 
 # =============================================================================#
-# Testing Inputs---------------------------------------------------------------
+# Input Testing-----------------------------------------------------------------
 # =============================================================================#
-
-# `pal` input testing----------------------------------------------------------
-pal_checks <-
-  list(
-    "length" = c("ocean", "rainbow"),
-    "class" = list("ocean"),
-    "case" = "RaiNboW",
-    "palette" = "BuPu"
-  )
-
-pal_indices <-
-  1:length(pal_checks)
-
-
-# Testing for case should not produce error, so need a different test#
-purrr::map2(
-  pal_checks, pal_indices,
-  ~ if (names(pal_checks[.y]) == "case") {
-    testthat::expect_no_error(
-      art_pals(pal = .x)
-    )
-  } else {
-    cli::test_that_cli("pal checks",
-      {
-        testthat::local_edition(3)
-        testthat::expect_snapshot(
-          {
-            art_pals(pal = .x)
-          },
-          error = TRUE
-        )
-      },
-      configs = "ansi"
-    )
-  }
+## All inputs should be of length 1---------------------------------------------
+### pal----
+cli::test_that_cli("pal should be of length 1",
+                   {
+                     testthat::local_edition(3)
+                     testthat::expect_snapshot(
+                       {
+                         art_pals(c("brood", "ocean"))
+                       },
+                       error = TRUE
+                     )
+                   },
+                   configs = "ansi"
 )
 
-# `n` input testing----------------------------------------------------------
-n_checks <-
-  list(
-    "class" = "8",
-    "length" = 1:100,
-    "integer" = 7.5,
-    "value" = -3
-  )
-
-purrr::map(
-  n_checks,
-  ~ cli::test_that_cli("n checks",
-    {
-      testthat::local_edition(3)
-      testthat::expect_snapshot(
-        {
-          art_pals(pal = "rainbow", n = .x)
-        },
-        error = TRUE
-      )
-    },
-    configs = "ansi"
-  )
+### n----
+cli::test_that_cli("n should be of length 1",
+                   {
+                     testthat::local_edition(3)
+                     testthat::expect_snapshot(
+                       {
+                         art_pals(n = 1:4)
+                       },
+                       error = TRUE
+                     )
+                   },
+                   configs = "ansi"
 )
 
-# `direction` input testing----------------------------------------------------
-direction_checks <-
-  list(
-    "length" = c("rev", "reg"),
-    "class" = -1,
-    "case" = "REGular",
-    "direction" = "vertical"
-  )
-
-direction_indices <-
-  1:length(direction_checks)
-
-
-# Testing for case should not produce error, so need a different test#
-purrr::map2(
-  direction_checks, direction_indices,
-  ~ if (names(direction_checks[.y]) == "case") {
-    testthat::expect_no_error(
-      art_pals(direction = .x)
-    )
-  } else {
-    cli::test_that_cli("direction checks",
-      {
-        testthat::local_edition(3)
-        testthat::expect_snapshot(
-          {
-            art_pals(direction = .x)
-          },
-          error = TRUE
-        )
-      },
-      configs = "ansi"
-    )
-  }
+### direction----
+cli::test_that_cli("direction should be of length 1",
+                   {
+                     testthat::local_edition(3)
+                     testthat::expect_snapshot(
+                       {
+                         art_pals(direction = c("reg", "rev"))
+                       },
+                       error = TRUE
+                     )
+                   },
+                   configs = "ansi"
 )
+
+### randomize----
+cli::test_that_cli("randomize should be of length 1",
+                   {
+                     testthat::local_edition(3)
+                     testthat::expect_snapshot(
+                       {
+                         art_pals(randomize = c(TRUE, FALSE))
+                       },
+                       error = TRUE
+                     )
+                   },
+                   configs = "ansi"
+)
+
+## All inputs should be of the correct class------------------------------------
+### pal----
+cli::test_that_cli("pal should be of class character",
+                   {
+                     testthat::local_edition(3)
+                     testthat::expect_snapshot(
+                       {
+                         art_pals(pal = TRUE)
+                       },
+                       error = TRUE
+                     )
+                   },
+                   configs = "ansi"
+)
+
+### n----
+cli::test_that_cli("n should be of class numeric",
+                   {
+                     testthat::local_edition(3)
+                     testthat::expect_snapshot(
+                       {
+                         art_pals(n = "4")
+                       },
+                       error = TRUE
+                     )
+                   },
+                   configs = "ansi"
+)
+
+### direction----
+cli::test_that_cli("direction should be of class character",
+                   {
+                     testthat::local_edition(3)
+                     testthat::expect_snapshot(
+                       {
+                         art_pals(direction = 1)
+                       },
+                       error = TRUE
+                     )
+                   },
+                   configs = "ansi"
+)
+
+### randomize----
+cli::test_that_cli("randomize should be of class logical",
+                   {
+                     testthat::local_edition(3)
+                     testthat::expect_snapshot(
+                       {
+                         art_pals(randomize = "TRUE")
+                       },
+                       error = TRUE
+                     )
+                   },
+                   configs = "ansi"
+)
+
+## pal should be an accepted artpack color palette------------------------------
+cli::test_that_cli("pal should be an accepted artpack color palette",
+                   {
+                     testthat::local_edition(3)
+                     testthat::expect_snapshot(
+                       {
+                         art_pals(pal = "supercool")
+                       },
+                       error = TRUE
+                     )
+                   },
+                   configs = "ansi"
+)
+
+## accepted pal should work no matter the string case---------------------------
+testthat::test_that("accepted pal should work no matter the string case", {
+  # Regular case
+  vec_expected <- art_pals(pal = "rainbow")
+  # Groovy case
+  vec_actual <- art_pals(pal = "RaInBoW")
+  # Should match
+  testthat::expect_equal(vec_actual, vec_expected)
+})
+
+## n should be a positive number------------------------------------------------
+cli::test_that_cli("n should be a positive number",
+                   {
+                     testthat::local_edition(3)
+                     testthat::expect_snapshot(
+                       {
+                         art_pals(n = -9)
+                       },
+                       error = TRUE
+                     )
+                   },
+                   configs = "ansi"
+)
+
+## n should be an integer-------------------------------------------------------
+cli::test_that_cli("n should be an integer",
+                   {
+                     testthat::local_edition(3)
+                     testthat::expect_snapshot(
+                       {
+                         art_pals(n = 9.2)
+                       },
+                       error = TRUE
+                     )
+                   },
+                   configs = "ansi"
+)
+
+## direction should be an accepted value----------------------------------------
+cli::test_that_cli("direction should be an accepted value",
+                   {
+                     testthat::local_edition(3)
+                     testthat::expect_snapshot(
+                       {
+                         art_pals(direction = "up")
+                       },
+                       error = TRUE
+                     )
+                   },
+                   configs = "ansi"
+)
+
+## accepted direction should work no matter the string case---------------------
+testthat::test_that("accepted direction should work no matter the string case", {
+  # Regular case
+  vec_expected <- art_pals(direction = "reg")
+  # Groovy case
+  vec_actual <- art_pals(direction = "ReG")
+  # Should match
+  testthat::expect_equal(vec_actual, vec_expected)
+})
 
 # =============================================================================#
-# Testing Outputs--------------------------------------------------------------
+# Output Testing----------------------------------------------------------------
 # =============================================================================#
+## The function works with no error---------------------------------------------
+testthat::test_that("works as expected", {
+  # We expect this#
+  expected_output <- c("#12012E", "#144267", "#15698C", "#0695AA", "#00F3FF")
+  # When this is ran#
+  actual_output <- art_pals()
+  # So these should be equal
+  testthat::expect_equal(actual_output, expected_output)
+})
 
-# Checking to make sure palettes are returned as vectors-----------------------
-testthat::expect_true(
-  is.vector(art_pals())
+## Palettes are returned as vectors---------------------------------------------
+testthat::test_that("outputs are vectors", {
+  testthat::expect_true(is.vector(art_pals())
+  )
+}
 )
 
-# Checking to make sure palettes sizes are as expected-------------------------
+## Palettes size is as expected-------------------------------------------------
+testthat::test_that("output length is as expected", {
+  # Create randomized value for n
+  rand_length <- sample(1:150, 1)
 
-# Default is 5#
-default_length <- length(art_pals())
-testthat::expect_equal(default_length, 5)
+  # No matter the value, the output should be a vector of the expected length
+  actual_length <- art_pals(n = rand_length) |> length()
 
-# Smoll Palette#
-smol_length <- length(art_pals(n = 3))
-testthat::expect_equal(smol_length, 3)
+  # So these should be equal
+  testthat::expect_equal(rand_length, actual_length)
+})
 
-# Chonk Palette#
-chonk_length <- length(art_pals(n = 150))
-testthat::expect_equal(chonk_length, 150)
+### Regular direction----
+testthat::test_that("output direction is as expected - regular", {
+  vec_regular_brood <- c("#000000", "#0C0C0C", "#191919", "#262626", "#333333")
+  regular_input <- c("reg", "Regular", "REG", "REGULAR", "ReGuLaR", "REGuLAR") |> sample(1)
 
-# Checking to make sure directions work as expected----------------------------
-# Regular Direction#
-regular_brood <- c("#000000", "#0C0C0C", "#191919", "#262626", "#333333")
-regular_inputs <- c("reg", "Regular", "REG", "REGULAR", "ReGuLaR", "REGuLAR")
+  testthat::expect_equal(
+    art_pals("brood", direction = regular_input),
+    vec_regular_brood
+  )
+})
 
-testthat::expect_equal(
-  art_pals("brood", 5, direction = sample(regular_inputs, 1)),
-  regular_brood
-)
+### Reverse direction----
+testthat::test_that("output direction is as expected - reverse", {
+  vec_reverse_brood <- c("#333333", "#262626", "#191919", "#0C0C0C", "#000000")
+  reverse_input <- c("rev", "Reverse", "REV", "REVERSE", "ReVeRsE", "REVeRSE") |> sample(1)
 
-# Reverse Direction#
-reverse_brood <- c("#333333", "#262626", "#191919", "#0C0C0C", "#000000")
-reverse_inputs <- c("rev", "Reverse", "REV", "REVERSE", "ReVeRsE", "REVeRSE")
+  testthat::expect_equal(
+    art_pals("brood", direction = reverse_input),
+    vec_reverse_brood
+  )
+})
 
-testthat::expect_equal(
-  art_pals("brood", 5, direction = sample(reverse_inputs, 1)),
-  reverse_brood
-)
+## Randomize actually randomizes------------------------------------------------
+# Need withr because it'll be my luck that a sample ends up being the "regular" values -.-#
+testthat::test_that("randomize argument works", {
+  withr::with_seed(
+    seed = 805,
+    code = {
+      vec_regular <- art_pals()
+      vec_randomized <- art_pals(randomize = TRUE)
+      testthat::expect_false(identical(vec_regular, vec_randomized))
+    }
+  )
+})

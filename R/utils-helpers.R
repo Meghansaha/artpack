@@ -45,7 +45,7 @@ is.color <- function(...) {
 #' Test If An Object has an Expected Class - Internal Function
 #'
 #' @param ... #An object to be tested to see if it is of the expected class
-#' @param expected_class #A string of the expected class. Accepted values are `"numeric"`, `"character"`, `"data.frame"`, and `"list"`
+#' @param expected_class #A string of the expected class. Accepted values are `"numeric"`, `"character"`, `"data.frame"`, `"list"`, and `"logical"`
 #' @param call_level #A numeric value setting the call level that's invoked when an error is thrown. This controls where in the function's environment the error is declared in the console messaging and is intended to be used for user-facing error messaging.
 #'
 #' @return #A Logical Value
@@ -86,6 +86,7 @@ class.check <- function(..., expected_class, call_level = -1) {
       "character" = is.character(...),
       "data.frame" = is.data.frame(...),
       "list" = is.list(...),
+      "logical" = is.logical(...),
       NA
     )
 
@@ -116,8 +117,9 @@ class.check <- function(..., expected_class, call_level = -1) {
 
 #' Test If An Object is `NULL` - Internal Function
 #'
-#' @param ... #An object to be tested to see if it is `NULL`
-#' @param call_level #A numeric value setting the call level that's invoked when an error is thrown. This controls where in the function's environment the error is declared in the console messaging and is intended to be used for user-facing error messaging.
+#' @param ... An object to be tested to see if it is `NULL`
+#' @param call_level A numeric value setting the call level that's invoked when an error is thrown. This controls where in the function's environment the error is declared in the console messaging and is intended to be used for user-facing error messaging.
+#' @param required Boolean. `TRUE` of `FALSE`. If the var being checked is required but missing, an error will get thrown to the console for the user. If the var is not required, but missing, a value of `FALSE` will be return for dev assistance. Default is `TRUE`.
 #'
 #' @return #A Logical Value
 #' @noRd
@@ -137,7 +139,7 @@ class.check <- function(..., expected_class, call_level = -1) {
 #' null_object <- NULL
 #' is.var.present(null_object)
 
-is.var.present <- function(..., call_level = -1){
+is.var.present <- function(..., call_level = -1, required = TRUE){
 
   call_level_valid <- is.numeric(call_level)
 
@@ -151,7 +153,7 @@ is.var.present <- function(..., call_level = -1){
 
   var_missing <- is.null(...)
 
-  if(var_missing){
+  if(var_missing & required){
 
     var_name <- deparse(substitute(...))
 
@@ -161,6 +163,10 @@ is.var.present <- function(..., call_level = -1){
       "i" = paste(status("Check the ", "{.var {var_name}}"), "input.")
     ) |>
       cli::cli_abort(call = sys.call(call_level))
+  }
+
+  if(var_missing & required == FALSE){
+    return(FALSE)
   }
 
   return(TRUE)

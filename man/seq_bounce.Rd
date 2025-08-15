@@ -7,13 +7,13 @@
 seq_bounce(start_n = NULL, end_n = NULL, length = NULL, by = 1)
 }
 \arguments{
-\item{start_n}{#The lower (min) numeric bound of the sequence to be generated. Must be \verb{< end_n}.}
+\item{start_n}{The lower (min) numeric bound of the sequence to be generated. Must be \verb{< end_n}.}
 
-\item{end_n}{#The upper (max) numeric bound of the sequence to be generated. Must be \verb{> start_n}.}
+\item{end_n}{The upper (max) numeric bound of the sequence to be generated. Must be \verb{> start_n}.}
 
-\item{length}{#The desired length of the generated sequence.}
+\item{length}{The desired length of the generated sequence.}
 
-\item{by}{#The number increment of the sequence.}
+\item{by}{The number increment of the sequence.}
 }
 \value{
 A numeric vector

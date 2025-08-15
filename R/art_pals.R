@@ -35,6 +35,10 @@
 #'
 #' Default is "regular". Only two options accepted: "regular" or "reverse"
 #'
+#' @param randomize Determines if the colors in the palette appear in a randomized order.
+#'
+#' Default is `FALSE`. Boolean where only `TRUE` or `FALSE` is accepted.
+#'
 #' @return A Character Vector.
 #'
 #' @importFrom knitr combine_words
@@ -74,10 +78,24 @@
 #'     stroke = 2
 #'   )
 #'
-art_pals <- function(pal = NULL, n = 5, direction = "regular") {
-  # =============================================================================#
-  # artpack Palettes-------------------------------------------------------------
-  # =============================================================================#
+#' dots_random <- data.frame(x = c(1:10), y = 2.5)
+#' dots_random$fills <- art_pals("rainbow", 10, randomize = TRUE)
+#'
+#' dots_random |>
+#'   ggplot(aes(x, y)) +
+#'   theme_void() +
+#'   geom_point(
+#'     shape = 21,
+#'     fill = dots_random$fills,
+#'     color = "#000000",
+#'     size = 10,
+#'     stroke = 2
+#'   )
+#'
+art_pals <- function(pal = NULL, n = 5, direction = "regular", randomize = FALSE) {
+  # ===========================================================================#
+  # artpack Palettes------------------------------------------------------------
+  # ===========================================================================#
   pals <-
     list(
       arctic = list(c("#006ACD", "#4596D7", "#8AC2E1", "#BDDFEB", "#DEEFF5", "#FFFFFF")),
@@ -100,80 +118,28 @@ art_pals <- function(pal = NULL, n = 5, direction = "regular") {
       super = list(c("#000000", "#292929", "#5F0E0E", "#363131", "#662E8A", "#B80000", "#C60018", "#005C94", "#E72124", "#4D982E", "#987EC1", "#F7C700"))
     )
 
+  # ===========================================================================#
+  # Input Checks----------------------------------------------------------------
+  # ===========================================================================#
+  ## n--------------------------------------------------------------------------
+  ### is numeric----
+  class.check(n, expected_class = "numeric")
+  ### is length of 1----
+  length.check(n, expected_length = 1)
+  ### is > 0 and an integer#
+  is.expected.numeric.type(n, expected_type = c("positive", "integer"))
 
-  # =============================================================================#
-  # Logic checks for `n`
-  # =============================================================================#
-  # Is numeric#
-  if (!rlang::is_bare_numeric(n)) {
-    c(
-      paste0("{.var n} must be of type ", callout("<numeric>")),
-      "x" = paste0("The {.var n} object you've supplied is of type ", error(paste0("<", class(n), ">"))),
-      "i" = paste0(status("Check the {.var n} value"), " you've supplied.")
-    ) |>
-      cli::cli_abort()
-  }
-
-  # Is only one number#
-  if (length(n) != 1) {
-    c(
-      paste0("{.var n} must be a length of ", callout("1")),
-      "x" = paste0("The {.var n} object you've supplied has a length of ", error(length(n))),
-      "i" = paste0(status("Check the {.var n} value"), " you've supplied.")
-    ) |>
-      cli::cli_abort()
-  }
-
-  # Is one or more#
-  if (n < 1) {
-    c(
-      paste0("{.var n} must be a numeric value greater than or equal to ", callout("1")),
-      "x" = paste0("The {.var n} object you've supplied has a value of ", error(n)),
-      "i" = paste0(status("Check the {.var n} value"), " you've supplied.")
-    ) |>
-      cli::cli_abort()
-  }
-
-  # Is number a whole/integer number#
-  if (n %% 1 != 0) {
-    c(
-      paste0("{.var n} must be a ", callout("numeric integer (no decimals)")),
-      "x" = paste0("The {.var n} object you've supplied is ", error(n)),
-      "i" = paste0(status("Check the {.var n} value"), " you've supplied.")
-    ) |>
-      cli::cli_abort()
-  }
-
-  # =============================================================================#
-  # Palette Logic Checks-------------------------------------------------------
-  # =============================================================================#
-
+  ## pal------------------------------------------------------------------------
   # Setting a default palette if none selected#
-  if (rlang::is_null(pal)) {
+  pal_missing <- is.var.present(pal, required = FALSE) == FALSE
+
+  if (pal_missing) {
     pal <- "ocean"
   }
-
-  # Checking that pal is only a length of 1#
-  if (length(pal) != 1) {
-    c(
-      paste0("{.var pal} must be a length of ", callout("1")),
-      "x" = paste0("The {.var pal} object you've supplied has a length of ", error(length(pal))),
-      "i" = paste0(status("Check the {.var pal} value"), " you've supplied.")
-    ) |>
-      cli::cli_abort()
-  }
-
-  # Checking that palette input is a string#
-  string_check <- rlang::is_character(pal)
-
-  if (!string_check) {
-    c(
-      paste0("{.var pal} must be of type ", callout("<character>")),
-      "x" = paste0("The {.var pal} object you've supplied is of type ", error(paste0("<", class(pal), ">"))),
-      "i" = paste0(status("Check the {.var pal} value"), " you've supplied.")
-    ) |>
-      cli::cli_abort()
-  }
+  ### is length of 1----
+  length.check(pal, expected_length = 1)
+  ### is character----
+  class.check(pal, expected_class = "character")
 
   # Checking for capitalization#
   case_check <- grepl("[[:upper:]]", pal)
@@ -204,30 +170,11 @@ art_pals <- function(pal = NULL, n = 5, direction = "regular") {
       cli::cli_abort()
   }
 
-  # =============================================================================#
-  # Direction Logic Check------------------------------------------------------
-  # =============================================================================#
-  # Checking that direction is only a length of 1#
-  if (length(direction) != 1) {
-    c(
-      paste0("{.var direction} must be a length of ", callout("1")),
-      "x" = paste0("The {.var direction} object you've supplied has a length of ", error(length(direction))),
-      "i" = paste0(status("Check the {.var direction} value"), " you've supplied.")
-    ) |>
-      cli::cli_abort()
-  }
-
-  # Checking that direction input is a string#
-  string_check <- rlang::is_character(direction)
-
-  if (!string_check) {
-    c(
-      paste0("{.var direction} must be of type ", callout("<character>")),
-      "x" = paste0("The {.var direction} object you've supplied is of type ", error(paste0("<", class(direction), ">"))),
-      "i" = paste0(status("Check the {.var direction} value"), " you've supplied.")
-    ) |>
-      cli::cli_abort()
-  }
+  ## direction------------------------------------------------------------------
+  ### is length of 1----
+  length.check(direction, expected_length = 1)
+  ### is character----
+  class.check(direction, expected_class = "character")
 
   # Checking for capitalization#
   case_check <- grepl("[[:upper:]]", direction)
@@ -238,8 +185,10 @@ art_pals <- function(pal = NULL, n = 5, direction = "regular") {
   }
 
   # Checking for valid directions#
+  vec_valid_directions <- c("rev", "reverse", "reg", "regular")
+
   direction_check <-
-    direction %in% c("rev", "reverse", "reg", "regular")
+    direction %in% vec_valid_directions
 
   if (!direction_check) {
     c(
@@ -247,7 +196,7 @@ art_pals <- function(pal = NULL, n = 5, direction = "regular") {
       "i" = paste0(
         status("Please enter one of the following:"),
         knitr::combine_words(
-          c("rev", "reverse", "reg", "regular"),
+          vec_valid_directions,
           before = '"',
           after = '"',
           sep = ", ",
@@ -258,13 +207,36 @@ art_pals <- function(pal = NULL, n = 5, direction = "regular") {
     ) |>
       cli::cli_abort()
   }
+  ## randomized-----------------------------------------------------------------
+  ### is length of 1----
+  length.check(randomize, expected_length = 1)
+  ### is logical----
+  class.check(randomize, expected_class = "logical")
 
-  # =============================================================================#
-  # Direction set up-----------------------------------------------------------
-  # =============================================================================#
-  if (direction %in% c("rev", "reverse")) {
-    return(rev(colorRampPalette(unlist(pals[[pal]]))(n)))
-  } else {
-    return(colorRampPalette(unlist(pals[[pal]]))(n))
-  }
+  # ===========================================================================#
+  # Palette Generation----------------------------------------------------------
+  # ===========================================================================#
+  ## Determine direction of the palette-----------------------------------------
+  direction_toggle <- which(direction == vec_valid_directions)
+
+  pal_init <-
+    switch(
+      direction_toggle,
+      pals[[pal]] |> unlist() |> (\(x) colorRampPalette(x)(n))() |> rev(),
+      pals[[pal]] |> unlist() |> (\(x) colorRampPalette(x)(n))() |> rev(),
+      pals[[pal]] |> unlist() |> (\(x) colorRampPalette(x)(n))(),
+      pals[[pal]] |> unlist() |> (\(x) colorRampPalette(x)(n))()
+    )
+
+  ## Determine if the palette should be randomized------------------------------
+  randomize_toggle <- which(randomize == c(TRUE, FALSE))
+
+  pal_final <-
+    switch(
+      randomize_toggle,
+      pal_init |> sample(),
+      pal_init
+    )
+
+  return(pal_final)
 }

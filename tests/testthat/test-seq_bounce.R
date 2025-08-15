@@ -265,13 +265,13 @@ testthat::test_that("output is a numeric vector", {
       by = rand_by
       )
 
-  # So these should be equal
+  # So these should be true
   testthat::expect_true(actual_output |> is.numeric())
   testthat::expect_true(actual_output |> is.vector())
 })
 
 ## The length of the output is as expected--------------------------------------
-testthat::test_that("output is a numeric vector", {
+testthat::test_that("output length is as expected", {
   # Create randomized values for inputs
   rand_start_n <- sample(-10:10, 1)
   rand_end_n <- sample((rand_start_n + 1):(rand_start_n + 20), 1)

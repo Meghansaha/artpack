@@ -4,7 +4,7 @@
 \alias{art_pals}
 \title{Custom-built artpack Color Palettes}
 \usage{
-art_pals(pal = NULL, n = 5, direction = "regular")
+art_pals(pal = NULL, n = 5, direction = "regular", randomize = FALSE)
 }
 \arguments{
 \item{pal}{A character string of the desired artpack palette.
@@ -38,6 +38,10 @@ Default is \code{5}. \code{n} must be a positive integer with a value greater th
 \item{direction}{The direction of the palette
 
 Default is "regular". Only two options accepted: "regular" or "reverse"}
+
+\item{randomize}{Determines if the colors in the palette appear in a randomized order.
+
+Default is \code{FALSE}. Boolean where only \code{TRUE} or \code{FALSE} is accepted.}
 }
 \value{
 A Character Vector.
@@ -75,6 +79,20 @@ dots_rev |>
   geom_point(
     shape = 21,
     fill = dots_rev$fills,
+    color = "#000000",
+    size = 10,
+    stroke = 2
+  )
+
+dots_random <- data.frame(x = c(1:10), y = 2.5)
+dots_random$fills <- art_pals("rainbow", 10, randomize = TRUE)
+
+dots_random |>
+  ggplot(aes(x, y)) +
+  theme_void() +
+  geom_point(
+    shape = 21,
+    fill = dots_random$fills,
     color = "#000000",
     size = 10,
     stroke = 2
