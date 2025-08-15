@@ -84,4 +84,18 @@ dots_rev |>
     stroke = 2
   )
 
+dots_random <- data.frame(x = c(1:10), y = 2.5)
+dots_random$fills <- art_pals("rainbow", 10, randomize = TRUE)
+
+dots_random |>
+  ggplot(aes(x, y)) +
+  theme_void() +
+  geom_point(
+    shape = 21,
+    fill = dots_random$fills,
+    color = "#000000",
+    size = 10,
+    stroke = 2
+  )
+
 }

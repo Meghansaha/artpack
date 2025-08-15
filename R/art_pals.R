@@ -78,6 +78,20 @@
 #'     stroke = 2
 #'   )
 #'
+#' dots_random <- data.frame(x = c(1:10), y = 2.5)
+#' dots_random$fills <- art_pals("rainbow", 10, randomize = TRUE)
+#'
+#' dots_random |>
+#'   ggplot(aes(x, y)) +
+#'   theme_void() +
+#'   geom_point(
+#'     shape = 21,
+#'     fill = dots_random$fills,
+#'     color = "#000000",
+#'     size = 10,
+#'     stroke = 2
+#'   )
+#'
 art_pals <- function(pal = NULL, n = 5, direction = "regular", randomize = FALSE) {
   # ===========================================================================#
   # artpack Palettes------------------------------------------------------------
@@ -103,7 +117,6 @@ art_pals <- function(pal = NULL, n = 5, direction = "regular", randomize = FALSE
       sunnyside = list(c("#F6BF07", "#F67C21", "#ED155A", "#F61867")),
       super = list(c("#000000", "#292929", "#5F0E0E", "#363131", "#662E8A", "#B80000", "#C60018", "#005C94", "#E72124", "#4D982E", "#987EC1", "#F7C700"))
     )
-
 
   # ===========================================================================#
   # Input Checks----------------------------------------------------------------
@@ -172,8 +185,10 @@ art_pals <- function(pal = NULL, n = 5, direction = "regular", randomize = FALSE
   }
 
   # Checking for valid directions#
+  vec_valid_directions <- c("rev", "reverse", "reg", "regular")
+
   direction_check <-
-    direction %in% c("rev", "reverse", "reg", "regular")
+    direction %in% vec_valid_directions
 
   if (!direction_check) {
     c(
@@ -181,7 +196,7 @@ art_pals <- function(pal = NULL, n = 5, direction = "regular", randomize = FALSE
       "i" = paste0(
         status("Please enter one of the following:"),
         knitr::combine_words(
-          c("rev", "reverse", "reg", "regular"),
+          vec_valid_directions,
           before = '"',
           after = '"',
           sep = ", ",
@@ -202,19 +217,24 @@ art_pals <- function(pal = NULL, n = 5, direction = "regular", randomize = FALSE
   # Palette Generation----------------------------------------------------------
   # ===========================================================================#
   ## Determine direction of the palette-----------------------------------------
+  direction_toggle <- which(direction == vec_valid_directions)
+
   pal_init <-
     switch(
-      direction,
-      "rev" = pals[[pal]] |> unlist() |> (\(x) colorRampPalette(x)(n))() |> rev(),
-      "reverse" = pals[[pal]] |> unlist() |> (\(x) colorRampPalette(x)(n))() |> rev(),
+      direction_toggle,
+      pals[[pal]] |> unlist() |> (\(x) colorRampPalette(x)(n))() |> rev(),
+      pals[[pal]] |> unlist() |> (\(x) colorRampPalette(x)(n))() |> rev(),
+      pals[[pal]] |> unlist() |> (\(x) colorRampPalette(x)(n))(),
       pals[[pal]] |> unlist() |> (\(x) colorRampPalette(x)(n))()
     )
 
   ## Determine if the palette should be randomized------------------------------
+  randomize_toggle <- which(randomize == c(TRUE, FALSE))
+
   pal_final <-
     switch(
-      randomize |> as.character(),
-      "TRUE" = pal_init |> sample(),
+      randomize_toggle,
+      pal_init |> sample(),
       pal_init
     )
 
