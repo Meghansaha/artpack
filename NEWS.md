@@ -1,3 +1,9 @@
+# artpack 0.1.7 (Development Version)
+### **New Functions and Updates**
+* Added `resizer()`.
+* Added more internal utility helper functions.
+* Improved test suite for internal utility helper functions.
+
 # artpack 0.1.6
 ### **New Functions and Updates**
 * Added `randomize` argument to `art_pals()` which allows for the palette order to be sampled.
@@ -13,7 +19,7 @@
 * Rectified unknown global variables.
 * Added subtitles to the package index (reference) page.
 
-# artpack 0.1.4 (Development Version)
+# artpack 0.1.4
 ### **New Functions and Updates**
 * Added test suite for internal utility helper functions.
 
