@@ -59,6 +59,7 @@ reference:
 - title: Transformation Tools
 - subtitle: Functions that help with transforming existing generative art data.
 - contents:
+  - resizer
   - rotator
 
 - title: Group Tools

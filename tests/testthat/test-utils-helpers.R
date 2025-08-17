@@ -117,3 +117,32 @@ cli::test_that_cli("invalid expected_length throws the expected error",
                    },
                    configs = "ansi"
 )
+
+#==============================================================================#
+# is.expected.value error messaging---------------------------------------------
+#==============================================================================#
+cli::test_that_cli("invalid call_level throws the expected error",
+                   {
+                     testthat::local_edition(3)
+                     testthat::expect_snapshot(
+                       {
+                         is.expected.value("hi", expecected_values = c("hi", "bye"),  call_level = "two")
+                       },
+                       error = TRUE
+                     )
+                   },
+                   configs = "ansi"
+)
+
+cli::test_that_cli("invalid value throws the expected error",
+                   {
+                     testthat::local_edition(3)
+                     testthat::expect_snapshot(
+                       {
+                         is.expected.value(2, expected_values = 5:10)
+                       },
+                       error = TRUE
+                     )
+                   },
+                   configs = "ansi"
+)

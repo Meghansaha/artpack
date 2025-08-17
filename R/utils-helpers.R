@@ -330,4 +330,68 @@ length.check <-
     }
   }
 
+#' Test If A Value is as Expected - Internal Function
+#'
+#' @param ... #An object that will be checked.
+#' @param expected_values #A vector of the expected values to check for.
+#' @param call_level #A numeric value setting the call level that's invoked when an error is thrown. This controls where in the function's environment the error is declared in the console messaging and is intended to be used for user-facing error messaging.
+#'
+#' @return #A Logical Value
+#' @noRd
+#'
+#' @examples
+#'
+#' objects with an expected value return `TRUE`
+#'
+#' an_object <- "test"
+#'
+#' is.expected.value(an_object, expected_value = c("test", "tester))
+#'
+#' objects that fail the check throw an error
+#'
+#' an_another_object <- "testy"
+#'
+#' is.expected.value(an_another_object, expected_value = c("test", "tester))
+#'
+#'
+is.expected.value <-
+  function(..., expected_values, call_level = -1){
 
+    call_level_valid <- is.numeric(call_level)
+
+    if(!call_level_valid){
+      c(
+        "x" = "`call_level` is invalid!",
+        "!" = "check `length.check`"
+      ) |>
+        cli::cli_abort()
+    }
+
+    var_name <- deparse(substitute(...))
+
+    value_check <- ... %in% expected_values
+
+    flag_value_check <- value_check == FALSE
+
+    if(flag_value_check){
+
+      vars_text <-
+        knitr::combine_words(
+          expected_values,
+          sep = ", ",
+          and = " or ",
+          before = '"',
+          after = '"',
+          oxford_comma = FALSE
+        )
+
+      c(
+        "x" = paste("{.var {var_name}} must be an accepted value:", cli::style_italic(error("{vars_text}"))),
+        "!" = paste("The input you've supplied, {.var {var_name}}, is", callout('"{(...)}"')),
+        "i" = paste(status("Check the ", "{.var {var_name}}"), "input.")
+      ) |>
+        cli::cli_abort(call = sys.call(call_level))
+    } else{
+      return(TRUE)
+    }
+  }
