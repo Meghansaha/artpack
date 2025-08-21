@@ -23,6 +23,7 @@ navbar:
   left:
   - icon: fa-home
     href: index.html
+    aria-label: Home
   - text: Reference
     href: reference/index.html
   - text: Articles
@@ -34,6 +35,7 @@ navbar:
   right:
   - icon: fa-github fa-lg
     href: https://github.com/Meghansaha/artpack
+    aria-label: github
 
 reference:
 

@@ -45,6 +45,8 @@ packer(
 A Tibble
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 A tool for creating a data frame of values that create a circle packing design when plotted.
 When the default \code{circle_type} "whole" is used, the output should mapped with \code{geom_polygon}
 in a ggplot. When "swirl" is used, the output should be mapped with \code{geom_path} for the best results.

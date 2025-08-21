@@ -1,5 +1,6 @@
 #' Data Generation for Circle Packing
 #' @description
+#' `r lifecycle::badge("experimental")`
 #'
 #' A tool for creating a data frame of values that create a circle packing design when plotted.
 #' When the default `circle_type` "whole" is used, the output should mapped with `geom_polygon`
