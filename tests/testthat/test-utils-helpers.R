@@ -118,6 +118,19 @@ cli::test_that_cli("invalid expected_length throws the expected error",
                    configs = "ansi"
 )
 
+cli::test_that_cli("invalid expected_op throws the expected error",
+                   {
+                     testthat::local_edition(3)
+                     testthat::expect_snapshot(
+                       {
+                         length.check("test", expected_length = 1, expected_op = "=")
+                       },
+                       error = TRUE
+                     )
+                   },
+                   configs = "ansi"
+)
+
 #==============================================================================#
 # is.expected.value error messaging---------------------------------------------
 #==============================================================================#

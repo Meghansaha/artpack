@@ -51,126 +51,92 @@ rotator <- function(data, x, y, angle = 5, anchor = "center", drop = FALSE) {
   `:=` <- NULL
 
   # ===========================================================================#
-  # Logic Checks---------------------------------------------------------------
+  # Input Checks----------------------------------------------------------------
   # ===========================================================================#
-  # Data is present
-  if (missing(data)) {
-    c(
-      "x" = paste("{.var data} is", error("missing")),
-      "!" = paste("{.var data} should be a", status("dataframe"), "or", status("tibble"))
-    ) |>
-      cli::cli_abort()
-  }
-  # Data is a dataframe
-  if (!is.data.frame(data)) {
-    c(
-      "x" = paste("{.var data} is", error("{.cls {typeof(data)}}")),
-      "!" = paste("{.var data} should be a", status("dataframe"), "or", status("tibble"))
-    ) |>
-      cli::cli_abort()
-  }
+  ## Check that all inputs are provided-----------------------------------------
+  ### data----------------------------------------------------------------------
+  is.var.present(data)
 
-  # x and y variables are present
-  vars_df <-
-    c(
-      "x" = missing(x),
-      "y" = missing(y)
-    )
-
-  var_check <-
-    any(vars_df)
-
-
-  if (var_check) {
-    var_missing <-
-      names(vars_df[vars_df == TRUE]) |>
-      purrr::map_chr(
-        ~ paste0("{.var ", .x, "}")
-      ) |>
-      knitr::combine_words()
-
-    c(
-      "x" = paste("{sum(vars_df)}", "variable{?s}", ifelse(sum(vars_df) == 1, "is", "are"), error("missing:")),
-      "!" = paste(var_missing, "should be {.cls numeric}", ifelse(sum(vars_df) == 1, "variable", "variables"), "in a ", status("dataframe"), "or", status("tibble"))
-    ) |>
-      cli::cli_abort()
-  }
-
-  # Pulling existing column names
+  ## Pulling column names-------------------------------------------------------
   x_name <- data |>
     dplyr::select({{ x }}) |>
     names()
+
   y_name <- data |>
     dplyr::select({{ y }}) |>
     names()
 
-  # Pulling x and y columns for manipulation work
+  # Pulling actual column data--------------------------------------------------
   x <- data |>
     dplyr::select({{ x }}) |>
     dplyr::pull()
+
   y <- data |>
     dplyr::select({{ y }}) |>
     dplyr::pull()
 
-  # x variable is of type "numeric"
-  x_var_check <- !is.numeric(x)
+  ### angle---------------------------------------------------------------------
+  is.var.present(angle)
+  ### anchor--------------------------------------------------------------------
+  is.var.present(anchor)
+  ### drop----------------------------------------------------------------------
+  is.var.present(drop)
 
-  if (x_var_check) {
+  ## Check that all inputs are of expected class--------------------------------
+  ### data----------------------------------------------------------------------
+  class.check(data, expected_class = "data.frame")
+  ### x-------------------------------------------------------------------------
+  class.check(x, expected_class = "numeric")
+  ### y-------------------------------------------------------------------------
+  class.check(y, expected_class = "numeric")
+  ### anchor--------------------------------------------------------------------
+  # It can be a string#
+  anchor_string <- class.check(anchor, expected_class = "character", required = FALSE)
+  # Or a numeric vector#
+  anchor_numeric <- class.check(anchor, expected_class = "numeric", required = FALSE)
+  # Flag and throw an error if it's neither#
+  anchor_class_check <- anchor_string | anchor_numeric
+
+  if(anchor_class_check == FALSE){
+
+    actual_anchor_class <- class(anchor)
     c(
-      "x" = paste("The {.var x} variable, {x_name}, is of type", error("{typeof(x)}")),
-      "!" = paste("The {.var x} variable, should be", status("{.cls numeric}"))
+      "x" = paste("{.var anchor} must be of class", error("<character> -OR- <numeric>")),
+      "!" = paste("The input you've supplied, {.var anchor}, is of class", callout("<{actual_anchor_class}>")),
+      "i" = paste(status("Check the ", "{.var anchor}"), "input.")
     ) |>
       cli::cli_abort()
   }
+  ### angle---------------------------------------------------------------------
+  class.check(angle, expected_class = "numeric")
+  ### drop----------------------------------------------------------------------
+  class.check(drop, expected_class = "logical")
 
-  # x variable is of type "numeric"
-  y_var_check <- !is.numeric(y)
-
-  if (y_var_check) {
-    c(
-      "x" = paste("The {.var y} variable, {y_name}, is of type", error("{typeof(y)}")),
-      "!" = paste("The {.var y} variable should be", status("{.cls numeric}"))
-    ) |>
-      cli::cli_abort()
+  ## Check that all applicable inputs are of expected length--------------------
+  ### data----------------------------------------------------------------------
+  length.check(data, expected_length = 1, expected_op = ">=")
+  ### x-------------------------------------------------------------------------
+  data_rows <- nrow(data)
+  length.check(x, expected_length = data_rows)
+  ### y-------------------------------------------------------------------------
+  length.check(y, expected_length = data_rows)
+  ### angle---------------------------------------------------------------------
+  length.check(angle, expected_length = 1)
+  ### anchor--------------------------------------------------------------------
+  if(anchor_numeric){
+    length.check(anchor, expected_length = 2)
   }
 
-  # angle is of type "numeric"
-  angle_check <- !is.numeric(angle)
-
-  if (angle_check) {
-    c(
-      "x" = paste("The {.var angle} input, {.var {angle}}, is of type", error("{typeof(angle)}")),
-      "!" = paste("The {.var angle} input should be", status("{.cls numeric}"))
-    ) |>
-      cli::cli_abort()
+  if(anchor_string){
+    length.check(anchor, expected_length = 1)
   }
+  ### drop----------------------------------------------------------------------
+  length.check(drop, expected_length = 1)
 
-  # anchor is an known option
-  anchor_check <- !anchor %in% c(
-    "center",
-    "bottom",
-    "top",
-    "left",
-    "right"
-  )
-
-  if (anchor_check) {
-    c(
-      "x" = paste("{.var {anchor}} is", error("not a valid anchor option")),
-      "i" = paste(status("Valid"), 'options include:"center", "bottom", "top", "left", and "right"')
-    ) |>
-      cli::cli_abort()
-  }
-
-  # Drop is logical
-  drop_check <- !is.logical(drop)
-
-  if (drop_check) {
-    c(
-      "x" = paste("The {.var drop} value you've supplied: {.var {drop}}, is of type", error("{typeof(drop)}")),
-      "i" = paste("The {.var drop} input must be a logical", status("TRUE"), "or", status("FALSE"), "value")
-    ) |>
-      cli::cli_abort()
+  ## Check that all applicable inputs are of expected values--------------------
+  ### anchor--------------------------------------------------------------------
+  if(anchor_string){
+    is.expected.value(anchor, expected_values = c("center", "bottom", "top", "left", "right"))
   }
 
   # ===========================================================================#
@@ -182,41 +148,49 @@ rotator <- function(data, x, y, angle = 5, anchor = "center", drop = FALSE) {
   x2 <- NULL
   y2 <- NULL
 
-
   # ===========================================================================#
   # Anchor Handling------------------------------------------------------------
   # ===========================================================================#
-
-  # Setting the anchor
-  anchor <- switch(anchor,
-    "center" = list(
-      "x" = (min({{ x }}) + max({{ x }})) / 2,
-      "y" = (min({{ y }}) + max({{ y }})) / 2
-    ),
-    "bottom" = list(
-      "x" = (min({{ x }}) + max({{ x }})) / 2,
-      "y" = min({{ y }})
-    ),
-    "top" = list(
-      "x" = (min({{ x }}) + max({{ x }})) / 2,
-      "y" = max({{ y }})
-    ),
-    "left" = list(
-      "x" = min({{ x }}),
-      "y" = (min({{ y }}) + max({{ y }})) / 2
-    ),
-    "right" = list(
-      "x" = max({{ x }}),
-      "y" = (min({{ y }}) + max({{ y }})) / 2
+  # Setting the anchor if string...
+  if(anchor_string){
+    anchor <-
+      switch(anchor,
+             "center" = list(
+               "x" = (min({{ x }}) + max({{ x }})) / 2,
+               "y" = (min({{ y }}) + max({{ y }})) / 2
+             ),
+             "bottom" = list(
+               "x" = (min({{ x }}) + max({{ x }})) / 2,
+               "y" = min({{ y }})
+             ),
+             "top" = list(
+               "x" = (min({{ x }}) + max({{ x }})) / 2,
+               "y" = max({{ y }})
+             ),
+             "left" = list(
+               "x" = min({{ x }}),
+               "y" = (min({{ y }}) + max({{ y }})) / 2
+             ),
+             "right" = list(
+               "x" = max({{ x }}),
+               "y" = (min({{ y }}) + max({{ y }})) / 2
+             )
+      )
+  } else{
+    # ...Or numeric#
+    anchor <- list(
+      "x" = anchor[1],
+      "y" = anchor[2]
     )
-  )
+  }
 
   # ===========================================================================#
-  # Rotation Work--------------------------------------------------------------
+  # Rotation Work---------------------------------------------------------------
   # ===========================================================================#
 
   # Rotating the x and y variables
-  data_rotated <- data |>
+  data_rotated <-
+    data |>
     dplyr::mutate(
       x2 = ({{ x }} - anchor$x) * cos(rad) - ({{ y }} - anchor$y) * sin(rad) + anchor$x,
       y2 = ({{ x }} - anchor$x) * sin(rad) + ({{ y }} - anchor$y) * cos(rad) + anchor$y,

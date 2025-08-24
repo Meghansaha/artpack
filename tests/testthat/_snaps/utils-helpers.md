@@ -82,6 +82,15 @@
       [1m[22m[31mx[39m `expected_length` is invalid! (needs to be numeric)
       [33m![39m check `length.check`
 
+# invalid expected_op throws the expected error [ansi]
+
+    Code
+      length.check("test", expected_length = 1, expected_op = "=")
+    Condition
+      [1m[33mError[39m in `length.check()`:[22m
+      [1m[22m[31mx[39m `expected_op` is invalid! (needs to be ('==', '>=', '<=', '<', '>')
+      [33m![39m check `length.check`
+
 # invalid value throws the expected error [ansi]
 
     Code

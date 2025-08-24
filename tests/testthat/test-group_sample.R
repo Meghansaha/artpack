@@ -268,6 +268,8 @@ cli::test_that_cli(
 ## group_sample works----
 testthat::test_that(
   "group_sample works", {
+    set.seed(123)
+
     vec_coords <- 1:10
 
     df_data <-
@@ -286,9 +288,13 @@ testthat::test_that(
 
 )
 
+gc()
+
 ## group_sample n works----
 testthat::test_that(
   "group_sample n works", {
+    set.seed(456)
+
     vec_coords <- 1:10
 
     n_groups_to_sample <- sample(1:10,1)
@@ -311,9 +317,13 @@ testthat::test_that(
   }
 )
 
+gc()
+
 ## group_sample prop works----
 testthat::test_that(
   "group_sample prop works", {
+    set.seed(789)
+
     vec_coords <- 1:10
 
     prop_groups_to_sample <- seq(.1,1, l = 10) |> sample(1)
@@ -337,9 +347,12 @@ testthat::test_that(
   }
 )
 
+gc()
+
 ## group_sample prob works----
 testthat::test_that(
   "group_sample prob works", {
+    set.seed(101112)
     vec_coords <- 1:10
 
     vec_probs <- sample(seq(0,1, l = 10))
@@ -362,9 +375,12 @@ testthat::test_that(
   }
 )
 
+gc()
+
 ## group_sample group_output works----
 testthat::test_that(
   "group_sample group_output works", {
+    set.seed(131415)
     vec_coords <- 1:10
 
     df_data <-
@@ -384,9 +400,12 @@ testthat::test_that(
   }
 )
 
+gc()
+
 ## group_sample group_output works - grouping variable attr correct----
 testthat::test_that(
   "group_sample group_output works - group variable properly attributed", {
+    set.seed(161718)
     vec_coords <- 1:10
 
     df_data <-
@@ -410,5 +429,6 @@ testthat::test_that(
   }
 )
 
+gc()
 
 

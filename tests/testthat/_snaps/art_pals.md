@@ -4,7 +4,7 @@
       art_pals(c("brood", "ocean"))
     Condition
       [1m[33mError[39m in `art_pals()`:[22m
-      [1m[22m[31mx[39m `pal` must be of length [1m[31m1[39m[22m
+      [1m[22m[31mx[39m `pal` must [1m[31mbe of length 1[39m[22m
       [33m![39m The input you've supplied, `pal`, is of length [1m[33m2[39m[22m
       [36mi[39m [1m[36mCheck the `pal`[39m[22m input.
 
@@ -14,7 +14,7 @@
       art_pals(n = 1:4)
     Condition
       [1m[33mError[39m in `art_pals()`:[22m
-      [1m[22m[31mx[39m `n` must be of length [1m[31m1[39m[22m
+      [1m[22m[31mx[39m `n` must [1m[31mbe of length 1[39m[22m
       [33m![39m The input you've supplied, `n`, is of length [1m[33m4[39m[22m
       [36mi[39m [1m[36mCheck the `n`[39m[22m input.
 
@@ -24,7 +24,7 @@
       art_pals(direction = c("reg", "rev"))
     Condition
       [1m[33mError[39m in `art_pals()`:[22m
-      [1m[22m[31mx[39m `direction` must be of length [1m[31m1[39m[22m
+      [1m[22m[31mx[39m `direction` must [1m[31mbe of length 1[39m[22m
       [33m![39m The input you've supplied, `direction`, is of length [1m[33m2[39m[22m
       [36mi[39m [1m[36mCheck the `direction`[39m[22m input.
 
@@ -34,7 +34,7 @@
       art_pals(randomize = c(TRUE, FALSE))
     Condition
       [1m[33mError[39m in `art_pals()`:[22m
-      [1m[22m[31mx[39m `randomize` must be of length [1m[31m1[39m[22m
+      [1m[22m[31mx[39m `randomize` must [1m[31mbe of length 1[39m[22m
       [33m![39m The input you've supplied, `randomize`, is of length [1m[33m2[39m[22m
       [36mi[39m [1m[36mCheck the `randomize`[39m[22m input.
 
