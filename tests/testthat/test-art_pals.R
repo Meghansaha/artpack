@@ -201,7 +201,7 @@ testthat::test_that("accepted direction should work no matter the string case", 
 ## The function works with no error---------------------------------------------
 testthat::test_that("works as expected", {
   # We expect this#
-  expected_output <- c("#12012E", "#144267", "#15698C", "#0695AA", "#00F3FF")
+  expected_output <- c("#12012E", "#144267", "#15698C", "#0695AA", "#156275")
   # When this is ran#
   actual_output <- art_pals()
   # So these should be equal

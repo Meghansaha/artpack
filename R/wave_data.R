@@ -2,6 +2,7 @@
 #'
 #' @description
 #' `r lifecycle::badge("experimental")`
+#'
 #' A tool for making data frames filled with data that displays sine or cosine waves when graphed.
 #'
 #'

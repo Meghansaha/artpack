@@ -30,6 +30,8 @@ navbar:
     menu:
     - text: "Brief Examples"
       href: articles/brief_examples.html
+    - text: "See aRtpack in Action"
+      href: articles/see_artpack_in_action.html
   - text: News
     href: news/index.html
   right:
