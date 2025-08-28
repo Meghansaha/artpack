@@ -64,7 +64,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>See aRtpack in Action</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/Meghansaha/artpack/blob/v.0.1.8/vignettes/see_artpack_in_action.Rmd" class="external-link"><code>vignettes/see_artpack_in_action.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Meghansaha/artpack/blob/master/vignettes/see_artpack_in_action.Rmd" class="external-link"><code>vignettes/see_artpack_in_action.Rmd</code></a></small>
       <div class="d-none name"><code>see_artpack_in_action.Rmd</code></div>
     </div>
 
@@ -216,14 +216,10 @@ ggplot to see how the data is looking on the plot:</p>
 <div class="section level3">
 <h3 id="layer-2-the-artistic-overlay">Layer 2 (The Artistic Overlay)<a class="anchor" aria-label="anchor" href="#layer-2-the-artistic-overlay"></a>
 </h3>
-<p>This layer isn’t too bad, but does require some spec setup. Looking
-at the ggplot we have, we’d ideally want the “waves” of water to stay
-roughly below <code>x = 10</code> (So it covers up the bottom of the
-sun). We can pick the number of waves we want, then do some iteration
-with <code><a href="../reference/wave_data.html">wave_data()</a></code> to create an “ocean”. At this point, the
-piece can be considered “finished; so we’ll also tack on ggplot2’s
-<code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_void()</a></code> to clean it up by removing the axes and
-labels.</p>
+<p>This layer may look the most complex on the canvas, but can be done
+easily with artpack. For the overlay, let’s add some light, transparent
+swirls to give the sky some texture. We can use the
+<code><a href="../reference/packer.html">packer()</a></code> function for this:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Make the data</span></span>
 <span><span class="va">df_overlay</span> <span class="op">&lt;-</span></span>
@@ -237,14 +233,14 @@ labels.</p>
 <span>    circle_type <span class="op">=</span> <span class="st">"swirl"</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="co">#&gt; ⠙ Sampling for big-sized circles started</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Sampling for big-sized circles started <span style="color: #B2B2B2;">[958ms]</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Sampling for big-sized circles started <span style="color: #B2B2B2;">[1s]</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Big-sized circles complete!</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Big-sized circles complete! <span style="color: #B2B2B2;">[14ms]</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Big-sized circles complete! <span style="color: #B2B2B2;">[15ms]</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ⠙ Sampling for medium-sized circles started</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Maximum sampling reached for medium-sized circles!</span></span>
-<span><span class="co">#&gt; ⠙ Sampling for medium-sized circles started<span style="color: #00BB00;">✔</span> Sampling for medium-sized circles started <span style="color: #B2B2B2;">[4.2s]</span></span></span>
+<span><span class="co">#&gt; ⠙ Sampling for medium-sized circles started<span style="color: #00BB00;">✔</span> Sampling for medium-sized circles started <span style="color: #B2B2B2;">[4.4s]</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Medium-sized circles complete!</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Medium-sized circles complete! <span style="color: #B2B2B2;">[13ms]</span></span></span>
@@ -253,7 +249,7 @@ labels.</p>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Sampling for small-sized circles started <span style="color: #B2B2B2;">[1.2s]</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Small-sized circles complete!</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Small-sized circles complete! <span style="color: #B2B2B2;">[34ms]</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Small-sized circles complete! <span style="color: #B2B2B2;">[35ms]</span></span></span>
 <span></span>
 <span><span class="co"># And add it to the plot</span></span>
 <span><span class="va">df_sky_bars</span> <span class="op">|&gt;</span></span>
