@@ -111,7 +111,7 @@ art_pals <- function(pal = NULL, n = 5, direction = "regular", randomize = FALSE
       majestic = list(c("#0F061B", "#1D0B35", "#350A3C", "#471049", "#881F74")),
       nature = list(c("#686C20", "#1D3A1D", "#C77F42", "#532F00", "#9C1800", "#5B0000")),
       neon = list(c("#fc0000", "#fc4800", "#fcdb00", "#3ffc00", "#00ecfc", "#001dfc", "#6900fc", "#fc00f0", "#fc007e")),
-      ocean = list(c("#12012E", "#144267", "#15698C", "#0695AA", "#00F3FF")),
+      ocean = list(c("#12012E", "#144267", "#15698C", "#0695AA", "#156275")),
       plants = list(c("#5ebf61", "#2f8032", "#206322", "#0c570f", "#0a380b", "#041f05")),
       rainbow = list(c("#AF3918", "#A21152", "#822B75", "#612884", "#154BAF", "#0B82B9", "#277E9D", "#488E35", "#E3A934", "#f26e0a")),
       sunnyside = list(c("#F6BF07", "#F67C21", "#ED155A", "#F61867")),

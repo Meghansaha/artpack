@@ -23,17 +23,21 @@ navbar:
   left:
   - icon: fa-home
     href: index.html
+    aria-label: Home
   - text: Reference
     href: reference/index.html
   - text: Articles
     menu:
     - text: "Brief Examples"
       href: articles/brief_examples.html
+    - text: "See aRtpack in Action"
+      href: articles/see_artpack_in_action.html
   - text: News
     href: news/index.html
   right:
   - icon: fa-github fa-lg
     href: https://github.com/Meghansaha/artpack
+    aria-label: github
 
 reference:
 

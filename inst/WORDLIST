@@ -2,6 +2,7 @@ CMD
 ORCID
 Tibble
 aRtpack
+artpack's
 bw
 centric
 codecov
@@ -11,8 +12,10 @@ geoms
 ggplot
 icecream
 jitter
+lifecycle
 pkgdown
 sunnyside
 tibble
 tibbles
 webcolor
+’s

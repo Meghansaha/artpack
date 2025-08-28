@@ -47,6 +47,7 @@ is.color <- function(...) {
 #' @param ... #An object to be tested to see if it is of the expected class
 #' @param expected_class #A string of the expected class. Accepted values are `"numeric"`, `"character"`, `"data.frame"`, `"list"`, and `"logical"`
 #' @param call_level #A numeric value setting the call level that's invoked when an error is thrown. This controls where in the function's environment the error is declared in the console messaging and is intended to be used for user-facing error messaging.
+#' @param required Boolean. `TRUE` of `FALSE`. If the var class being checked is required but mismatched, an error will get thrown to the console for the user. If the var is not required, but mismatched, a value of `FALSE` will be returned for dev assistance. Default is `TRUE`.
 #'
 #' @return #A Logical Value
 #' @noRd
@@ -65,7 +66,7 @@ is.color <- function(...) {
 #' class.check(some_numbers, "list")
 #'
 
-class.check <- function(..., expected_class, call_level = -1) {
+class.check <- function(..., expected_class, call_level = -1, required = TRUE) {
 
   call_level_valid <- is.numeric(call_level)
 
@@ -100,7 +101,11 @@ class.check <- function(..., expected_class, call_level = -1) {
       cli::cli_abort()
   }
 
-  if(!var_check){
+  if(var_check){
+    return(TRUE)
+  }
+
+  if(!var_check & required){
 
     var_class <- class(...)
 
@@ -110,8 +115,10 @@ class.check <- function(..., expected_class, call_level = -1) {
       "i" = paste(status("Check the ", "{.var {var_name}}"), "input.")
     ) |>
       cli::cli_abort(call = sys.call(call_level))
-  } else{
-    return(TRUE)
+  }
+
+  if(!var_check & required == FALSE){
+    return(FALSE)
   }
 }
 
@@ -119,7 +126,7 @@ class.check <- function(..., expected_class, call_level = -1) {
 #'
 #' @param ... An object to be tested to see if it is `NULL`
 #' @param call_level A numeric value setting the call level that's invoked when an error is thrown. This controls where in the function's environment the error is declared in the console messaging and is intended to be used for user-facing error messaging.
-#' @param required Boolean. `TRUE` of `FALSE`. If the var being checked is required but missing, an error will get thrown to the console for the user. If the var is not required, but missing, a value of `FALSE` will be return for dev assistance. Default is `TRUE`.
+#' @param required Boolean. `TRUE` of `FALSE`. If the var being checked is required but missing, an error will get thrown to the console for the user. If the var is not required, but missing, a value of `FALSE` will be returned for dev assistance. Default is `TRUE`.
 #'
 #' @return #A Logical Value
 #' @noRd
@@ -264,6 +271,7 @@ is.expected.numeric.type <- function(..., expected_type, call_level = -1){
 #'
 #' @param ... #An object that will have it's length checked.
 #' @param expected_length #A numeric value of the expected object length to check for.
+#' @param expected_op #A string value of the required logic operation to check the length against. Default is "==", Other options are "<=", ">=", "<", and ">".
 #' @param call_level #A numeric value setting the call level that's invoked when an error is thrown. This controls where in the function's environment the error is declared in the console messaging and is intended to be used for user-facing error messaging.
 #'
 #' @return #A Logical Value
@@ -285,7 +293,7 @@ is.expected.numeric.type <- function(..., expected_type, call_level = -1){
 #'
 
 length.check <-
-  function(..., expected_length, call_level = -1) {
+  function(..., expected_length, expected_op = "==", call_level = -1) {
 
     call_level_valid <- is.numeric(call_level)
 
@@ -311,17 +319,38 @@ length.check <-
         cli::cli_abort()
     }
 
-    length_check <- length(...) == expected_length
+    flag_op <- expected_op %in% c("==", ">=", "<=", "<", ">") == FALSE
+
+    if(flag_op){
+      c(
+        "x" = "`expected_op` is invalid! (needs to be ('==', '>=', '<=', '<', '>')",
+        "!" = "check `length.check`"
+      ) |>
+        cli::cli_abort()
+    }
+
+    actual_length <- length(...)
+    operation_string <- paste0(actual_length, expected_op, expected_length)
+    operation_expr <- str2expression(operation_string)
+    length_check <- eval(operation_expr)
 
     flag_length_check <- length_check == FALSE
 
     if(flag_length_check){
 
-      var_length <- length(...)
+      operator_string <-
+        switch(
+          expected_op,
+          "==" = "be of length",
+          ">="  = "have a length greater than or equal to",
+          "<=" = "have a length less than or equal to",
+          ">" = "have a length greater than",
+          "<" = "have a length less than"
+        )
 
       c(
-        "x" = paste("{.var {var_name}} must be of length", error("{expected_length}")),
-        "!" = paste("The input you've supplied, {.var {var_name}}, is of length", callout("{var_length}")),
+        "x" = paste("{.var {var_name}} must", error("{operator_string} {expected_length}")),
+        "!" = paste("The input you've supplied, {.var {var_name}}, is of length", callout("{actual_length}")),
         "i" = paste(status("Check the ", "{.var {var_name}}"), "input.")
       ) |>
         cli::cli_abort(call = sys.call(call_level))

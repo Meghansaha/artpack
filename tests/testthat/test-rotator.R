@@ -1,5 +1,5 @@
 # =============================================================================#
-# Rotator.R Testing Suite------------------------------------------------------
+# Rotator.R Testing Suite-------------------------------------------------------
 # =============================================================================#
 # Test Sets#
 original_square <-
@@ -125,7 +125,35 @@ testthat::test_that("angle must be numeric", {
   )
 })
 
+# Test to check that error occurs if anchor is the incorrect class
+cli::test_that_cli("Test the correct error is thrown when anchor is not the right class",
+                   {
+                     testthat::local_edition(3)
+                     testthat::expect_snapshot(
+                       {
+                         original_square |>
+                         rotator(x, y, anchor = TRUE)
+                       },
+                       error = TRUE
+                     )
+                   },
+                   configs = "ansi"
+)
 
+# Test to check that error occurs if anchor is the wrong length when numeric
+cli::test_that_cli("Test the correct error is thrown when numeric anchor is not the right legnth",
+                   {
+                     testthat::local_edition(3)
+                     testthat::expect_snapshot(
+                       {
+                         original_square |>
+                           rotator(x, y, anchor = c(0,2,3))
+                       },
+                       error = TRUE
+                     )
+                   },
+                   configs = "ansi"
+)
 
 # =============================================================================#
 # Accepted Value Checks--------------------------------------------------------
@@ -207,4 +235,13 @@ new_names <-
 
 testthat::test_that("Test NO change to var names when df isn't dropped and named variables are present", {
   testthat::expect_true(identical(original_names, new_names))
-})
+}
+)
+
+testthat::test_that("numeric anchors work", {
+  testthat::expect_no_error(
+      original_square |>
+      rotator(x, y, anchor = c(1,1))
+  )
+}
+)

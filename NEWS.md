@@ -1,4 +1,11 @@
-# artpack 0.1.7 (Development Version)
+# artpack 0.1.8 (Development Version)
+### **New Functions and Updates**
+* Updated `art_pals()`'s "ocean" palette.
+* Added 'Experimental' lifecycle badges to `packer()` and `wave_data()`.
+* Added the ["See aRtpack in Action"](https://meghansaha.github.io/artpack/articles/see_artpack_in_action.html) vignette.
+* Added alt-text to site image and alt text in code chunks where applicable.
+
+# artpack 0.1.7
 ### **New Functions and Updates**
 * Added `resizer()`.
 * Added more internal utility helper functions.

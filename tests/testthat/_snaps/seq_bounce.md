@@ -44,7 +44,7 @@
       seq_bounce(start_n = c(0, 4), end_n = 10, length = 30, by = 0.247)
     Condition
       [1m[33mError[39m in `seq_bounce()`:[22m
-      [1m[22m[31mx[39m `start_n` must be of length [1m[31m1[39m[22m
+      [1m[22m[31mx[39m `start_n` must [1m[31mbe of length 1[39m[22m
       [33m![39m The input you've supplied, `start_n`, is of length [1m[33m2[39m[22m
       [36mi[39m [1m[36mCheck the `start_n`[39m[22m input.
 
@@ -54,7 +54,7 @@
       seq_bounce(start_n = 0, end_n = c(10, 20, 30), length = 30, by = 0.247)
     Condition
       [1m[33mError[39m in `seq_bounce()`:[22m
-      [1m[22m[31mx[39m `end_n` must be of length [1m[31m1[39m[22m
+      [1m[22m[31mx[39m `end_n` must [1m[31mbe of length 1[39m[22m
       [33m![39m The input you've supplied, `end_n`, is of length [1m[33m3[39m[22m
       [36mi[39m [1m[36mCheck the `end_n`[39m[22m input.
 
@@ -64,7 +64,7 @@
       seq_bounce(start_n = 0, end_n = 10, length = c(30, 89, 90, 120), by = 0.247)
     Condition
       [1m[33mError[39m in `seq_bounce()`:[22m
-      [1m[22m[31mx[39m `length` must be of length [1m[31m1[39m[22m
+      [1m[22m[31mx[39m `length` must [1m[31mbe of length 1[39m[22m
       [33m![39m The input you've supplied, `length`, is of length [1m[33m4[39m[22m
       [36mi[39m [1m[36mCheck the `length`[39m[22m input.
 
@@ -74,7 +74,7 @@
       seq_bounce(start_n = 0, end_n = 10, length = 30, by = c(1:90))
     Condition
       [1m[33mError[39m in `seq_bounce()`:[22m
-      [1m[22m[31mx[39m `by` must be of length [1m[31m1[39m[22m
+      [1m[22m[31mx[39m `by` must [1m[31mbe of length 1[39m[22m
       [33m![39m The input you've supplied, `by`, is of length [1m[33m90[39m[22m
       [36mi[39m [1m[36mCheck the `by`[39m[22m input.
 

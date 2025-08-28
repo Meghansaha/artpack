@@ -46,7 +46,7 @@
       resizer(df_square, x, y, x_anchor = 0:5, factor = 2)
     Condition
       [1m[33mError[39m in `resizer()`:[22m
-      [1m[22m[31mx[39m `x_anchor` must be of length [1m[31m1[39m[22m
+      [1m[22m[31mx[39m `x_anchor` must [1m[31mbe of length 1[39m[22m
       [33m![39m The input you've supplied, `x_anchor`, is of length [1m[33m6[39m[22m
       [36mi[39m [1m[36mCheck the `x_anchor`[39m[22m input.
 
@@ -56,7 +56,7 @@
       resizer(df_square, x, y, y_anchor = 0:5, factor = 2)
     Condition
       [1m[33mError[39m in `resizer()`:[22m
-      [1m[22m[31mx[39m `y_anchor` must be of length [1m[31m1[39m[22m
+      [1m[22m[31mx[39m `y_anchor` must [1m[31mbe of length 1[39m[22m
       [33m![39m The input you've supplied, `y_anchor`, is of length [1m[33m6[39m[22m
       [36mi[39m [1m[36mCheck the `y_anchor`[39m[22m input.
 
@@ -66,7 +66,7 @@
       resizer(df_square, x, y, factor = 1:20)
     Condition
       [1m[33mError[39m in `resizer()`:[22m
-      [1m[22m[31mx[39m `factor` must be of length [1m[31m1[39m[22m
+      [1m[22m[31mx[39m `factor` must [1m[31mbe of length 1[39m[22m
       [33m![39m The input you've supplied, `factor`, is of length [1m[33m20[39m[22m
       [36mi[39m [1m[36mCheck the `factor`[39m[22m input.
 
@@ -76,7 +76,7 @@
       resizer(df_square, x, y, factor = 2, direction = c("up", "up"))
     Condition
       [1m[33mError[39m in `resizer()`:[22m
-      [1m[22m[31mx[39m `direction` must be of length [1m[31m1[39m[22m
+      [1m[22m[31mx[39m `direction` must [1m[31mbe of length 1[39m[22m
       [33m![39m The input you've supplied, `direction`, is of length [1m[33m2[39m[22m
       [36mi[39m [1m[36mCheck the `direction`[39m[22m input.
 
