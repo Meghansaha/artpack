@@ -108,7 +108,7 @@ df_sky_bars |>
 ```
 
 ### Layer 2 (The Artistic Overlay)
-This layer isn't too bad, but does require some spec setup. Looking at the ggplot we have, we'd ideally want the "waves" of water to stay roughly below `x = 10` (So it covers up the bottom of the sun). We can pick the number of waves we want, then do some iteration with `wave_data()` to create an "ocean". At this point, the piece can be considered "finished; so we'll also tack on ggplot2's `theme_void()` to clean it up by removing the axes and labels.
+This layer may look the most complex on the canvas, but can be done easily with artpack. For the overlay, let's add some light, transparent swirls to give the sky some texture. We can use the `packer()` function for this:
 
 ```{r packer, fig.align='center'}
 #| fig.alt: >
