@@ -68,9 +68,10 @@
         "green", "yello"))
     Condition
       [1m[33mError[39m in `grid_maker()`:[22m
-      [1m[22m[33m![39m `fill_pal` contains [1m[31minvalid colors[39m[22m
-      [31mx[39m `fill_pal` must be a vector of valid: [1m[36m`r` color from `colors()`[39m[22m or valid 6 digit [1m[36mhexadecimal webcolors[39m[22m
-      [36mi[39m `yello` is an [1m[33minvalid color[39m[22m
+      [1m[22m[31mx[39m `fill_pal` must contain [1m[31mvalid 6-digit hexadecimal colors[39m[22m or valid color names found in
+      [1m[31m`grDevices::colors()`[39m[22m
+      [33m![39m The input you've supplied, `fill_pal`, contains [1m[33m"yello"[39m[22m
+      [36mi[39m [1m[36mCheck the `fill_pal`[39m[22m input.
 
 # Colors are valid [ansi]
 
@@ -79,9 +80,10 @@
         "green", "yellow"), color_pal = "#000")
     Condition
       [1m[33mError[39m in `grid_maker()`:[22m
-      [1m[22m[33m![39m `color_pal` contains [1m[31minvalid colors[39m[22m
-      [31mx[39m `color_pal` must be a vector of valid: [1m[36m`r` color from `colors()`[39m[22m or valid 6 digit [1m[36mhexadecimal webcolors[39m[22m
-      [36mi[39m `#000` is an [1m[33minvalid color[39m[22m
+      [1m[22m[31mx[39m `color_pal` must contain [1m[31mvalid 6-digit hexadecimal colors[39m[22m or valid color names found in
+      [1m[31m`grDevices::colors()`[39m[22m
+      [33m![39m The input you've supplied, `color_pal`, contains [1m[33m"#000"[39m[22m
+      [36mi[39m [1m[36mCheck the `color_pal`[39m[22m input.
 
 # Fill style presets [ansi]
 

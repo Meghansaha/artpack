@@ -46,7 +46,7 @@ seq_bounce <-
     is.var.present(by)
 
     ## Check that inputs are of length 1----------------------------------------
-    # Throw an error if any are not numeric, otherwise continue#
+    # Throw an error if any are more than 1, otherwise continue#
     ### start_n-----------------------------------------------------------------
     length.check(start_n, expected_length = 1)
     ### end_n-------------------------------------------------------------------

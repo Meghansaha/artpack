@@ -198,35 +198,20 @@ grid_maker <- function(xlim, ylim, size,
 
   # Checking for valid colors
   # Fill pal
-  if (!is.null(fill_pal)) {
-    color_check <- any(is.color(c(fill_pal)) == FALSE)
-
-    if (color_check) {
-      invalid_cols <- names(which(is.color(c(fill_pal)) == FALSE))
-
-      c(
-        paste("{.var fill_pal} contains", error("invalid colors")),
-        "x" = paste("{.var fill_pal} must be a vector of valid:", status("`r` color from `colors()`"), "or valid 6 digit", status("hexadecimal webcolors")),
-        "i" = paste("{.var {invalid_cols}}", ifelse(length(invalid_cols) > 1, paste("are", callout("invalid colors")), paste("is an", callout("invalid color"))))
-      ) |>
-        cli::cli_abort()
+  # Checks for valid color palettes
+  if (!is.null(fill_pal)){
+    for (fill_pal in fill_pal){
+      is.color(fill_pal)
     }
   }
 
-  if (!is.null(color_pal)) {
-    color_check <- any(is.color(c(color_pal)) == FALSE)
-
-    if (color_check) {
-      invalid_cols <- names(which(is.color(c(color_pal)) == FALSE))
-
-      c(
-        paste("{.var color_pal} contains", error("invalid colors")),
-        "x" = paste("{.var color_pal} must be a vector of valid:", status("`r` color from `colors()`"), "or valid 6 digit", status("hexadecimal webcolors")),
-        "i" = paste("{.var {invalid_cols}}", ifelse(length(invalid_cols) > 1, paste("are", callout("invalid colors")), paste("is an", callout("invalid color"))))
-      ) |>
-        cli::cli_abort()
+  # Color pal
+  if (!is.null(color_pal)){
+    for (color_pal in color_pal){
+      is.color(color_pal)
     }
   }
+
 
   # String Preset Catches#
   fill_style_check <- !fill_style %in% c("range", "random")
