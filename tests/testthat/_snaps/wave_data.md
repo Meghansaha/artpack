@@ -59,8 +59,11 @@
     Code
       wave_data(start = 1, end = 0, fill = "#000")
     Condition
-      [1m[33mError[39m in `r_color | hex_color`:[22m
-      [33m![39m operations are possible only for numeric, logical or complex types
+      [1m[33mError[39m in `wave_data()`:[22m
+      [1m[22m[31mx[39m `fill` must contain [1m[31mvalid 6-digit hexadecimal colors[39m[22m or valid color names found in
+      [1m[31m`grDevices::colors()`[39m[22m
+      [33m![39m The input you've supplied, `fill`, contains [1m[33m"#000"[39m[22m
+      [36mi[39m [1m[36mCheck the `fill`[39m[22m input.
 
 # Wave type checks [ansi]
 
@@ -87,14 +90,18 @@
     Code
       wave_data(start = 1, end = 0, group_var = "TRUE")
     Condition
-      [1m[33mError[39m in `r_color | hex_color`:[22m
-      [33m![39m operations are possible only for numeric, logical or complex types
+      [1m[33mError[39m in `wave_data()`:[22m
+      [1m[22m[33m![39m `group_var` is [1m[31minvalid[39m[22m
+      [31mx[39m `group_var` must be of class [1m[36m<logical>[39m[22m
+      [36mi[39m `group_var` is of class [1m[34m<character>[39m[22m
 
 ---
 
     Code
       wave_data(start = 1, end = 0, group_var = "TRUE")
     Condition
-      [1m[33mError[39m in `r_color | hex_color`:[22m
-      [33m![39m operations are possible only for numeric, logical or complex types
+      [1m[33mError[39m in `wave_data()`:[22m
+      [1m[22m[33m![39m `group_var` is [1m[31minvalid[39m[22m
+      [31mx[39m `group_var` must be of class [1m[36m<logical>[39m[22m
+      [36mi[39m `group_var` is of class [1m[34m<character>[39m[22m
 

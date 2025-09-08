@@ -1,4 +1,11 @@
-# artpack 0.1.8 (Development Version)
+# artpack 0.1.9 (Development Version)
+### **New Functions and Updates**
+* Added `set_brightness`
+* Added `set_saturation`
+* Updated input checks for various functions
+* Added "Function to Geom" Matrix (Think about this name and add link when made)
+
+# artpack 0.1.8
 ### **New Functions and Updates**
 * Updated `art_pals()`'s "ocean" palette.
 * Added 'Experimental' lifecycle badges to `packer()` and `wave_data()`.
