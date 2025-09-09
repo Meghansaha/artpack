@@ -30,6 +30,8 @@ navbar:
     menu:
     - text: "Brief Examples"
       href: articles/brief_examples.html
+    - text: "Connecting artpack Assets to ggplot2 Geoms"
+      href: articles/geom_chart.html
     - text: "See aRtpack in Action"
       href: articles/see_artpack_in_action.html
   - text: News
@@ -54,6 +56,8 @@ reference:
 - subtitle: Functions that help with color-related tasks.
 - contents:
   - art_pals
+  - set_brightness
+  - set_saturation
 
 - title: Sequence Tools
 - subtitle: Functions that help with numeric sequencing.

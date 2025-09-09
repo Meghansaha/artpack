@@ -38,6 +38,8 @@ The focus of artpack is to provide you with crafted data frames that can be easi
 ### With `I()`
 
 ```{r ex-1}
+#| fig-alt: "Scatter plot on dark background showing various colored circular points and concentric spiral patterns. Points include solid circles in blue, teal, purple, green, and orange, along with larger spiral/circular patterns in magenta, purple, and orange-red. The elements are randomly distributed across the plot area."
+
 # install.packages("artpack")
 library(ggplot2)
 library(artpack)
@@ -63,6 +65,8 @@ df_packed_circles <-
 ### With `scale_{xx}-type functions`
 
 ```{r ex-2}
+#| fig-alt: "Scatter plot on dark background showing various colored circular points and concentric spiral patterns. Points include solid circles in blue, teal, purple, green, and orange, along with larger spiral/circular patterns in magenta, purple, and orange-red. The elements are randomly distributed across the plot area."
+#| 
 df_packed_circles |>
   ggplot(aes(x, y, group = group, color = color)) +
   theme_void() +
@@ -76,6 +80,8 @@ df_packed_circles |>
 ## Via geom layers
 
 ```{r ex-3}
+#| fig-alt: "Similar scatter plot to previous with slight variations in positioning. Shows colored circular points and concentric spiral patterns on dark background, with solid circles in various colors (blue, teal, purple, green, orange) and larger decorative spiral elements in magenta, purple, and orange-red."
+#| 
 df_packed_circles |>
   ggplot(aes(x, y, group = group)) +
   theme_void() +
@@ -91,6 +97,8 @@ df_packed_circles |>
 One last important thing to remember about using ggplot2 for art, is grouping. Getting comfortable with ggplot grouping is an essential skill for creating generative art. When creating art on a ggplot, you can think of it as drawing on a piece of paper in real life. Think of "grouping" as your way of telling ggplot2 to "pick the pencil up" off the paper". These grouping variables help ggplot to understand when to "stop drawing" a line for a shape. Let's look at a quick example using the `grid_maker()` function:
 
 ```{r ex-4}
+#| fig-alt: "Heat map or grid visualization with color gradient from yellow at bottom to bright magenta/pink at top. The grid appears to be approximately 12x12 squares with smooth color transitions creating a temperature or intensity visualization."
+#| 
 df_grid <-
   grid_maker(
     xlim = c(0,10),
@@ -114,6 +122,8 @@ df_grid |>
 With the grouping function, the image looks as expected with nicely colored squares in a grid. If we remove the `group` argument from `aes()` in the `ggplot()` function:
 
 ```{r ex-5}
+#| fig-alt: "Grid-based visualization on yellow background showing a diagonal white triangular or wedge pattern. The triangle extends from the bottom-left corner toward the upper-right, creating a clear geometric division in the square grid layout."
+#| 
 df_grid |>
   ggplot(aes(x,y)) +
   geom_polygon(
@@ -125,9 +135,11 @@ df_grid |>
 
 ```
 
-It turns into a hot mess! This is because without a grouping variable, ggplot doesn't understand where the data for a square stops and ends. Using groups allows more control over creative decisions and can simplify your workflow by allowing you to create and use multiple variables from a data frame within one geom layer. Remember that artpack has additional group-related functions to help you wrangle your group variables, like the `group_sample()` function which allows you to sample a data frame by groups (instead of just rows):
+It turns into a hot mess! This is because without a grouping variable, ggplot doesn't understand where the data for a square stops and ends. Using groups allows more control over creative decisions and can simplify your workflow by allowing you to create and use multiple variables from a data frame within one geom layer. Remember that artpack has [additional group-related functions](https://meghansaha.github.io/artpack/reference/index.html#group-tools) to help you wrangle your group variables, like the `group_sample()` function which allows you to sample a data frame by groups (instead of just rows):
 
 ```{r ex-6}
+#| fig-alt: "Pixelated or mosaic-style visualization with irregular white and colored blocks. Uses a gradient color scheme from yellow at bottom through orange and red to magenta at top, creating an abstract pattern with white negative spaces throughout."
+#| 
 set.seed(01234)
 
 df_grid |>
