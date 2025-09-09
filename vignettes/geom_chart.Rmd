@@ -1,0 +1,156 @@
+---
+title: "Connecting artpack Assets to ggplot2 Geoms"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{geom_chart}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+# Introduction
+
+This vignette goes over different artpack [asset creations](https://meghansaha.github.io/artpack/reference/index.html#asset-creation) and their recommended [`ggplot2` geoms](https://ggplot2.tidyverse.org/reference/index.html#geoms) that can be used when creating art in R with artpack and ggplot2. To start, let's look at a handy chart that can be used as a reference for artpack users.
+
+# artpack Assets and Their Recommended ggplot2 geom
+
+| artpack Asset Function | Recommended ggplot2 Geoms   | grouping variable needed?| Miscellaneous Info|
+|------------------|------------------|------------------|--------------------------------------|
+|`circle_data()` | - `geom_polygon` <br><br> - `geom_path()` | Maybe | - set `group_var` to `TRUE` if more than one circle is being plotted <br><br> - Use `coord_equal()` for best results |
+|`grid_maker()` | - `geom_polygon` <br><br> - `geom_path()` | Yes | Note that `grid_maker()` was originally created just for `geom_polygon()`, but it CAN be used with `geom_path()`. `geom_path()` does not have a `fill` argument. <br><br>If you wish to create different sizes or colors for the grid squares with `geom_path()` you'll need to create unique values for each grouping. You can learn more about this in the later section [Making Sense of Grouping in ggplot2](#making-sense-of-grouping-in-ggplot2) |
+|`packer()` | - `geom_polygon` <br><br> - `geom_path()` | Yes | Note that the data produced by `packer()` can be fed into `geom_polygon()` and `geom_path()` regardless of the `circle_type` that is set. <br><br> When `circle_type = "swirl"`, `geom_path()` is suggested, but `geom_polygon()` can be used with varying results.|
+|`square_data()` | - `geom_polygon` <br><br> - `geom_path()` | Maybe | `N/A` |
+|`wave_data()` | - `geom_polygon` <br><br> - `geom_path()` | Maybe | - set `group_var` to `TRUE` if more than one wave is being plotted <br><br> - Use `coord_equal()` for best results |
+
+# Feeding in the Created artpack Data to ggplot Plots
+
+The focus of artpack is to provide you with crafted data frames that can be easily used within ggplot2 plots. Note that there are different ways to place data into a ggplot:
+
+## Via `aes()`
+
+### With `I()`
+
+```{r ex-1}
+# install.packages("artpack")
+library(ggplot2)
+library(artpack)
+set.seed(0515)
+
+df_packed_circles <-
+   packer(
+   n = 25, big_r = 7, med_r = 3, small_r = 1,
+   min_x = 0, max_x = 100, min_y = 0, max_y = 100,
+   color_pal = art_pals("rainbow", 15),
+   circle_type = "swirl"
+ )
+ 
+ df_packed_circles |>
+   ggplot(aes(x, y, group = group, color = I(color))) + # I (base R) takes the color values as-is and passes it through
+   theme_void() +
+   theme(plot.background = element_rect(fill = "#333333")) +
+   geom_path() +
+   coord_equal()
+
+```
+
+### With `scale_{xx}-type functions`
+
+```{r ex-2}
+df_packed_circles |>
+  ggplot(aes(x, y, group = group, color = color)) +
+  theme_void() +
+  theme(plot.background = element_rect(fill = "#333333")) +
+  scale_color_identity(guide = "none") + # Takes color values as-is and removes plot legend
+  geom_path() +
+  coord_equal()
+
+```
+
+## Via geom layers
+
+```{r ex-3}
+df_packed_circles |>
+  ggplot(aes(x, y, group = group)) +
+  theme_void() +
+  theme(plot.background = element_rect(fill = "#333333")) +
+  geom_path(aes(x = x + 1, y = y - .7), color = "#000000") + # Changes made directly in the layer
+  geom_path(color = df_packed_circles$color) + # Column from df placed directly in the layer
+  coord_equal()
+
+```
+
+# Making Sense of Grouping In ggplot2
+
+One last important thing to remember about using ggplot2 for art, is grouping. Getting comfortable with ggplot grouping is an essential skill for creating generative art. When creating art on a ggplot, you can think of it as drawing on a piece of paper in real life. Think of "grouping" as your way of telling ggplot2 to "pick the pencil up" off the paper". These grouping variables help ggplot to understand when to "stop drawing" a line for a shape. Let's look at a quick example using the `grid_maker()` function:
+
+```{r ex-4}
+df_grid <-
+  grid_maker(
+    xlim = c(0,10),
+    ylim = c(0,10),
+    size = 10,
+    fill_pal = art_pals("sunnyside", 5),
+    color_pal = sapply(art_pals("sunnyside", 5), \(x) set_brightness(x, 0.40))
+  )
+
+df_grid |>
+  ggplot(aes(x,y, group = group)) +
+  geom_polygon(
+    fill = df_grid$fill,
+    color = df_grid$color
+  ) +
+  theme_void() +
+  coord_equal()
+
+```
+
+With the grouping function, the image looks as expected with nicely colored squares in a grid. If we remove the `group` argument from `aes()` in the `ggplot()` function:
+
+```{r ex-5}
+df_grid |>
+  ggplot(aes(x,y)) +
+  geom_polygon(
+    fill = df_grid$fill,
+    color = df_grid$color
+  ) +
+  theme_void() +
+  coord_equal()
+
+```
+
+It turns into a hot mess! This is because without a grouping variable, ggplot doesn't understand where the data for a square stops and ends. Using groups allows more control over creative decisions and can simplify your workflow by allowing you to create and use multiple variables from a data frame within one geom layer. Remember that artpack has additional group-related functions to help you wrangle your group variables, like the `group_sample()` function which allows you to sample a data frame by groups (instead of just rows):
+
+```{r ex-6}
+set.seed(01234)
+
+df_grid |>
+  group_sample(group = group, prop = .70) |>
+  ggplot(aes(x,y, group = group, fill = I(fill), color = I(color))) +
+  geom_polygon() +
+  theme_void() +
+  coord_equal()
+
+```
+
+# Wrapping Up
+
+This vignette demonstrated how artpack's asset creation functions can be integrated within ggplot2's geom layers.
+
+Remember that:
+
+- Each artpack asset function works best with specific ggplot2 geoms (see reference table)
+- Colors can be applied using `I()`, `scale_*_identity()`, or directly in geom layers
+- Proper grouping is essential for multi-shape plots
+- Functions like `group_sample()` provide additional control over your artistic output
+
+# See Also:
+- [Other artpack vignettes](https://meghansaha.github.io/artpack/articles)
+- [Thinking Outside The Grid - A “bare bones” intro to Rtistry concepts in R using ggplot.](https://thetidytrekker.com/post/thinking-outside-the-grid/thinking-outside-the-grid)
+- [It's all about Perspective: "Making A Case for Generative Art"](https://thetidytrekker.com/talks/making_a_case/making_a_case)

@@ -3,7 +3,8 @@
 * Added `set_brightness`
 * Added `set_saturation`
 * Updated input checks for various functions
-* Added "Function to Geom" Matrix (Think about this name and add link when made)
+* Updated back end operations for `grid_maker()`
+* Added vignette "[Connecting artpack Assets to ggplot2 Geoms](articles/geom_chart.html)"
 
 # artpack 0.1.8
 ### **New Functions and Updates**
