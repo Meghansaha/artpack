@@ -123,9 +123,9 @@ art_pals <- function(pal = NULL, n = 5, direction = "regular", randomize = FALSE
   # ===========================================================================#
   ## n--------------------------------------------------------------------------
   ### is numeric----
-  class.check(n, expected_class = "numeric")
+  check.class(n, expected_class = "numeric")
   ### is length of 1----
-  length.check(n, expected_length = 1)
+  check.length(n, expected_length = 1)
   ### is > 0 and an integer#
   is.expected.numeric.type(n, expected_type = c("positive", "integer"))
 
@@ -137,9 +137,9 @@ art_pals <- function(pal = NULL, n = 5, direction = "regular", randomize = FALSE
     pal <- "ocean"
   }
   ### is length of 1----
-  length.check(pal, expected_length = 1)
+  check.length(pal, expected_length = 1)
   ### is character----
-  class.check(pal, expected_class = "character")
+  check.class(pal, expected_class = "character")
 
   # Checking for capitalization#
   case_check <- grepl("[[:upper:]]", pal)
@@ -172,9 +172,9 @@ art_pals <- function(pal = NULL, n = 5, direction = "regular", randomize = FALSE
 
   ## direction------------------------------------------------------------------
   ### is length of 1----
-  length.check(direction, expected_length = 1)
+  check.length(direction, expected_length = 1)
   ### is character----
-  class.check(direction, expected_class = "character")
+  check.class(direction, expected_class = "character")
 
   # Checking for capitalization#
   case_check <- grepl("[[:upper:]]", direction)
@@ -209,9 +209,9 @@ art_pals <- function(pal = NULL, n = 5, direction = "regular", randomize = FALSE
   }
   ## randomized-----------------------------------------------------------------
   ### is length of 1----
-  length.check(randomize, expected_length = 1)
+  check.length(randomize, expected_length = 1)
   ### is logical----
-  class.check(randomize, expected_class = "logical")
+  check.class(randomize, expected_class = "logical")
 
   # ===========================================================================#
   # Palette Generation----------------------------------------------------------

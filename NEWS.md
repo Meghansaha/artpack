@@ -4,7 +4,7 @@
 * Added `set_saturation`
 * Updated input checks for various functions
 * Updated back end operations for `grid_maker()`
-* Added vignette "[Connecting artpack Assets to ggplot2 Geoms](articles/geom_chart.html)"
+* Added vignette "[Connecting artpack Assets to ggplot2 Geoms](https://meghansaha.github.io/artpack/articles/geom_chart.html)"
 
 # artpack 0.1.8
 ### **New Functions and Updates**

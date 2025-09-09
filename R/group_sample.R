@@ -224,6 +224,14 @@ group_sample <- function(data, group, n = 1, prop = NULL, prob = NULL, group_out
     }
   }
 
+  # Ensure n is not larger than groups n#
+  if (n > vec_groups_n) {
+    cli::cli_abort(c(
+      "x" = paste("Cannot sample", error(n), "groups when only", error(vec_groups_n), "unique groups exist"),
+      "i" = paste("Reduce {.var n} to", status(paste("<=", vec_groups_n)))
+    ))
+  }
+
   # Sample the groups
   vec_groups_to_keep <- sample(vec_groups, size = n, prob = prob)
 
