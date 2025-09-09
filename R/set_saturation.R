@@ -53,17 +53,17 @@ set_saturation <- function(color = NULL, percentage = NULL){
   ## Check that all inputs are the correct class/type------------------------
   # Throw an error if the wrong class or numeric type is detected, otherwise continue#
   ### color------------------------------------------------------------------
-  class.check(color, expected_class = "character")
+  check.class(color, expected_class = "character")
   is.color(color)
   ### percentage-------------------------------------------------------------
-  class.check(percentage, expected_class = "numeric")
+  check.class(percentage, expected_class = "numeric")
 
   ## Check that inputs are of length 1----------------------------------------
   # Throw an error if any are not, otherwise continue#
   ### color-------------------------------------------------------------------
-  length.check(color, expected_length = 1)
+  check.length(color, expected_length = 1)
   ### percentage--------------------------------------------------------------
-  length.check(percentage, expected_length = 1)
+  check.length(percentage, expected_length = 1)
 
   ## Check that all applicable inputs are the correct numeric type--------------
   ### percentage----

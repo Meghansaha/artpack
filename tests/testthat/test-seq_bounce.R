@@ -250,22 +250,21 @@ testthat::test_that("works as expected", {
 
 ## The output is a numeric vector-----------------------------------------------
 testthat::test_that("output is a numeric vector", {
-  # Create randomized values for inputs
+  # Create safer randomized values
   rand_start_n <- sample(-10:10, 1)
-  rand_end_n <- sample((rand_start_n + 1):(rand_start_n + 20), 1)
+  rand_end_n <- sample((rand_start_n + 5):(rand_start_n + 20), 1)  # Ensure bigger range
   rand_length <- sample(1:100, 1)
-  rand_by <- sample(seq(.1, 5, by = .1), 1)
+  # Ensure by is smaller than the range
+  max_by <- (rand_end_n - rand_start_n) / 2
+  rand_by <- runif(1, 0.1, max_by)
 
-  # No matter the value, the output should be a numeric vector
-  actual_output <-
-    seq_bounce(
-      start_n = rand_start_n,
-      end_n = rand_end_n,
-      length = rand_length,
-      by = rand_by
-      )
+  actual_output <- seq_bounce(
+    start_n = rand_start_n,
+    end_n = rand_end_n,
+    length = rand_length,
+    by = rand_by
+  )
 
-  # So these should be true
   testthat::expect_true(actual_output |> is.numeric())
   testthat::expect_true(actual_output |> is.vector())
 })

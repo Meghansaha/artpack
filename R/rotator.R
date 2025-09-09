@@ -84,16 +84,16 @@ rotator <- function(data, x, y, angle = 5, anchor = "center", drop = FALSE) {
 
   ## Check that all inputs are of expected class--------------------------------
   ### data----------------------------------------------------------------------
-  class.check(data, expected_class = "data.frame")
+  check.class(data, expected_class = "data.frame")
   ### x-------------------------------------------------------------------------
-  class.check(x, expected_class = "numeric")
+  check.class(x, expected_class = "numeric")
   ### y-------------------------------------------------------------------------
-  class.check(y, expected_class = "numeric")
+  check.class(y, expected_class = "numeric")
   ### anchor--------------------------------------------------------------------
   # It can be a string#
-  anchor_string <- class.check(anchor, expected_class = "character", required = FALSE)
+  anchor_string <- check.class(anchor, expected_class = "character", required = FALSE)
   # Or a numeric vector#
-  anchor_numeric <- class.check(anchor, expected_class = "numeric", required = FALSE)
+  anchor_numeric <- check.class(anchor, expected_class = "numeric", required = FALSE)
   # Flag and throw an error if it's neither#
   anchor_class_check <- anchor_string | anchor_numeric
 
@@ -108,30 +108,30 @@ rotator <- function(data, x, y, angle = 5, anchor = "center", drop = FALSE) {
       cli::cli_abort()
   }
   ### angle---------------------------------------------------------------------
-  class.check(angle, expected_class = "numeric")
+  check.class(angle, expected_class = "numeric")
   ### drop----------------------------------------------------------------------
-  class.check(drop, expected_class = "logical")
+  check.class(drop, expected_class = "logical")
 
   ## Check that all applicable inputs are of expected length--------------------
   ### data----------------------------------------------------------------------
-  length.check(data, expected_length = 1, expected_op = ">=")
+  check.length(data, expected_length = 1, expected_op = ">=")
   ### x-------------------------------------------------------------------------
   data_rows <- nrow(data)
-  length.check(x, expected_length = data_rows)
+  check.length(x, expected_length = data_rows)
   ### y-------------------------------------------------------------------------
-  length.check(y, expected_length = data_rows)
+  check.length(y, expected_length = data_rows)
   ### angle---------------------------------------------------------------------
-  length.check(angle, expected_length = 1)
+  check.length(angle, expected_length = 1)
   ### anchor--------------------------------------------------------------------
   if(anchor_numeric){
-    length.check(anchor, expected_length = 2)
+    check.length(anchor, expected_length = 2)
   }
 
   if(anchor_string){
-    length.check(anchor, expected_length = 1)
+    check.length(anchor, expected_length = 1)
   }
   ### drop----------------------------------------------------------------------
-  length.check(drop, expected_length = 1)
+  check.length(drop, expected_length = 1)
 
   ## Check that all applicable inputs are of expected values--------------------
   ### anchor--------------------------------------------------------------------

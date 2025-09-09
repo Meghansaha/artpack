@@ -48,24 +48,24 @@ seq_bounce <-
     ## Check that inputs are of length 1----------------------------------------
     # Throw an error if any are more than 1, otherwise continue#
     ### start_n-----------------------------------------------------------------
-    length.check(start_n, expected_length = 1)
+    check.length(start_n, expected_length = 1)
     ### end_n-------------------------------------------------------------------
-    length.check(end_n, expected_length = 1)
+    check.length(end_n, expected_length = 1)
     ### length------------------------------------------------------------------
-    length.check(length, expected_length = 1)
+    check.length(length, expected_length = 1)
     ### by----------------------------------------------------------------------
-    length.check(by, expected_length = 1)
+    check.length(by, expected_length = 1)
 
     ## Check that all inputs are numeric----------------------------------------
     # Throw an error if any are not numeric, otherwise continue#
     ### start_n-----------------------------------------------------------------
-    class.check(start_n, expected_class = "numeric")
+    check.class(start_n, expected_class = "numeric")
     ### end_n-------------------------------------------------------------------
-    class.check(end_n, expected_class = "numeric")
+    check.class(end_n, expected_class = "numeric")
     ### length------------------------------------------------------------------
-    class.check(length, expected_class = "numeric")
+    check.class(length, expected_class = "numeric")
     ### by----------------------------------------------------------------------
-    class.check(by, expected_class = "numeric")
+    check.class(by, expected_class = "numeric")
 
     ## Check that all applicable inputs are numeric positive/integer------------
     # Throw an error if not#
