@@ -150,30 +150,30 @@ resizer <-
 
     ## Check that all (applicable) inputs are of expected length----------------
     ### x_anchor----------------------------------------------------------------
-    length.check(x_anchor, expected_length = 1)
+    check.length(x_anchor, expected_length = 1)
     ### y_anchor----------------------------------------------------------------
-    length.check(y_anchor, expected_length = 1)
+    check.length(y_anchor, expected_length = 1)
     ### factor------------------------------------------------------------------
-    length.check(factor, expected_length = 1)
+    check.length(factor, expected_length = 1)
     ### direction---------------------------------------------------------------
-    length.check(direction, expected_length = 1)
+    check.length(direction, expected_length = 1)
 
     ## Check that all inputs are the correct class------------------------------
     # Throw an error if any are not, otherwise continue#
     ### x-----------------------------------------------------------------------
-    class.check(x, expected_class = "numeric")
+    check.class(x, expected_class = "numeric")
     ### x_anchor----------------------------------------------------------------
-    class.check(x_anchor, expected_class = "numeric")
+    check.class(x_anchor, expected_class = "numeric")
     ### y-----------------------------------------------------------------------
-    class.check(y, expected_class = "numeric")
+    check.class(y, expected_class = "numeric")
     ### y_anchor----------------------------------------------------------------
-    class.check(y_anchor, expected_class = "numeric")
+    check.class(y_anchor, expected_class = "numeric")
     ### factor------------------------------------------------------------------
-    class.check(factor, expected_class = "numeric")
+    check.class(factor, expected_class = "numeric")
     ### direction---------------------------------------------------------------
-    class.check(direction, expected_class = "character")
+    check.class(direction, expected_class = "character")
     ### drop--------------------------------------------------------------------
-    class.check(drop, expected_class = "logical")
+    check.class(drop, expected_class = "logical")
 
     ## Check that factor is positive--------------------------------------------
     # Throw an error if not, otherwise continue#

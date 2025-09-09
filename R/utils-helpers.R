@@ -27,7 +27,7 @@ is.color <- function(..., call_level = -1) {
   if(!call_level_valid){
     c(
       "x" = "`call_level` is invalid!",
-      "!" = "check `class.check`"
+      "!" = "check `check.class`"
     ) |>
       cli::cli_abort()
   }
@@ -80,22 +80,22 @@ is.color <- function(..., call_level = -1) {
 #'
 #' a_word <- "word"
 #'
-#' class.check(a_word, "character")
+#' check.class(a_word, "character")
 #'
 #' Invalid class checks throw an error
 #'
 #' some_numbers <- 1:10
-#' class.check(some_numbers, "list")
+#' check.class(some_numbers, "list")
 #'
 
-class.check <- function(..., expected_class, call_level = -1, required = TRUE) {
+check.class <- function(..., expected_class, call_level = -1, required = TRUE) {
 
   call_level_valid <- is.numeric(call_level)
 
   if(!call_level_valid){
     c(
       "x" = "`call_level` is invalid!",
-      "!" = "check `class.check`"
+      "!" = "check `check.class`"
     ) |>
       cli::cli_abort()
   }
@@ -118,7 +118,7 @@ class.check <- function(..., expected_class, call_level = -1, required = TRUE) {
   if(!var_check_valid){
     c(
       "x" = "`expected_class` is invalid!",
-      "!" = "check `class.check`"
+      "!" = "check `check.class`"
     ) |>
       cli::cli_abort()
   }
@@ -305,16 +305,16 @@ is.expected.numeric.type <- function(..., expected_type, call_level = -1){
 #'
 #' an_object <- 1:10
 #'
-#' length.check(an_object, expected_length = 10)
+#' check.length(an_object, expected_length = 10)
 #'
 #' objects that fail the check throw an error
 #'
 #' an_another_object <- 1:5
 #'
-#' length.check(an_another_object, expected_length = 5)
+#' check.length(an_another_object, expected_length = 5)
 #'
 
-length.check <-
+check.length <-
   function(..., expected_length, expected_op = "==", call_level = -1) {
 
     call_level_valid <- is.numeric(call_level)
@@ -322,7 +322,7 @@ length.check <-
     if(!call_level_valid){
       c(
         "x" = "`call_level` is invalid!",
-        "!" = "check `length.check`"
+        "!" = "check `check.length`"
       ) |>
         cli::cli_abort()
     }
@@ -336,7 +336,7 @@ length.check <-
     if(flag_expected_length){
       c(
         "x" = "`expected_length` is invalid! (needs to be numeric)",
-        "!" = "check `length.check`"
+        "!" = "check `check.length`"
       ) |>
         cli::cli_abort()
     }
@@ -346,7 +346,7 @@ length.check <-
     if(flag_op){
       c(
         "x" = "`expected_op` is invalid! (needs to be ('==', '>=', '<=', '<', '>')",
-        "!" = "check `length.check`"
+        "!" = "check `check.length`"
       ) |>
         cli::cli_abort()
     }
@@ -413,7 +413,7 @@ is.expected.value <-
     if(!call_level_valid){
       c(
         "x" = "`call_level` is invalid!",
-        "!" = "check `length.check`"
+        "!" = "check `check.length`"
       ) |>
         cli::cli_abort()
     }

@@ -2,7 +2,7 @@
 title: "Connecting artpack Assets to ggplot2 Geoms"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{geom_chart}
+  %\VignetteIndexEntry{Connecting artpack Assets to ggplot2 Geoms}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -10,7 +10,8 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.align = "center"
 )
 ```
 
@@ -163,6 +164,5 @@ Remember that:
 - Functions like `group_sample()` provide additional control over your artistic output
 
 # See Also:
-- [Other artpack vignettes](https://meghansaha.github.io/artpack/articles)
 - [Thinking Outside The Grid - A “bare bones” intro to Rtistry concepts in R using ggplot.](https://thetidytrekker.com/post/thinking-outside-the-grid/thinking-outside-the-grid)
 - [It's all about Perspective: "Making A Case for Generative Art"](https://thetidytrekker.com/talks/making_a_case/making_a_case)

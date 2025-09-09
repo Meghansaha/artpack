@@ -3,14 +3,14 @@
 # =============================================================================#
 
 #==============================================================================#
-# class.check error messaging---------------------------------------------------
+# check.class error messaging---------------------------------------------------
 #==============================================================================#
 cli::test_that_cli("invalid call_level throws the expected error",
                    {
                      testthat::local_edition(3)
                      testthat::expect_snapshot(
                        {
-                         class.check("test", "character", call_level = "five")
+                         check.class("test", "character", call_level = "five")
                        },
                        error = TRUE
                      )
@@ -23,7 +23,7 @@ cli::test_that_cli("invalid expected_class throws the expected error",
                      testthat::local_edition(3)
                      testthat::expect_snapshot(
                        {
-                         class.check("test", expected_class = "char")
+                         check.class("test", expected_class = "char")
                        },
                        error = TRUE
                      )
@@ -90,14 +90,14 @@ cli::test_that_cli("invalid expected_type throws the expected error (plural)",
 )
 
 #==============================================================================#
-# length.check error messaging--------------------------------------------------
+# check.length error messaging--------------------------------------------------
 #==============================================================================#
 cli::test_that_cli("invalid call_level throws the expected error",
                    {
                      testthat::local_edition(3)
                      testthat::expect_snapshot(
                        {
-                         length.check("test", expected_length = 1, call_level = "five")
+                         check.length("test", expected_length = 1, call_level = "five")
                        },
                        error = TRUE
                      )
@@ -110,7 +110,7 @@ cli::test_that_cli("invalid expected_length throws the expected error",
                      testthat::local_edition(3)
                      testthat::expect_snapshot(
                        {
-                         length.check("test", expected_length = "one")
+                         check.length("test", expected_length = "one")
                        },
                        error = TRUE
                      )
@@ -123,7 +123,7 @@ cli::test_that_cli("invalid expected_op throws the expected error",
                      testthat::local_edition(3)
                      testthat::expect_snapshot(
                        {
-                         length.check("test", expected_length = 1, expected_op = "=")
+                         check.length("test", expected_length = 1, expected_op = "=")
                        },
                        error = TRUE
                      )

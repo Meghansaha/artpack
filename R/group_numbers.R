@@ -36,13 +36,13 @@ group_numbers <- function(numbers, prefix = NULL, suffix = NULL, sep = NULL) {
   affix_present <- FALSE
 
   ## numbers--------------------------------------------------------------------
-  class.check(numbers, expected_class = "numeric")
+  check.class(numbers, expected_class = "numeric")
 
   ## prefix---------------------------------------------------------------------
   prefix_present <- is.null(prefix) == FALSE
 
   if (prefix_present) {
-    class.check(prefix, expected_class = "character")
+    check.class(prefix, expected_class = "character")
 
     prefix <- paste0(prefix, sep)
 
@@ -55,7 +55,7 @@ group_numbers <- function(numbers, prefix = NULL, suffix = NULL, sep = NULL) {
   suffix_present <- is.null(suffix) == FALSE
 
   if (suffix_present) {
-    class.check(suffix, expected_class = "character")
+    check.class(suffix, expected_class = "character")
 
     suffix <- paste0(sep, suffix)
 
@@ -68,7 +68,7 @@ group_numbers <- function(numbers, prefix = NULL, suffix = NULL, sep = NULL) {
   sep_present <- is.null(sep) == FALSE
 
   if (sep_present){
-    class.check(sep, expected_class = "character")
+    check.class(sep, expected_class = "character")
 
     sep_check <- sep_present & (affix_present == FALSE)
 

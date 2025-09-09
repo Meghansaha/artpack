@@ -1,11 +1,11 @@
 # invalid call_level throws the expected error [ansi]
 
     Code
-      class.check("test", "character", call_level = "five")
+      check.class("test", "character", call_level = "five")
     Condition
-      [1m[33mError[39m in `class.check()`:[22m
+      [1m[33mError[39m in `check.class()`:[22m
       [1m[22m[31mx[39m `call_level` is invalid!
-      [33m![39m check `class.check`
+      [33m![39m check `check.class`
 
 ---
 
@@ -29,11 +29,11 @@
 ---
 
     Code
-      length.check("test", expected_length = 1, call_level = "five")
+      check.length("test", expected_length = 1, call_level = "five")
     Condition
-      [1m[33mError[39m in `length.check()`:[22m
+      [1m[33mError[39m in `check.length()`:[22m
       [1m[22m[31mx[39m `call_level` is invalid!
-      [33m![39m check `length.check`
+      [33m![39m check `check.length`
 
 ---
 
@@ -42,7 +42,7 @@
     Condition
       [1m[33mError[39m in `is.expected.value()`:[22m
       [1m[22m[31mx[39m `call_level` is invalid!
-      [33m![39m check `length.check`
+      [33m![39m check `check.length`
 
 ---
 
@@ -51,16 +51,16 @@
     Condition
       [1m[33mError[39m in `is.color()`:[22m
       [1m[22m[31mx[39m `call_level` is invalid!
-      [33m![39m check `class.check`
+      [33m![39m check `check.class`
 
 # invalid expected_class throws the expected error [ansi]
 
     Code
-      class.check("test", expected_class = "char")
+      check.class("test", expected_class = "char")
     Condition
-      [1m[33mError[39m in `class.check()`:[22m
+      [1m[33mError[39m in `check.class()`:[22m
       [1m[22m[31mx[39m `expected_class` is invalid!
-      [33m![39m check `class.check`
+      [33m![39m check `check.class`
 
 # invalid expected_type throws the expected error (singular) [ansi]
 
@@ -85,20 +85,20 @@
 # invalid expected_length throws the expected error [ansi]
 
     Code
-      length.check("test", expected_length = "one")
+      check.length("test", expected_length = "one")
     Condition
-      [1m[33mError[39m in `length.check()`:[22m
+      [1m[33mError[39m in `check.length()`:[22m
       [1m[22m[31mx[39m `expected_length` is invalid! (needs to be numeric)
-      [33m![39m check `length.check`
+      [33m![39m check `check.length`
 
 # invalid expected_op throws the expected error [ansi]
 
     Code
-      length.check("test", expected_length = 1, expected_op = "=")
+      check.length("test", expected_length = 1, expected_op = "=")
     Condition
-      [1m[33mError[39m in `length.check()`:[22m
+      [1m[33mError[39m in `check.length()`:[22m
       [1m[22m[31mx[39m `expected_op` is invalid! (needs to be ('==', '>=', '<=', '<', '>')
-      [33m![39m check `length.check`
+      [33m![39m check `check.length`
 
 # invalid value throws the expected error [ansi]
 
