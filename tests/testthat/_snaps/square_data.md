@@ -124,9 +124,10 @@
       square_data(x = 1, y = 2, size = 1, color = "blAck")
     Condition
       [1m[33mError[39m in `square_data()`:[22m
-      [1m[22m[33m![39m `color` is [1m[31minvalid[39m[22m
-      [31mx[39m `color` must be a valid: [1m[36m`r` color from `colors()`[39m[22m or a valid 6 digit [1m[36mhexadecimal webcolor[39m[22m
-      [36mi[39m `blAck` is an [1m[33minvalid color[39m[22m
+      [1m[22m[31mx[39m `color` must contain [1m[31mvalid 6-digit hexadecimal colors[39m[22m or valid color names found in
+      [1m[31m`grDevices::colors()`[39m[22m
+      [33m![39m The input you've supplied, `color`, contains [1m[33m"blAck"[39m[22m
+      [36mi[39m [1m[36mCheck the `color`[39m[22m input.
 
 # Test that invalid fills throws an error [ansi]
 
@@ -134,9 +135,10 @@
       square_data(x = 1, y = 2, size = 1, fill = "blAck")
     Condition
       [1m[33mError[39m in `square_data()`:[22m
-      [1m[22m[33m![39m `fill` is [1m[31minvalid[39m[22m
-      [31mx[39m `fill` must be a valid: [1m[36m`r` color from `colors()`[39m[22m or a valid 6 digit [1m[36mhexadecimal webcolor[39m[22m
-      [36mi[39m `blAck` is an [1m[33minvalid color[39m[22m
+      [1m[22m[31mx[39m `fill` must contain [1m[31mvalid 6-digit hexadecimal colors[39m[22m or valid color names found in
+      [1m[31m`grDevices::colors()`[39m[22m
+      [33m![39m The input you've supplied, `fill`, contains [1m[33m"blAck"[39m[22m
+      [36mi[39m [1m[36mCheck the `fill`[39m[22m input.
 
 # Numeric argument check [ansi]
 

@@ -1,4 +1,12 @@
-# artpack 0.1.8 (Development Version)
+# artpack 0.1.9 (Development Version)
+### **New Functions and Updates**
+* Added `set_brightness`
+* Added `set_saturation`
+* Updated input checks for various functions
+* Updated back end operations for `grid_maker()`
+* Added vignette "[Connecting artpack Assets to ggplot2 Geoms](articles/geom_chart.html)"
+
+# artpack 0.1.8
 ### **New Functions and Updates**
 * Updated `art_pals()`'s "ocean" palette.
 * Added 'Experimental' lifecycle badges to `packer()` and `wave_data()`.

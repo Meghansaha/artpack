@@ -20,7 +20,18 @@
 #' # Multiple values can be handled as well
 #' is.color(c("#000", "er4", "#ffffff"))
 
-is.color <- function(...) {
+is.color <- function(..., call_level = -1) {
+
+  call_level_valid <- is.numeric(call_level)
+
+  if(!call_level_valid){
+    c(
+      "x" = "`call_level` is invalid!",
+      "!" = "check `class.check`"
+    ) |>
+      cli::cli_abort()
+  }
+
   # is the input a base R color?
   r_color <-
     sapply(
@@ -35,11 +46,22 @@ is.color <- function(...) {
       function(x) grepl("^#[A-Fa-f0-9]{6}", tolower(x))
     )
 
-  out <- r_color + hex_color
+  out <- all(r_color | hex_color)
 
-  output <- ifelse(out > 0, TRUE, FALSE)
+  if(out){
+    return(TRUE)
+  }
 
-  return(output)
+  if(out == FALSE){
+    var_name <- deparse(substitute(...))
+
+      c(
+        "x" = paste("{.var {var_name}} must contain", error("valid 6-digit hexadecimal colors"), "or valid color names found in"), error("{.run grDevices::colors()}"),
+        "!" = paste("The input you've supplied, {.var {var_name}}, contains", callout('"{(...)}"')),
+        "i" = paste(status("Check the ", "{.var {var_name}}"), "input.")
+      ) |>
+        cli::cli_abort(call = sys.call(call_level))
+  }
 }
 
 #' Test If An Object has an Expected Class - Internal Function
@@ -424,3 +446,144 @@ is.expected.value <-
       return(TRUE)
     }
   }
+
+
+#' Convert color (hex or R color) to HSL - Internal Function
+#'
+#' @param ... #An character string of an R color or 6-digit hexadecimal that will be converted to an hsl color
+#'
+#' @return #A numeric vector of length 3
+#' @noRd
+#'
+col_to_hsl <- function(...){
+  # First make sure the color is a valid hex or a grDevices color from colors()
+  is.color(...)
+
+  # Convert valid color into normalized RGB value----
+  rgb_value <- grDevices::col2rgb(...) / 255 |> unlist()
+  names(rgb_value) <- c("red", "green", "blue")
+
+  # Grab min and max values to calc chroma and lightness----
+  min_rgb <- rgb_value[which.min(rgb_value)]
+  max_rgb <- rgb_value[which.max(rgb_value)]
+
+  # Calc Chroma----
+  chroma_value <- (max_rgb - min_rgb) |> unname()
+
+  # Calc lightness----
+  light_value <- (max_rgb + min_rgb) / 2
+
+  # Calc the hue----
+  # first determine which color was max
+  max_color <- names(max_rgb)
+
+  if(chroma_value == 0) {
+    hue_value <- 0
+  } else {
+    hue_value_init <-
+      switch(
+        max_color,
+        "red" = ((rgb_value["green"] - rgb_value["blue"]) / chroma_value) %% 6,
+        "green" = (rgb_value["blue"] - rgb_value["red"]) / chroma_value + 2,
+        "blue" = (rgb_value["red"] - rgb_value["green"]) / chroma_value + 4,
+      ) * 60
+    hue_value <- ifelse(hue_value_init < 0, hue_value_init + 360, hue_value_init)
+  }
+
+  # Calc the saturation
+  if(chroma_value == 0){
+    sat_value <- 0
+  } else if(light_value > .5){
+    sat_value <- (chroma_value / (2-2 * light_value))
+  } else {
+    sat_value <- chroma_value / (2 * light_value)
+  }
+
+  hsl_value <- c(hue_value, sat_value, light_value)
+  names(hsl_value) <- c("hue", "sat", "light")
+
+  return(hsl_value)
+}
+
+#' HSL to RGB conversion function - Internal Function
+#'
+#' @param ... #An vector of 3 numeric value that make up an HSL value that will be converted to a RGB color
+#' @return #A numeric vector of length 3
+#' @noRd
+#'
+hsl_to_rgb <- function(...){
+  hsl_values <- c(...)
+  hue_position <- hsl_values[1] / 360  # Convert to 0-1 range
+  sat <- hsl_values[2]
+  light <- hsl_values[3]
+
+  no_sat <- sat == 0
+
+  if (no_sat) {
+    # If the color is gray, calculate rgb based on luminance
+    r <- g <- b <- light
+  } else {
+
+    max_rgb_component <- if(light < 0.5){
+      light * (1 + sat)
+    } else{
+      light + sat - light * sat
+    }
+
+    min_rgb_component <- 2 * light - max_rgb_component
+    # Channel checks to determine temp. rgb colors
+    r_init <- hue_position + 1/3
+
+    if(r_init > 1){
+      r_init <- r_init - 1
+    }
+
+    g_init <- hue_position
+
+
+    b_init <- hue_position - 1/3
+
+
+    if(b_init < 0){
+      b_init <- b_init + 1
+    }
+
+    # Checks to determine which formula is used for each RGB value
+    # Red Calculations
+    calc_channel_value <- function(init_value){
+      if(init_value < 1/6){
+        final_value <- min_rgb_component + (max_rgb_component - min_rgb_component) * 6 * init_value
+      } else if(init_value < 1/2){
+        final_value <- max_rgb_component
+      } else if(init_value < 2/3){
+        final_value <- min_rgb_component + (max_rgb_component - min_rgb_component) * (2/3 - init_value) * 6
+      } else{
+        final_value <- min_rgb_component
+      }
+      return(round(final_value * 255))
+    }
+
+    r <- calc_channel_value(r_init)
+    g <- calc_channel_value(g_init)
+    b <- calc_channel_value(b_init)
+
+  }
+
+  rgb_vec <- c(r, g, b)
+  names(rgb_vec) <- c("red", "green", "blue")
+
+  return(rgb_vec)
+}
+
+#' rgb to hex conversion - Internal Function
+#'
+#' @param ... #A vector of 3 numeric value that make up an HSL value that will be converted to a RGB color
+#' @return #A valid character value - 6 digit hexadecimal color
+#' @noRd
+#'
+#'
+rgb_to_hex <- function(...){
+  rgb_values <- c(...)
+  grDevices::rgb(rgb_values[1], rgb_values[2], rgb_values[3], maxColorValue = 255)
+}
+

@@ -49,9 +49,10 @@
       wave_data(start = 1, end = 0, color = "#000")
     Condition
       [1m[33mError[39m in `wave_data()`:[22m
-      [1m[22m[33m![39m `color` is [1m[31minvalid[39m[22m
-      [31mx[39m `color` must be a valid: [1m[36m`r` color from `colors()`[39m[22m or a valid 6 digit [1m[36mhexadecimal webcolor[39m[22m
-      [36mi[39m `#000` is an [1m[33minvalid color[39m[22m
+      [1m[22m[31mx[39m `color` must contain [1m[31mvalid 6-digit hexadecimal colors[39m[22m or valid color names found in
+      [1m[31m`grDevices::colors()`[39m[22m
+      [33m![39m The input you've supplied, `color`, contains [1m[33m"#000"[39m[22m
+      [36mi[39m [1m[36mCheck the `color`[39m[22m input.
 
 # Fill checks [ansi]
 
@@ -59,9 +60,10 @@
       wave_data(start = 1, end = 0, fill = "#000")
     Condition
       [1m[33mError[39m in `wave_data()`:[22m
-      [1m[22m[33m![39m `fill` is [1m[31minvalid[39m[22m
-      [31mx[39m `fill` must be a valid: [1m[36m`r` color from `colors()`[39m[22m or a valid 6 digit [1m[36mhexadecimal webcolor[39m[22m
-      [36mi[39m `#000` is an [1m[33minvalid color[39m[22m
+      [1m[22m[31mx[39m `fill` must contain [1m[31mvalid 6-digit hexadecimal colors[39m[22m or valid color names found in
+      [1m[31m`grDevices::colors()`[39m[22m
+      [33m![39m The input you've supplied, `fill`, contains [1m[33m"#000"[39m[22m
+      [36mi[39m [1m[36mCheck the `fill`[39m[22m input.
 
 # Wave type checks [ansi]
 

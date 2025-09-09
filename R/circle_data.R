@@ -239,16 +239,7 @@ circle_data <- function(x,
   # If color is not null, add it
   if (!is.null(color)) {
     # check for validity
-    color_check <- is.color(color)
-
-    if (!color_check) {
-      c(
-        paste("{.var color} is", error("invalid")),
-        "x" = paste("{.var color} must be a valid:", status("`r` color from `colors()`"), "or a valid 6 digit", status("hexadecimal webcolor")),
-        "i" = paste("{.var {color}} is an", callout("invalid color"))
-      ) |>
-        cli::cli_abort()
-    }
+    is.color(color)
 
     df <- df |>
       dplyr::mutate(color = color)
@@ -257,16 +248,7 @@ circle_data <- function(x,
   # If fill is not null, add it
   if (!is.null(fill)) {
     # check for validity
-    fill_check <- is.color(fill)
-
-    if (!fill_check) {
-      c(
-        paste("{.var fill} is", error("invalid")),
-        "x" = paste("{.var fill} must be a valid:", status("`r` color from `colors()`"), "or a valid 6 digit", status("hexadecimal webcolor")),
-        "i" = paste("{.var {fill}} is an", callout("invalid color"))
-      ) |>
-        cli::cli_abort()
-    }
+    is.color(fill)
 
     df <- df |>
       mutate(fill = fill)

@@ -198,35 +198,25 @@ grid_maker <- function(xlim, ylim, size,
 
   # Checking for valid colors
   # Fill pal
-  if (!is.null(fill_pal)) {
-    color_check <- any(is.color(c(fill_pal)) == FALSE)
+  # Checks for valid color palettes
+  fill_pal_vec <- fill_pal
 
-    if (color_check) {
-      invalid_cols <- names(which(is.color(c(fill_pal)) == FALSE))
-
-      c(
-        paste("{.var fill_pal} contains", error("invalid colors")),
-        "x" = paste("{.var fill_pal} must be a vector of valid:", status("`r` color from `colors()`"), "or valid 6 digit", status("hexadecimal webcolors")),
-        "i" = paste("{.var {invalid_cols}}", ifelse(length(invalid_cols) > 1, paste("are", callout("invalid colors")), paste("is an", callout("invalid color"))))
-      ) |>
-        cli::cli_abort()
+  if (!is.null(fill_pal_vec)){
+    for (fill_pal in fill_pal_vec){
+      is.color(fill_pal)
     }
   }
+  fill_pal <- fill_pal_vec
 
-  if (!is.null(color_pal)) {
-    color_check <- any(is.color(c(color_pal)) == FALSE)
-
-    if (color_check) {
-      invalid_cols <- names(which(is.color(c(color_pal)) == FALSE))
-
-      c(
-        paste("{.var color_pal} contains", error("invalid colors")),
-        "x" = paste("{.var color_pal} must be a vector of valid:", status("`r` color from `colors()`"), "or valid 6 digit", status("hexadecimal webcolors")),
-        "i" = paste("{.var {invalid_cols}}", ifelse(length(invalid_cols) > 1, paste("are", callout("invalid colors")), paste("is an", callout("invalid color"))))
-      ) |>
-        cli::cli_abort()
+  # Color pal
+  color_pal_vec <- color_pal
+  if (!is.null(color_pal_vec)){
+    for (color_pal in color_pal_vec){
+      is.color(color_pal)
     }
   }
+  color_pal <- color_pal_vec
+
 
   # String Preset Catches#
   fill_style_check <- !fill_style %in% c("range", "random")
@@ -288,50 +278,35 @@ grid_maker <- function(xlim, ylim, size,
   map_toggle <- names(map_toggle)[which(map_toggle)]
 
   if (map_toggle == "none") {
-    grid_comps <-
-      list(
-        x_points_grid,
-        y_points_grid,
-        group_names
-      )
-
-    grid <-
-      purrr::pmap(grid_comps, ~ tibble::tibble(
-        x = ..1,
-        y = ..2,
-        group = ..3
-      )) |>
-      purrr::list_rbind()
-
+    grid <- tibble::tibble(
+      x = x_points_grid,
+      y = y_points_grid,
+      group = group_names
+    )
     return(grid)
+
   } else if (map_toggle == "fill") {
-    fill <- switch(fill_style,
-      "range" = rep(colorRampPalette(fill_pal)(size * size), each = 5),
-      "random" = rep(sample(colorRampPalette(fill_pal)(size * size)), each = 5)
+    fill_colors <- switch(fill_style,
+                          "range" = colorRampPalette(fill_pal)(size * size),
+                          "random" = sample(colorRampPalette(fill_pal)(size * size))
     )
+    fill <- rep(fill_colors, each = 5)
 
-    grid_comps <-
-      list(
-        x_points_grid,
-        y_points_grid,
-        fill,
-        group_names
-      )
-
-    grid <- purrr::pmap(grid_comps, ~ tibble::tibble(
-      x = ..1,
-      y = ..2,
-      fill = ..3,
-      group = ..4
-    )) |>
-      purrr::list_rbind()
-
+    grid <- tibble::tibble(
+      x = x_points_grid,
+      y = y_points_grid,
+      fill = fill,
+      group = group_names
+    )
     return(grid)
+
   } else if (map_toggle == "color") {
-    color <- switch(color_style,
-      "range" = rep(colorRampPalette(color_pal)(size * size), each = 5),
-      "random" = rep(sample(colorRampPalette(color_pal)(size * size)), each = 5)
+    color_colors <- switch(color_style,
+                           "range" = colorRampPalette(color_pal)(size * size),
+                           "random" = sample(colorRampPalette(color_pal)(size * size))
     )
+
+    color <- rep(color_colors, each = 5)
 
     grid_comps <-
       list(
@@ -341,43 +316,34 @@ grid_maker <- function(xlim, ylim, size,
         group_names
       )
 
-    grid <- purrr::pmap(grid_comps, ~ tibble::tibble(
-      x = ..1,
-      y = ..2,
-      color = ..3,
-      group = ..4
-    )) |>
-      purrr::list_rbind()
+    grid <- tibble::tibble(
+      x = x_points_grid,
+      y = y_points_grid,
+      color = color,
+      group = group_names
+    )
 
     return(grid)
   } else if (map_toggle == "both") {
-    fill <- switch(fill_style,
-      "range" = rep(colorRampPalette(fill_pal)(size * size), each = 5),
-      "random" = rep(sample(colorRampPalette(fill_pal)(size * size)), each = 5)
+    fill_colors <- switch(fill_style,
+                          "range" = colorRampPalette(fill_pal)(size * size),
+                          "random" = sample(colorRampPalette(fill_pal)(size * size))
     )
+    fill <- rep(fill_colors, each = 5)
 
-    color <- switch(color_style,
-      "range" = rep(colorRampPalette(color_pal)(size * size), each = 5),
-      "random" = rep(sample(colorRampPalette(color_pal)(size * size)), each = 5)
+    color_colors <- switch(color_style,
+                           "range" = colorRampPalette(color_pal)(size * size),
+                           "random" = sample(colorRampPalette(color_pal)(size * size))
     )
+    color <- rep(color_colors, each = 5)
 
-    grid_comps <-
-      list(
-        x_points_grid,
-        y_points_grid,
-        fill,
-        color,
-        group_names
-      )
-
-    grid <- purrr::pmap(grid_comps, ~ tibble::tibble(
-      x = ..1,
-      y = ..2,
-      fill = ..3,
-      color = ..4,
-      group = ..5
-    )) |>
-      purrr::list_rbind()
+    grid <- tibble::tibble(
+      x = x_points_grid,
+      y = y_points_grid,
+      fill = fill,
+      color = color,
+      group = group_names
+    )
 
     return(grid)
   }

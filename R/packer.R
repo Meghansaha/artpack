@@ -242,19 +242,8 @@ packer <- function(n, min_x = 0, max_x = 100, min_y = 0, max_y = 100,
   }
 
   # Checks for valid color palettes
-  if (!is.null(color_pal)) {
-    color_check <- any(!is.color(color_pal))
-
-    if (color_check) {
-      invalid_colors <- names(is.color(color_pal)[is.color(color_pal) == FALSE])
-
-      c(
-        paste("{.var color_pal} contains", error("invalid colors")),
-        "x" = paste("{.var color_pal} must contain valid:", status("`r` colors from `colors()`"), "or", status("hexadecimal webcolors")),
-        "i" = paste("{knitr::combine_words(invalid_colors, before = '\"', after ='\"' )}", ifelse(length(invalid_colors) > 1, "are", "is"), callout("invalid colors"))
-      ) |>
-        cli::cli_abort()
-    }
+  for (i in color_pal){
+    is.color(i)
   }
 
   # ===========================================================================#
