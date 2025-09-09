@@ -199,18 +199,23 @@ grid_maker <- function(xlim, ylim, size,
   # Checking for valid colors
   # Fill pal
   # Checks for valid color palettes
-  if (!is.null(fill_pal)){
-    for (fill_pal in fill_pal){
+  fill_pal_vec <- fill_pal
+
+  if (!is.null(fill_pal_vec)){
+    for (fill_pal in fill_pal_vec){
       is.color(fill_pal)
     }
   }
+  fill_pal <- fill_pal_vec
 
   # Color pal
-  if (!is.null(color_pal)){
-    for (color_pal in color_pal){
+  color_pal_vec <- color_pal
+  if (!is.null(color_pal_vec)){
+    for (color_pal in color_pal_vec){
       is.color(color_pal)
     }
   }
+  color_pal <- color_pal_vec
 
 
   # String Preset Catches#
@@ -273,50 +278,35 @@ grid_maker <- function(xlim, ylim, size,
   map_toggle <- names(map_toggle)[which(map_toggle)]
 
   if (map_toggle == "none") {
-    grid_comps <-
-      list(
-        x_points_grid,
-        y_points_grid,
-        group_names
-      )
-
-    grid <-
-      purrr::pmap(grid_comps, ~ tibble::tibble(
-        x = ..1,
-        y = ..2,
-        group = ..3
-      )) |>
-      purrr::list_rbind()
-
+    grid <- tibble::tibble(
+      x = x_points_grid,
+      y = y_points_grid,
+      group = group_names
+    )
     return(grid)
+
   } else if (map_toggle == "fill") {
-    fill <- switch(fill_style,
-      "range" = rep(colorRampPalette(fill_pal)(size * size), each = 5),
-      "random" = rep(sample(colorRampPalette(fill_pal)(size * size)), each = 5)
+    fill_colors <- switch(fill_style,
+                          "range" = colorRampPalette(fill_pal)(size * size),
+                          "random" = sample(colorRampPalette(fill_pal)(size * size))
     )
+    fill <- rep(fill_colors, each = 5)
 
-    grid_comps <-
-      list(
-        x_points_grid,
-        y_points_grid,
-        fill,
-        group_names
-      )
-
-    grid <- purrr::pmap(grid_comps, ~ tibble::tibble(
-      x = ..1,
-      y = ..2,
-      fill = ..3,
-      group = ..4
-    )) |>
-      purrr::list_rbind()
-
+    grid <- tibble::tibble(
+      x = x_points_grid,
+      y = y_points_grid,
+      fill = fill,
+      group = group_names
+    )
     return(grid)
+
   } else if (map_toggle == "color") {
-    color <- switch(color_style,
-      "range" = rep(colorRampPalette(color_pal)(size * size), each = 5),
-      "random" = rep(sample(colorRampPalette(color_pal)(size * size)), each = 5)
+    color_colors <- switch(color_style,
+                           "range" = colorRampPalette(color_pal)(size * size),
+                           "random" = sample(colorRampPalette(color_pal)(size * size))
     )
+
+    color <- rep(color_colors, each = 5)
 
     grid_comps <-
       list(
@@ -326,43 +316,34 @@ grid_maker <- function(xlim, ylim, size,
         group_names
       )
 
-    grid <- purrr::pmap(grid_comps, ~ tibble::tibble(
-      x = ..1,
-      y = ..2,
-      color = ..3,
-      group = ..4
-    )) |>
-      purrr::list_rbind()
+    grid <- tibble::tibble(
+      x = x_points_grid,
+      y = y_points_grid,
+      color = color,
+      group = group_names
+    )
 
     return(grid)
   } else if (map_toggle == "both") {
-    fill <- switch(fill_style,
-      "range" = rep(colorRampPalette(fill_pal)(size * size), each = 5),
-      "random" = rep(sample(colorRampPalette(fill_pal)(size * size)), each = 5)
+    fill_colors <- switch(fill_style,
+                          "range" = colorRampPalette(fill_pal)(size * size),
+                          "random" = sample(colorRampPalette(fill_pal)(size * size))
     )
+    fill <- rep(fill_colors, each = 5)
 
-    color <- switch(color_style,
-      "range" = rep(colorRampPalette(color_pal)(size * size), each = 5),
-      "random" = rep(sample(colorRampPalette(color_pal)(size * size)), each = 5)
+    color_colors <- switch(color_style,
+                           "range" = colorRampPalette(color_pal)(size * size),
+                           "random" = sample(colorRampPalette(color_pal)(size * size))
     )
+    color <- rep(color_colors, each = 5)
 
-    grid_comps <-
-      list(
-        x_points_grid,
-        y_points_grid,
-        fill,
-        color,
-        group_names
-      )
-
-    grid <- purrr::pmap(grid_comps, ~ tibble::tibble(
-      x = ..1,
-      y = ..2,
-      fill = ..3,
-      color = ..4,
-      group = ..5
-    )) |>
-      purrr::list_rbind()
+    grid <- tibble::tibble(
+      x = x_points_grid,
+      y = y_points_grid,
+      fill = fill,
+      color = color,
+      group = group_names
+    )
 
     return(grid)
   }
