@@ -59,6 +59,18 @@ reference:
   - set_brightness
   - set_saturation
 
+- title: Geometric Testing Tools
+- subtitle: Functions that help with geometric/spatial analysis for generative art.
+- contents:
+  - point_in_polygon
+
+- title: Group Tools
+- subtitle: Functions that help with grouping generative art data.
+- contents:
+  - group_numbers
+  - group_sample
+  - group_slice
+
 - title: Sequence Tools
 - subtitle: Functions that help with numeric sequencing.
 - contents:
@@ -70,12 +82,7 @@ reference:
   - resizer
   - rotator
 
-- title: Group Tools
-- subtitle: Functions that help with grouping generative art data.
-- contents:
-  - group_numbers
-  - group_sample
-  - group_slice
+
 
 
 
