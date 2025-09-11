@@ -14,6 +14,7 @@ Create data that displays generative art when mapped into a 'ggplot2' plot. Func
 Useful links:
 \itemize{
   \item \url{https://meghansaha.github.io/artpack/}
+  \item \url{https://github.com/Meghansaha/artpack}
   \item Report bugs at \url{https://github.com/Meghansaha/artpack/issues}
 }
 

@@ -170,8 +170,8 @@ point_in_polygon <-
       df_poly <- rbind(df_poly, first_coord)
     }
 
-    df_polygon_sf <- sf::st_polygon(list(as.matrix(df_poly))) %>%
-      sf::st_sfc() %>%
+    df_polygon_sf <- sf::st_polygon(list(as.matrix(df_poly))) |>
+      sf::st_sfc() |>
       sf::st_sf()
 
     # Test spatial relationships

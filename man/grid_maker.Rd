@@ -37,7 +37,7 @@ Creates a dataframe of \code{x} and \code{y} points to visualize a square grid b
 Providing a color palette and fill style are optional.
 }
 \examples{
-\dontshow{if (rlang::is_installed("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("ggplot2")) withAutoprint(\{ # examplesIf}
 \dontshow{\}) # examplesIf}
 # Creating data for a grid:
 

@@ -16,7 +16,7 @@ point_in_polygon(point_x = NULL, point_y = NULL, poly_x = NULL, poly_y = NULL)
 \item{poly_y}{Numeric vector of y coordinates defining polygon vertices}
 }
 \value{
-Integer vector: 0 = outside polygon, 1 = inside polygon, 2 = on boundary
+Integer vector: 0 = outside polygon, 1 = inside polygon -OR- on polygon boundary
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
@@ -27,12 +27,12 @@ Distinguishes between points that are inside, outside, or on the polygon boundar
 \details{
 The function uses the sf package's geometry operations
 with Cartesian coordinates. If the provided polygon's first and last vertices
-are different  it is not considered to be a closed polygon. If this occurs,
+are different, it is not considered to be a closed polygon. If this occurs,
 it will be automatically closed. All input vectors must be numeric, and
 point_x/point_y must have matching lengths, as must poly_x/poly_y.
 }
 \examples{
-\dontshow{if (rlang::is_installed(c("dplyr", "ggplot2"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed(c("dplyr", "ggplot2"))) withAutoprint(\{ # examplesIf}
 \dontshow{\}) # examplesIf}
 # point_in_polygon can be used with basic vectors#
 # X points we want to check the position of relevant to the polygon
@@ -44,7 +44,7 @@ poly_x <- c(0, 2, 2, 0, 0)
 # Y points of the polygon we want to test against
 poly_y <- c(0, 0, 2, 2, 0)
 
-# 0 = outside polygon, 1 = inside polygon, 2 = on boundary
+# 0 = outside polygon, 1 = inside polygon or on boundary
 point_in_polygon(point_x, point_y, poly_x, poly_y)
 
 # point_in_polygon can also be used within a data frame#
@@ -79,12 +79,12 @@ df_points <-
     position = point_in_polygon(x, y, df_polygon$x, df_polygon$y),
     position_string = case_match(position,
                                  0 ~ "Outside",
-                                 1 ~ "Inside",
-                                 2 ~ "Boundary") |> factor(),
+                                 1 ~ "Inside/On Boundary"
+                                 ) |> factor(),
     color = case_match(position,
                        0 ~ "#e31a1c",
-                       1 ~ "#33a02c",
-                       2 ~ "#fdbf6f")
+                       1 ~ "#33a02c"
+                       )
   )
 
 # Pull out the colors for the plot points
