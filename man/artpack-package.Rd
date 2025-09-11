@@ -14,12 +14,13 @@ Create data that displays generative art when mapped into a 'ggplot2' plot. Func
 Useful links:
 \itemize{
   \item \url{https://meghansaha.github.io/artpack/}
+  \item \url{https://github.com/Meghansaha/artpack}
   \item Report bugs at \url{https://github.com/Meghansaha/artpack/issues}
 }
 
 }
 \author{
-\strong{Maintainer}: Meghan Harris \email{meghanha01@gmail.com} (\href{https://orcid.org/0000-0003-3922-8101}{ORCID})
+\strong{Maintainer}: Meghan Harris \email{meghanha01@gmail.com} (\href{https://orcid.org/0000-0003-3922-8101}{ORCID}) [copyright holder]
 
 }
 \keyword{internal}

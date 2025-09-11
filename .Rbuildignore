@@ -14,3 +14,4 @@ dev
 ^CRAN-SUBMISSION$
 ^doc$
 ^Meta$
+^revdep$

@@ -42,7 +42,7 @@ A data frame
 Transforms and Scales Numeric Points in a Data Frame by a Provided Factor and Direction
 }
 \examples{
-\dontshow{if (rlang::is_installed("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("ggplot2")) withAutoprint(\{ # examplesIf}
 \dontshow{\}) # examplesIf}
 library(ggplot2)
 

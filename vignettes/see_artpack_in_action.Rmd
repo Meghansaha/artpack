@@ -78,6 +78,7 @@ Next, let's see if we can get the perfect size bars to create the illusion of a 
 
 After we have the data frame together, we can start building our ggplot to see how the data is looking on the plot:
 ```{r sky, fig.align='center'}
+
 #| fig.alt: >
 #|   Gradient sky background showing a smooth color transition from orange 
 #|   at the bottom to light blue at the top, created using horizontal bars 
@@ -111,6 +112,7 @@ df_sky_bars |>
 This layer may look the most complex on the canvas, but can be done easily with artpack. For the overlay, let's add some light, transparent swirls to give the sky some texture. We can use the `packer()` function for this:
 
 ```{r packer, fig.align='center'}
+
 #| fig.alt: >
 #|   The same gradient sky background from orange to blue, now with a 
 #|   subtle white swirl pattern overlay added using artpack's packer 
@@ -152,6 +154,7 @@ df_sky_bars |>
 For this layer, we're going to make 1 triangle that will originate from the center of the sun. This will require a little bit of manual work and some trial and error, but after we have one triangle, we can easily iterate and rotate it to create the sun rays if we know how many rays we want:
 
 ```{r sun_rays, fig.align='center'}
+
 #| fig.alt: >
 #|   The gradient sky with overlay, now featuring radiating sun rays. 
 #|   Multiple triangular light-colored rays emanate from a central point 
@@ -236,6 +239,7 @@ This layer will be simple to make as it’s just a circle. Based on the coordina
 <br>
 
 ```{r sun, fig.align='center'}
+
 #| fig.alt: >
 #|   The layered artwork now includes a bright orange-yellow circular sun 
 #|   positioned at the center of the radiating sun rays. The sun was created 
@@ -291,6 +295,7 @@ df_sky_bars |>
 This last layer isn't _too_ bad, but does require some spec setup. Looking at the ggplot we have, we'd ideally want the "waves" of water to stay roughly below `x = 10`. We can pick the number of waves we want, then do some iteration with `wave_data()` to create an "ocean":
 
 ```{r waves, fig.align='center'}
+
 #| fig.alt: >
 #|   The completed vintage sunset artwork featuring all five layers: a 
 #|   gradient sky from orange to blue, white swirl overlay texture, 

@@ -55,7 +55,7 @@ A tool for making data frames filled with data that displays sine or cosine wave
 The \code{geom_path} and \code{geom_polygon} geoms are recommended with this data for use in \code{ggplot2} for generative art.
 }
 \examples{
-\dontshow{if (rlang::is_installed("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("ggplot2")) withAutoprint(\{ # examplesIf}
 \dontshow{\}) # examplesIf}
 library(ggplot2)
 wave_df <- wave_data(

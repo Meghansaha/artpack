@@ -181,6 +181,15 @@ artpack functions are designed to be used in any part of your workflow.
 Experiment for some cool results:
 
 ``` r
+
+#| fig-alt: >
+#|   Abstract digital visualization featuring flowing, wave-like forms against a black background. 
+#|   The central element is a smooth, undulating ribbon that transitions through a vibrant spectrum 
+#|   of colors from magenta/pink on the left, flowing through orange, yellow, green, cyan, and blue 
+#|   to deep purple on the right. The form has a three-dimensional quality with fine vertical lines 
+#|   that give it texture and depth, creating the appearance of a dynamic, flowing data visualization 
+#|   or sound wave.
+
 # Load in your libraries#
 library(ggplot2)
 library(purrr)
@@ -251,4 +260,4 @@ df |>
   ) 
 ```
 
-<img src="man/figures/README-compilation-1.png" alt="Example ggplot of art created with the artpack package.  Abstract flowing wave form with rainbow gradient colors  transitioning from pink and magenta on the left, through yellow and green in the center, to blue and purple on the right, with fine vertical line texture throughout, set against a black background." width="100%" />
+<img src="man/figures/README-compilation-1.png" width="100%" />

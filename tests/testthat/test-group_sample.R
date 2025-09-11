@@ -148,6 +148,23 @@ cli::test_that_cli(
   configs = "ansi"
 )
 
+## n is not larger than group output----
+cli::test_that_cli(
+  "n must not be larger than the group n",
+  {
+    testthat::expect_snapshot(
+      {
+        df_data <- data.frame("x" = 1:5, "y" = 6:10, group = 1:5)
+
+        df_data |> group_sample(group = group, n = 100)
+      },
+      error = TRUE
+    )
+  },
+  configs = "ansi"
+)
+
+
 ## prop is numeric cli output----
 cli::test_that_cli(
   "prop must be numeric",
