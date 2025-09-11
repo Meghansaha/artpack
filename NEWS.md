@@ -9,8 +9,8 @@
 
 # artpack 0.1.9
 ### **New Functions and Updates**
-* Added `set_brightness`
-* Added `set_saturation`
+* Added `set_brightness()`
+* Added `set_saturation()`
 * Updated input checks for various functions
 * Updated back end operations for `grid_maker()`
 * Added vignette "[Connecting artpack Assets to ggplot2 Geoms](https://meghansaha.github.io/artpack/articles/geom_chart.html)"

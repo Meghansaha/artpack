@@ -20,7 +20,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Meghan Harris \email{meghanha01@gmail.com} (\href{https://orcid.org/0000-0003-3922-8101}{ORCID})
+\strong{Maintainer}: Meghan Harris \email{meghanha01@gmail.com} (\href{https://orcid.org/0000-0003-3922-8101}{ORCID}) [copyright holder]
 
 }
 \keyword{internal}

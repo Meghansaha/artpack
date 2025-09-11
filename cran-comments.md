@@ -10,10 +10,12 @@ This is a resubmission. In this version I have:
     ‘grid_maker.R’ ‘group_numbers.R’ ‘packer.R’ ‘packer.Rd’ ‘rotator.R’
     ‘square_data.R’ ‘square_data.Rd’ ‘wave_data.R’ ‘wave_data.Rd’"
     
-
 * Not added any references describing the methods in this package as I'm not aware of any that need to be listed. To the best of my knowledge, no references are needed.
 
 * Ensured that all updates should be backwards compatible to the previous version.
+
+* Updated the LICENSE year
+
 
 ## revdepcheck results
 
