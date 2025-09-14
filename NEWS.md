@@ -1,5 +1,7 @@
 # artpack 0.2.0
-<!-- CRAN release: 2025-09-xx 🎉🤸🏾‍♀️-->
+
+CRAN release: 2025-09-13 🎉🤸🏾‍♀️
+
 ### **New Functions and Updates**
 * Added `point_in_polygon()`. Performs geometric spatial analyses using [{sf} package](https://r-spatial.github.io/sf/) functionality. Useful for detecting if coordinate points lay inside, on the boundary, or outside of a supplied polygon.
 * Improved select back-end test suites for performance
