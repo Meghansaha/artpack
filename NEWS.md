@@ -3,6 +3,7 @@
 CRAN release: 2025-09-13 🎉🤸🏾‍♀️
 
 ### **New Functions and Updates**
+* artpack 0.2.0 is now on CRAN! You can find more information about all the changes [here](https://thetidytrekker.com/post/artpack-0-2-0/artpack-0-2-0).
 * Added `point_in_polygon()`. Performs geometric spatial analyses using [{sf} package](https://r-spatial.github.io/sf/) functionality. Useful for detecting if coordinate points lay inside, on the boundary, or outside of a supplied polygon.
 * Improved select back-end test suites for performance
 * Corrections and alt-text added to code/images in artpack's vignettes

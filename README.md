@@ -1,16 +1,14 @@
 
 <!-- badges: start -->
 
-<center>
+<div style="text-align: center;">
 
 [![codecov](https://codecov.io/gh/Meghansaha/artpack/graph/badge.svg?token=X1Y9P4QEVC)](https://app.codecov.io/gh/Meghansaha/artpack)
 [![R-CMD-check](https://github.com/Meghansaha/artpack/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Meghansaha/artpack/actions/workflows/R-CMD-check.yaml)
-[![CRAN
-checks](https://badges.cranchecks.info/summary/artpack.svg)](https://cran.r-project.org/web/checks/check_results_artpack.html)
-[![CRAN
-Version](https://www.r-pkg.org/badges/version/artpack)](https://cran.r-project.org/package=artpack)
+[![CRAN checks](https://badges.cranchecks.info/worst/artpack.svg)](https://cran.r-project.org/web/checks/check_results_artpack.html)
+[![CRAN Version](https://www.r-pkg.org/badges/version/artpack)](https://cran.r-project.org/package=artpack)
 
-</center>
+</div>
 
 <!-- badges: end -->
 
