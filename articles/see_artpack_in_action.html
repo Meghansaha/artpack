@@ -27,7 +27,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">artpack</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.9</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,7 +65,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>See aRtpack in Action</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/Meghansaha/artpack/blob/v.0.1.9-2/vignettes/see_artpack_in_action.Rmd" class="external-link"><code>vignettes/see_artpack_in_action.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Meghansaha/artpack/blob/v0.2.0/vignettes/see_artpack_in_action.Rmd" class="external-link"><code>vignettes/see_artpack_in_action.Rmd</code></a></small>
       <div class="d-none name"><code>see_artpack_in_action.Rmd</code></div>
     </div>
 
@@ -191,7 +191,13 @@ be used for this. We’ll use the artpack color palette
 <p>After we have the data frame together, we can start building our
 ggplot to see how the data is looking on the plot:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Sky Specs----</span></span>
+<code class="sourceCode R"><span></span>
+<span><span class="co">#| fig.alt: &gt;</span></span>
+<span><span class="co">#|   Gradient sky background showing a smooth color transition from orange </span></span>
+<span><span class="co">#|   at the bottom to light blue at the top, created using horizontal bars </span></span>
+<span><span class="co">#|   with the artpack beach color palette.</span></span>
+<span></span>
+<span><span class="co"># Sky Specs----</span></span>
 <span><span class="va">n_sky_bars</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
 <span><span class="va">vec_sky_colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/art_pals.html">art_pals</a></span><span class="op">(</span><span class="st">"beach"</span>, <span class="va">n_sky_bars</span><span class="op">)</span></span>
 <span><span class="va">df_sky_bars</span> <span class="op">&lt;-</span></span>
@@ -212,7 +218,7 @@ ggplot to see how the data is looking on the plot:</p>
 <span>    linewidth <span class="op">=</span> <span class="fl">4</span> <span class="co">#Tweak the bar thickness here if needed.</span></span>
 <span>    <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_equal</a></span><span class="op">(</span>xlim <span class="op">=</span> <span class="va">x_lim</span>, ylim <span class="op">=</span> <span class="va">y_lim</span>, expand <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="see_artpack_in_action_files/figure-html/sky-1.png" alt="Gradient sky background showing a smooth color transition from orange  at the bottom to light blue at the top, created using horizontal bars  with the artpack beach color palette." width="672" style="display: block; margin: auto;"></p>
+<p><img src="see_artpack_in_action_files/figure-html/sky-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="layer-2-the-artistic-overlay">Layer 2 (The Artistic Overlay)<a class="anchor" aria-label="anchor" href="#layer-2-the-artistic-overlay"></a>
@@ -222,7 +228,14 @@ easily with artpack. For the overlay, let’s add some light, transparent
 swirls to give the sky some texture. We can use the
 <code><a href="../reference/packer.html">packer()</a></code> function for this:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Make the data</span></span>
+<code class="sourceCode R"><span></span>
+<span><span class="co">#| fig.alt: &gt;</span></span>
+<span><span class="co">#|   The same gradient sky background from orange to blue, now with a </span></span>
+<span><span class="co">#|   subtle white swirl pattern overlay added using artpack's packer </span></span>
+<span><span class="co">#|   function. The overlay creates thin, semi-transparent white curved </span></span>
+<span><span class="co">#|   lines that add texture and depth to the sky gradient.</span></span>
+<span></span>
+<span><span class="co"># Make the data</span></span>
 <span><span class="va">df_overlay</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/packer.html">packer</a></span><span class="op">(</span></span>
 <span>    n <span class="op">=</span> <span class="fl">300</span>,</span>
@@ -234,23 +247,23 @@ swirls to give the sky some texture. We can use the
 <span>    circle_type <span class="op">=</span> <span class="st">"swirl"</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="co">#&gt; ⠙ Sampling for big-sized circles started</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Sampling for big-sized circles started <span style="color: #B2B2B2;">[983ms]</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Sampling for big-sized circles started <span style="color: #B2B2B2;">[929ms]</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Big-sized circles complete!</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Big-sized circles complete! <span style="color: #B2B2B2;">[14ms]</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ⠙ Sampling for medium-sized circles started</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Maximum sampling reached for medium-sized circles!</span></span>
-<span><span class="co">#&gt; ⠙ Sampling for medium-sized circles started<span style="color: #00BB00;">✔</span> Sampling for medium-sized circles started <span style="color: #B2B2B2;">[4.3s]</span></span></span>
+<span><span class="co">#&gt; ⠙ Sampling for medium-sized circles started<span style="color: #00BB00;">✔</span> Sampling for medium-sized circles started <span style="color: #B2B2B2;">[4.1s]</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Medium-sized circles complete!</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Medium-sized circles complete! <span style="color: #B2B2B2;">[13ms]</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Medium-sized circles complete! <span style="color: #B2B2B2;">[22ms]</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ⠙ Sampling for small-sized circles started</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Sampling for small-sized circles started <span style="color: #B2B2B2;">[1.2s]</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Small-sized circles complete!</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Small-sized circles complete! <span style="color: #B2B2B2;">[34ms]</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Small-sized circles complete! <span style="color: #B2B2B2;">[35ms]</span></span></span>
 <span></span>
 <span><span class="co"># And add it to the plot</span></span>
 <span><span class="va">df_sky_bars</span> <span class="op">|&gt;</span></span>
@@ -268,7 +281,7 @@ swirls to give the sky some texture. We can use the
 <span>    alpha <span class="op">=</span> <span class="fl">.09</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_equal</a></span><span class="op">(</span>xlim <span class="op">=</span> <span class="va">x_lim</span>, ylim <span class="op">=</span> <span class="va">y_lim</span>, expand <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="see_artpack_in_action_files/figure-html/packer-1.png" alt="The same gradient sky background from orange to blue, now with a  subtle white swirl pattern overlay added using artpack's packer  function. The overlay creates thin, semi-transparent white curved  lines that add texture and depth to the sky gradient." width="672" style="display: block; margin: auto;"></p>
+<p><img src="see_artpack_in_action_files/figure-html/packer-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="layer-3-the-sun-rays">Layer 3 (The Sun Rays)<a class="anchor" aria-label="anchor" href="#layer-3-the-sun-rays"></a>
@@ -279,7 +292,15 @@ work and some trial and error, but after we have one triangle, we can
 easily iterate and rotate it to create the sun rays if we know how many
 rays we want:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Sun rays Specs----</span></span>
+<code class="sourceCode R"><span></span>
+<span><span class="co">#| fig.alt: &gt;</span></span>
+<span><span class="co">#|   The gradient sky with overlay, now featuring radiating sun rays. </span></span>
+<span><span class="co">#|   Multiple triangular light-colored rays emanate from a central point </span></span>
+<span><span class="co">#|   at coordinates (50, 10), creating a classic sunburst pattern across </span></span>
+<span><span class="co">#|   the upper portion of the image. The rays were created using artpack's </span></span>
+<span><span class="co">#|   rotator function to rotate and repeat a single triangle shape.</span></span>
+<span></span>
+<span><span class="co"># Sun rays Specs----</span></span>
 <span><span class="va">n_sun_rays</span> <span class="op">&lt;-</span> <span class="fl">50</span></span>
 <span><span class="co"># The rays angles</span></span>
 <span><span class="va">vec_ray_angles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">180</span>, length <span class="op">=</span> <span class="va">n_sun_rays</span><span class="op">)</span></span>
@@ -343,7 +364,7 @@ rays we want:</p>
 <span>    alpha <span class="op">=</span> <span class="fl">.3</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_equal</a></span><span class="op">(</span>xlim <span class="op">=</span> <span class="va">x_lim</span>, ylim <span class="op">=</span> <span class="va">y_lim</span>, expand <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="see_artpack_in_action_files/figure-html/sun_rays-1.png" alt="The gradient sky with overlay, now featuring radiating sun rays.  Multiple triangular light-colored rays emanate from a central point  at coordinates (50, 10), creating a classic sunburst pattern across  the upper portion of the image. The rays were created using artpack's  rotator function to rotate and repeat a single triangle shape." width="672" style="display: block; margin: auto;"></p>
+<p><img src="see_artpack_in_action_files/figure-html/sun_rays-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="layer-4-1-and-4-2-the-sun">Layer 4.1 and 4.2* (The Sun)<a class="anchor" aria-label="anchor" href="#layer-4-1-and-4-2-the-sun"></a>
@@ -361,7 +382,14 @@ and with the filled in yellow color of the sun.</em></p>
 </blockquote>
 <p><br></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Make a circle----</span></span>
+<code class="sourceCode R"><span></span>
+<span><span class="co">#| fig.alt: &gt;</span></span>
+<span><span class="co">#|   The layered artwork now includes a bright orange-yellow circular sun </span></span>
+<span><span class="co">#|   positioned at the center of the radiating sun rays. The sun was created </span></span>
+<span><span class="co">#|   using artpack's circle_data function and appears as a filled circle </span></span>
+<span><span class="co">#|   with a subtle light border that blends with the sun rays behind it.</span></span>
+<span></span>
+<span><span class="co"># Make a circle----</span></span>
 <span><span class="va">df_sun</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/circle_data.html">circle_data</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="fl">50</span>,</span>
@@ -403,7 +431,7 @@ and with the filled in yellow color of the sun.</em></p>
 <span>    fill <span class="op">=</span> <span class="va">df_sun</span><span class="op">$</span><span class="va">fill</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_equal</a></span><span class="op">(</span>xlim <span class="op">=</span> <span class="va">x_lim</span>, ylim <span class="op">=</span> <span class="va">y_lim</span>, expand <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="see_artpack_in_action_files/figure-html/sun-1.png" alt="The layered artwork now includes a bright orange-yellow circular sun  positioned at the center of the radiating sun rays. The sun was created  using artpack's circle_data function and appears as a filled circle  with a subtle light border that blends with the sun rays behind it." width="672" style="display: block; margin: auto;"></p>
+<p><img src="see_artpack_in_action_files/figure-html/sun-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="layer-5-the-water-waves">Layer 5 (The Water Waves)<a class="anchor" aria-label="anchor" href="#layer-5-the-water-waves"></a>
@@ -414,7 +442,17 @@ water to stay roughly below <code>x = 10</code>. We can pick the number
 of waves we want, then do some iteration with <code><a href="../reference/wave_data.html">wave_data()</a></code>
 to create an “ocean”:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Wave specs----</span></span>
+<code class="sourceCode R"><span></span>
+<span><span class="co">#| fig.alt: &gt;</span></span>
+<span><span class="co">#|   The completed vintage sunset artwork featuring all five layers: a </span></span>
+<span><span class="co">#|   gradient sky from orange to blue, white swirl overlay texture, </span></span>
+<span><span class="co">#|   radiating sun rays, a bright orange sun, and stylized water waves </span></span>
+<span><span class="co">#|   in the foreground. The waves appear as layered, semi-transparent </span></span>
+<span><span class="co">#|   teal and blue curved shapes created using artpack's wave_data </span></span>
+<span><span class="co">#|   function, completing the retro sunset scene. The final image has </span></span>
+<span><span class="co">#|   a clean presentation with axes and labels removed.</span></span>
+<span></span>
+<span><span class="co"># Wave specs----</span></span>
 <span><span class="co"># Number of waves</span></span>
 <span><span class="va">n_waves</span> <span class="op">&lt;-</span> <span class="fl">400</span></span>
 <span><span class="co"># Starting points of the waves (randomized)</span></span>
@@ -505,7 +543,7 @@ to create an “ocean”:</p>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_equal</a></span><span class="op">(</span>xlim <span class="op">=</span> <span class="va">x_lim</span>, ylim <span class="op">=</span> <span class="va">y_lim</span>, expand <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_void</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="see_artpack_in_action_files/figure-html/waves-1.png" alt="The completed vintage sunset artwork featuring all five layers: a  gradient sky from orange to blue, white swirl overlay texture,  radiating sun rays, a bright orange sun, and stylized water waves  in the foreground. The waves appear as layered, semi-transparent  teal and blue curved shapes created using artpack's wave_data  function, completing the retro sunset scene. The final image has  a clean presentation with axes and labels removed." width="672" style="display: block; margin: auto;"></p>
+<p><img src="see_artpack_in_action_files/figure-html/waves-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Use ggplot2 to save it locally if you'd like:</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"vintage_sun.png"</span>, dpi <span class="op">=</span> <span class="fl">300</span>, bg <span class="op">=</span> <span class="st">"transparent"</span><span class="op">)</span></span></code></pre></div>
