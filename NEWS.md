@@ -1,7 +1,19 @@
-# artpack 0.1.9 (Development Version)
+# artpack 0.2.0
+
+CRAN release: 2025-09-13 🎉🤸🏾‍♀️
+
 ### **New Functions and Updates**
-* Added `set_brightness`
-* Added `set_saturation`
+* artpack 0.2.0 is now on CRAN! You can find more information about all the changes [here](https://thetidytrekker.com/post/artpack-0-2-0/artpack-0-2-0).
+* Added `point_in_polygon()`. Performs geometric spatial analyses using [{sf} package](https://r-spatial.github.io/sf/) functionality. Useful for detecting if coordinate points lay inside, on the boundary, or outside of a supplied polygon.
+* Improved select back-end test suites for performance
+* Corrections and alt-text added to code/images in artpack's vignettes
+* The [{sf} package](https://r-spatial.github.io/sf/) is now imported with the installation of artpack
+* Other back-end quality of life additions
+
+# artpack 0.1.9
+### **New Functions and Updates**
+* Added `set_brightness()`
+* Added `set_saturation()`
 * Updated input checks for various functions
 * Updated back end operations for `grid_maker()`
 * Added vignette "[Connecting artpack Assets to ggplot2 Geoms](https://meghansaha.github.io/artpack/articles/geom_chart.html)"

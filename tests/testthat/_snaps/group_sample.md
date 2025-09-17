@@ -92,6 +92,16 @@
       [31mx[39m The `n` object you've supplied is [1m[31m0.3[39m[22m
       [36mi[39m [1m[36mCheck the `n` value[39m[22m you've supplied.
 
+# n must not be larger than the group n [ansi]
+
+    Code
+      df_data <- data.frame(x = 1:5, y = 6:10, group = 1:5)
+      group_sample(df_data, group = group, n = 100)
+    Condition
+      [1m[33mError[39m in `group_sample()`:[22m
+      [1m[22m[31mx[39m Cannot sample [1m[31m100[39m[22m groups when only [1m[31m5[39m[22m unique groups exist
+      [36mi[39m Reduce `n` to [1m[36m<= 5[39m[22m
+
 # prop must be numeric [ansi]
 
     Code

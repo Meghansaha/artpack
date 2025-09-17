@@ -13,7 +13,6 @@ favicons
 geoms
 ggplot
 icecream
-jitter
 lifecycle
 pkgdown
 sunnyside
@@ -21,3 +20,4 @@ tibble
 tibbles
 webcolor
 ’s
+️

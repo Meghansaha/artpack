@@ -26,7 +26,7 @@ A data frame
 Rotates the \code{x} and \code{y} points in a given data frame by a given angle based on a designated anchor point.
 }
 \examples{
-\dontshow{if (rlang::is_installed("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("ggplot2")) withAutoprint(\{ # examplesIf}
 \dontshow{\}) # examplesIf}
 library(ggplot2)
 original_square <- data.frame(
